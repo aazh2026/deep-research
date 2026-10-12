@@ -1,0 +1,16 @@
+# 核心深度学习栈
+torch>=2.0,<3.0
+transformers>=4.40,<5.0
+datasets>=2.20
+tokenizers>=0.15
+
+# 评估与工具
+numpy>=1.26
+numexpr>=2.9      # 安全算式计算
+tqdm>=4.66
+PyYAML>=6.0
+
+# 可选
+safetensors>=0.4
+accelerate>=0.30
+matplotlib>=3.8

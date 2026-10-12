@@ -1,0 +1,48 @@
+# P1 Output Schema
+# 所有 P 任务的 schema 都用 YAML 描述，便于 Subagent 直接生成对应的 YAML artifact
+# 校验：每个字段必填，否则视为 P 任务失败
+
+artifact_type: p1_object_model
+version: 1.0
+
+required_fields:
+  research_object_overview:
+    article_type: string  # 必填：theory / empirical / experimental / survey / engineering / commentary / mixed
+    research_questions: list[string]  # 至少 1 条
+    research_goals: list[string]  # 至少 1 条
+    core_concepts: list[object]  # 每条含 name, definition
+    research_method: string
+    declared_contributions: list[string]  # 作者自述的贡献（声明，不是事实）
+
+  claims:
+    - id: string  # C-NNN，由 P1 分配，P1 范围内从 C-001 开始
+      text: string  # 原文或准确转述
+      position: string  # 原文位置（章节/段落/句子）
+      type: enum  # fact / theory / causal / comparative / normative / predictive
+      importance: enum  # core / important / minor
+      author_support: string  # 作者提供的支持依据
+      implicit_assumptions: list[string]
+      intended_scope: string
+
+  argument_structure:
+    claim_dependencies: list[object]  # 每条 {claim_id, depends_on: [C-NNN, ...]}
+    derivation_path: string  # 从研究问题到最终结论的文本描述
+
+  uncertainties:
+    - location: string
+      issue: string  # 歧义 / 缺定义 / 需外部核查
+      downstream_impact: string  # 哪些后续 P 任务受影响
+
+  downstream_inputs:
+    p2_focus: list[string]  # P2 应重点核查的 claim
+    p3_focus: list[string]  # P3 应重点审查的 claim
+    p4_focus: list[string]  # P4 应重点审计的 claim
+    p5_high_value_claims: list[string]  # P5 应优先挑战的 claim
+
+  narrative_summary: string  # 可选：人类可读摘要
+
+validation_rules:
+  - "所有 C-NNN 必须在 claims 列表中唯一"
+  - "claim_dependencies 中引用的 ID 必须存在于 claims"
+  - "importance=core 的 claim 至少 1 条"
+  - "uncertainties 字段不允许为空（除非文章极其清晰）"

@@ -1,0 +1,132 @@
+# P6 Output Schema
+
+artifact_type: p6_synthesis
+version: 1.0
+
+required_fields:
+  # ---- 领域模板（OPT-15）----
+  domain_template:
+    name: enum  # cs / biomedical / economics / default / mixed:<...>
+    confidence: enum  # high / medium / low
+    rationale: string  # 选择该模板的依据
+    dim_weights: object  # 当前模板的 8 个 DIM 权重（合计 1.0）
+      DIM-01: float
+      DIM-02: float
+      DIM-03: float
+      DIM-04: float
+      DIM-05: float
+      DIM-06: float
+      DIM-07: float
+      DIM-08: float
+    domain_specific_p0_checks: list[string]  # 领域 P0 反模式（本文章实际触发的）
+
+  overall_conclusion:
+    summary: string  # 用明确、审慎的语言说明核心结论状态
+    confidence: enum  # high / medium / low
+    basis: list[string]  # 关联到 C-NNN / D-NNN / E-NNN
+
+  eight_dimension_scores:
+    - dim_id: enum  # DIM-01 至 DIM-08
+      score: integer  # 1-5, N/A 写 null
+      na_reason: string  # 仅在 N/A 时填写
+      score_anchors: string  # 必须说明该分数对应的评分锚点
+      supporting_evidence: list[string]  # D-NNN / E-NNN
+      main_defects: list[string]  # D-NNN
+      evidence_uncertainty: string
+      conditions_to_upgrade_score: string
+      confidence: enum  # high / medium / low
+
+  claim_status_summary:
+    - claim_id: string  # C-NNN
+      claim_text: string
+      status: enum  # supported / partial / pending / refuted
+      key_evidence: list[string]  # E-NNN
+      main_risks: list[string]  # D-NNN
+      impact_on_overall_conclusion: string
+
+  critical_defects:
+    - defect_id: string  # D-NNN
+      severity: enum  # P0 / P1
+      related_claim_id: string  # C-NNN
+      evidence: string
+      impact_scope: string
+      fix_requirement: string
+
+  innovation_assessment:
+    originality:
+      score: integer  # 1-5
+      evidence: string
+    theoretical_contribution:
+      score: integer
+      evidence: string
+    methodological_contribution:
+      score: integer
+      evidence: string
+    evidence_contribution:
+      score: integer
+      evidence: string
+    practical_value:
+      score: integer
+      evidence: string
+
+  final_verdict:
+    verdict: enum  # core_fully_supported / core_qualified_supported / core_partially_supported / core_not_yet_verified / core_falsified_by_critical_defects / insufficient_evidence
+    rationale: string
+    p0_veto_triggered: boolean  # 是否因 P0 缺陷强制降级
+    p0_veto_rules_checked: list[string]  # 必须包含 P0-R1, P0-R2, P0-R3, P0-R4, P0-R5
+    p0_judgment_basis: object  # 解决 D-005 循环定义：必须显式说明 P0 触发的具体规则（见 references/p6-synthesis.md Step 5.5）
+      applied_rules: list[object]  # 应用了 P0-1 至 P0-8 中哪几条
+        - rule_id: string  # P0-1, P0-2, ..., P0-8
+          rule_name: string
+          matched_defects: list[string]  # D-NNN
+          evidence: string  # 满足该规则的具体证据
+      excluded_anti_patterns: list[string]  # 排除了哪些反例清单项
+    p5_proposed_p0_decisions: list[object]  # P5 提议升级 P0 的每条决策（R2.1）
+      - defect_id: string  # D-NNN（如 D-302-P5）
+        p5_proposed_severity: enum  # P0
+        p6_decision: enum  # accepted | rejected | downgraded
+        reason: string  # 接受/拒绝/降级的具体理由
+        final_severity: enum  # 接受后的最终等级
+    upgrade_conditions: list[string]  # 满足什么条件 verdict 可升级
+
+  precheck_p0_summary:
+    input_p0_count: integer  # 来自 {{PRECHECK_P0_DEFECTS}} 的 P0 数量
+    addressed_p0_ids: list[string]  # 在 critical_defects 中已显式处理的 P0 D-NNN
+    unaddressed_p0_ids: list[string]  # 必须在 verdict 之前处理完
+    precheck_input_was_empty: boolean  # 若上游 P0 预检为空，但 P2-P5 产物含 P0，必须为 false 并报告 orchestrator 错误
+
+  improvement_task_list:
+    - task_id: string  # V-NNN
+      priority: enum  # must / should / nice_to_have
+      related_defect: string  # D-NNN
+      action: string
+      expected_output: string
+      acceptance_criteria: string
+
+  evaluation_limitations:
+    not_audited_materials: list[string]  # 未核查的材料
+    conclusions_based_on_limited_evidence: list[string]
+    needs_expert_review: list[string]  # 需要领域专家或实际实验进一步确认
+
+validation_rules:
+  # ---- P0 硬规则（任何一条违反 → P6 视为失败） ----
+  - "P0-R1: critical_defects 中每条 severity=P0 的 D-NNN 必须在 final_verdict.p0_veto_triggered 中体现，且必须同时出现在 precheck_p0_summary.addressed_p0_ids"
+  - "P0-R2: 当 precheck_p0_summary.input_p0_count >= 1 时，final_verdict.verdict 只能是 core_falsified_by_critical_defects 或 insufficient_evidence"
+  - "P0-R3: critical_defects 中每条 P0 必须含 affected_claims、impact_scope、fix_requirement 三个字段"
+  - "P0-R4: improvement_task_list 中每条对应 P0 的 V-NNN，priority 必须 = must"
+  - "P0-R5: DIM 平均分不得出现在 rationale 中（禁止用分数冲销 P0 影响）"
+  - "P0 自检: final_verdict.p0_veto_rules_checked 必须包含 P0-R1/P0-R2/P0-R3/P0-R4/P0-R5 五项"
+  # ---- P0 判定透明度（D-005 循环定义修复） ----
+  - "P0-J1: 当 precheck_p0_summary.input_p0_count >= 1 时，final_verdict.p0_judgment_basis.applied_rules 必须非空，且每条匹配 D-NNN"
+  - "P0-J2: P5 输出的每条 upgrade_to_p0=true 提议必须在 final_verdict.p5_proposed_p0_decisions 中有决策（accepted/rejected/downgraded）"
+  # ---- 基础校验 ----
+  - "如果 critical_defects 中存在 severity=P0 但 precheck_p0_summary.precheck_input_was_empty=true，视为 orchestrator 错误，P6 必须报告"
+  - "eight_dimension_scores 必须覆盖所有 8 个 DIM（缺失则视为评估不完整）"
+  - "claim_status_summary 必须覆盖 P1 中所有 importance=core 的 claim"
+  - "improvement_task_list 中每条 V-NNN 必须关联一个 D-NNN"
+  - "evaluation_limitations 不允许为空（任何评审都有局限，必须显式说明）"
+  # ---- 领域模板校验（OPT-15）----
+  - "DOM-1: domain_template 必填，未指定时使用 default 模板且 evaluation_limitations 必声明"
+  - "DOM-2: domain_template.dim_weights 8 个值之和必须在 [0.99, 1.01] 范围内（容许浮点误差）"
+  - "DOM-3: 领域模板的 P0 反模式不得创造新 P0 触发规则（与 8 条 P0-N 不冲突）"
+  - "DOM-4: 若 domain_template.name 以 mixed: 开头，必须给出 ≥ 2 个领域组合的依据"

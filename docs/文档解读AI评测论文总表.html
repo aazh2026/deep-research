@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文档解读类 AI 任务评测：论文与方法总表</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1a1f2b; --ink2:#4a5568; --line:#e2e6ee;
+    --brand:#1f5f8b; --brand2:#2b7cb3; --accent:#b4531a;
+    --s1:#e8f1f8; --s2:#e9f5ee; --s3:#fdf3e2; --s4:#fbe9e9; --s5:#f0ecf7;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:14px;line-height:1.7;}
+  .wrap{max-width:1560px;margin:0 auto;padding:32px 28px 80px;}
+  header.hero{background:linear-gradient(135deg,#1f5f8b 0%,#2b7cb3 55%,#3a91c4 100%);
+    color:#fff;border-radius:14px;padding:34px 38px;box-shadow:0 10px 30px rgba(31,95,139,.22);}
+  header.hero h1{margin:0 0 10px;font-size:27px;letter-spacing:.3px;}
+  header.hero p{margin:0;font-size:14px;opacity:.93;max-width:1000px;}
+  .meta{margin-top:16px;font-size:12.5px;opacity:.9;}
+  .meta span{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    padding:3px 10px;border-radius:20px;margin:4px 6px 0 0;}
+  nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:22px 0;}
+  nav.toc h3{margin:0 0 10px;font-size:14px;color:var(--brand);}
+  nav.toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--brand2);text-decoration:none;font-size:13px;}
+  nav.toc a:hover{text-decoration:underline;}
+  section{margin-top:30px;}
+  h2.sec{font-size:19px;margin:0 0 6px;padding-left:12px;border-left:5px solid var(--brand);}
+  p.sub{color:var(--ink2);margin:0 0 16px;font-size:13px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(26,31,43,.04);}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{background:#eef2f6;color:#23344a;font-weight:600;text-align:left;
+    padding:11px 12px;border-bottom:2px solid #cfd8e3;white-space:nowrap;position:sticky;top:0;z-index:2;}
+  tbody td{padding:11px 12px;border-bottom:1px solid #eef1f5;vertical-align:top;}
+  tbody tr:hover{background:#fafcfe;}
+  td.u{font-weight:600;color:#23344a;white-space:nowrap;}
+  td.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12px;color:#3a4a5a;}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:5px;white-space:nowrap;margin:2px 4px 2px 0;}
+  .t-survey{background:var(--s5);color:#4c3f7d;}
+  .t-base{background:var(--s1);color:#1f5f8b;}
+  .t-long{background:var(--s2);color:#1f6f45;}
+  .t-rag{background:var(--s3);color:#95601a;}
+  .t-judge{background:var(--s4);color:#a33b3b;}
+  .pill{display:inline-block;background:#eef4f9;color:var(--brand);border:1px solid #d5e4ef;
+    border-radius:20px;padding:2px 9px;font-size:11.5px;margin:2px 4px 2px 0;}
+  a{color:var(--brand2);}
+  .num{font-variant-numeric:tabular-nums;font-weight:600;}
+  .hl{background:linear-gradient(transparent 62%,#ffe9a8 62%);font-weight:600;color:#3a2f00;}
+  ul.tight{margin:6px 0 0;padding-left:18px;}
+  ul.tight li{margin:3px 0;}
+  footer{margin-top:36px;color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px;}
+  @media (max-width:900px){
+    .wrap{padding:18px 12px 50px;} header.hero{padding:24px 20px;} header.hero h1{font-size:21px;}
+    table{font-size:12.5px;} thead th{position:static;}
+  }
+  @media print{
+    body{background:#fff;} .wrap{max-width:none;padding:0;}
+    header.hero{box-shadow:none;} thead th{position:static;}
+    tbody tr:hover{background:none;} section{page-break-inside:auto;}
+    table{page-break-inside:auto;} tr{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>文档解读类 AI 任务评测：论文、方法与指标总表</h1>
+  <p>覆盖文档视觉问答（DocVQA）、长文档 / 多页多文档理解、图表与表格解读、多模态 RAG、自动判分（LLM-as-Judge）与工程化评测六个层面。按「核心价值 → 关键贡献 → 作者 / 年份 / 会议 → 指标 → 链接」组织，可直接作为选题、benchmark 选型与评测体系设计的检索表。</p>
+  <div class="meta">
+    <span>共 21 篇</span><span>核心基准 8 个</span><span>评测维度 6 类</span><span>整理日期：2026-10-12</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <h3>快速跳转</h3>
+  <a href="#s0">阅读与使用说明</a>
+  <a href="#s1">① 综述与评测方法论</a>
+  <a href="#s2">② 单页文档 VQA 基准</a>
+  <a href="#s3">③ 图表与表格解读</a>
+  <a href="#s4">④ 多页 / 长文档评测</a>
+  <a href="#s5">⑤ 多模态文档 RAG 评测</a>
+  <a href="#s6">⑥ 自动判分与工程化</a>
+  <a href="#s7">⑦ 选型对照与落地建议</a>
+</nav>
+
+<section id="s0">
+  <h2 class="sec">阅读与使用说明</h2>
+  <p class="sub">表中「价值指标」分两类：一类是基准自身报告的最优模型成绩（反映难度上限），另一类是评测框架提出的指标名称。标注 <span class="hl">加粗高亮</span> 的数字是判断该基准区分度的关键值。</p>
+  <div class="card">
+  <table>
+    <thead><tr><th style="width:110px">列名</th><th>含义与用法</th></tr></thead>
+    <tbody>
+      <tr><td class="u">核心价值</td><td>这篇工作解决了文档解读评测中的哪个「缺口」，以及它能被你复用到什么环节（选 benchmark / 设计指标 / 搭流水线）。</td></tr>
+      <tr><td class="u">关键贡献</td><td>数据集规模、任务设计、标注协议、指标定义、模型结论五方面的可操作要点。</td></tr>
+      <tr><td class="u">作者 / 年份 /  venue</td><td>第一作者为首，年份是发表年；venue 缩写为 WACV / ICCV / ACL Findings / AAAI / ACM MM / NeurIPS / EMNLP Findings / arXiv。</td></tr>
+      <tr><td class="u">价值指标</td><td>基准难度看「最优模型成绩 vs 人类」；框架价值看「提出的指标 + 与人工的一致性」。数值来自原论文，跨模型比较时需注意版本与评测协议差异。</td></tr>
+      <tr><td class="u">链接</td><td>优先给 arXiv / ACL Anthology / 官方项目页；点开即原文。</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s1">
+  <h2 class="sec">① 综述与评测方法论（先看这两篇立框架）</h2>
+  <p class="sub">这一类不直接给分数，而是告诉你「评什么、怎么建集、怎么打分」。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:190px">论文</th><th style="width:250px">核心价值</th><th>关键贡献</th>
+      <th style="width:210px">作者 / 年份 / venue</th><th style="width:240px">价值指标（评测维度）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">MME-Survey: A Comprehensive Survey on Evaluation of Multimodal LLMs</td>
+        <td>唯一把「多模态大模型评测」当独立学科梳理的综述，文档理解只是其中一个应用切面。用来定评测维度、建集流程与 judge/metric/toolkit 三层体系。</td>
+        <td>按能力把基准分成基础能力、模型自分析、扩展应用三类；给出 benchmark 构建四步（数据收集→标注→注意事项）；系统讨论 judge 选择、指标设计与工具链（VLMEvalKit 等）。</td>
+        <td class="mono">Chaoyou Fu, Yi-Fan Zhang, Shukang Yin, Bo Li 等（MME+MMBench+LLaVA 团队）<br>2024 · arXiv:2411.15296</td>
+        <td>评测体系四维：<span class="pill">能力分类</span><span class="pill">构建流程</span><span class="pill">judge</span><span class="pill">metric</span><span class="pill">toolkit</span>；价值不在分数，在于给出可复用的评测工程框架。</td>
+        <td><a href="https://arxiv.org/html/2411.15296v2">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">Scaling Beyond Context: A Survey of Multimodal RAG for Document Understanding</td>
+        <td>把「文档解读 + RAG」的评测对象从单页抽到整库，给出按<span class="hl">领域 / 检索模态 / 粒度</span>三维分类法，并汇总 DocVQA、DUDE、SlideVQA、MMLongBench-Doc、ViDoRe、M3DocVQA、MMDocIR 等数据集规模对照。</td>
+        <td>提出多模态 RAG 分类学；梳理图结构索引与智能体式检索框架；汇总关键数据集与 benchmark（含 M3DocVQA ≈40K 页 / 41M 视觉 token、VisDoMBench ≈21K 页、OpenDocVQA ≈206K 页）；指出效率、细粒度表示、鲁棒性三大开放挑战。</td>
+        <td class="mono">Sensen Gao, Shanshan Zhao, Xu Jiang, Lunhao Duan, Yong Xien Chng, Qing-Guo Chen, Weihua Luo, Kaifu Zhang, Jia-Wang Bian, Mingming Gong<br>2025 · arXiv:2510.15253</td>
+        <td>汇总对照：<span class="pill">规模</span><span class="pill">模态</span><span class="pill">检索粒度</span>；工程选型价值高，无单一分数指标。</td>
+        <td><a href="https://arxiv.org/html/2510.15253v2">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s2">
+  <h2 class="sec">② 单页文档 VQA 基准（DocVQA 家族）</h2>
+  <p class="sub">单页是地基，ANLS 是这个领域的通用货币；同时它们也是后续长文档基准的「前身对照」。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:180px">论文</th><th style="width:240px">核心价值</th><th>关键贡献</th>
+      <th style="width:215px">作者 / 年份 / venue</th><th style="width:250px">价值指标（规模 / 成绩 / 指标）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">DocVQA: A Dataset for VQA on Document Images</td>
+        <td>文档解读评测的奠基基准，首次把「读文档」定义成 VQA 问题；几乎所有后续 DocVQA 论文都以它为起点做纵向对比。</td>
+        <td>12,000+ 文档图像、50,000 问；问题分 form / table-list / layout / running-text / handwritten 等 9 类；同时给出 Task1 单文档抽取与 Task2 文档集合检索；<span class="hl">定义 ANLS（Average Normalized Levenshtein Similarity）</span>作为主指标，对小写、空格、OCR 误识容错。</td>
+        <td class="mono">Minesh Mathew, Dimosthenis Karatzas, C. V. Jawahar<br>2021 · WACV · arXiv:2007.00398</td>
+        <td><span class="num">50k 问 / 12k+ 图</span>；人类 94.36% Acc；Task2 最佳 MAP <span class="num">0.8090</span>；主指标 <span class="pill">ANLS</span><span class="pill">MAP</span>。</td>
+        <td><a href="https://arxiv.org/abs/2007.00398">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">Document Visual Question Answering Challenge 2020</td>
+        <td>把 DocVQA 变成可竞赛、可复现的评测任务，给出了任务拆分与基线实现的标准范式。</td>
+        <td>在 DocVQA 数据上组织挑战赛，明确抽取式（Task1，ANLS）与检索式（Task2，MAP）双轨；报告冠军 PingAn-OneConnect Gammalab-DQA ANLS <span class="num">0.85</span>，并指出纯文本模型系统性落后、手写与长文类是难点。</td>
+        <td class="mono">Minesh Mathew, Rubèn Tito, Dimosthenis Karatzas, R. Manmatha, C. V. Jawahar<br>2020 · DAS · arXiv:2008.08899</td>
+        <td>冠军 <span class="num">ANLS 0.85</span>；Task2 检索 MAP <span class="num">0.8090</span>，但无系统能同时完成「检索+抽取」。</td>
+        <td><a href="https://arxiv.org/abs/2008.08899">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">InfographicVQA</td>
+        <td>把文档从「扫描件」扩展到「信息图」，迫使模型同时推理布局、文字、图形元素与数据可视化——这是图表解读的前哨战。</td>
+        <td>信息图 VQA 数据 + 强 Transformer 基线；问题刻意设计为需要初等推理与基本算术；提出布局-文本-图形-可视化联合推理这一评测设定。</td>
+        <td class="mono">Minesh Mathew, Viraj Bagal, Rubèn Tito, Dimosthenis Karatzas, Ernest Valveny, C. V. Jawahar<br>2022 · WACV · arXiv:2104.12756</td>
+        <td>主指标 <span class="pill">ANLS</span>；人类近满分、两路基线均 unsatisfactory，验证「布局+算术」是独立瓶颈。</td>
+        <td><a href="https://arxiv.org/abs/2104.12756">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s3">
+  <h2 class="sec">③ 图表与表格解读评测</h2>
+  <p class="sub">图表类看「读数 + 逻辑/算术」，表格类看「跨单元格离散推理」；数值题必须单独设指标。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:170px">论文</th><th style="width:240px">核心价值</th><th>关键贡献</th>
+      <th style="width:215px">作者 / 年份 / venue</th><th style="width:250px">价值指标（规模 / 成绩 / 指标）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">ChartQA: A Benchmark for QA about Charts with Visual and Logical Reasoning</td>
+        <td>图表解读的事实标准基准，直接对应「看报表/仪表盘回答问题」这一高频文档解读场景。</td>
+        <td>同时含人工问题与基于模板的问题；要求视觉特征引用 + 多步逻辑与算术运算；提出「图表数据表 + 视觉特征」统一建模的两路 Transformer 基线。</td>
+        <td class="mono">Ahmed Masry, Do Xuan Long, Jia Qing Tan, Shafiq Joty, Enamul Hoque<br>2022 · Findings of ACL · DOI:10.18653/v1/2022.findings-acl.177</td>
+        <td>主指标 <span class="pill">Acc（宽松/严格）</span>；数值类需执行结果校验；原基线在复杂推理题上显著落后人类。</td>
+        <td><a href="https://aclanthology.org/2022.findings-acl.177/">ACL</a></td>
+      </tr>
+      <tr>
+        <td class="u">PlotQA: Reasoning over Scientific Plots</td>
+        <td>针对科学论文/技术报告里的曲线图，解决了「答案不在词表里」这一真实难题（真实值、开放词表）。</td>
+        <td>224,377 张真实来源图、28.9M 问答对；80.76% 的 OOV 问题答案不在固定词表中；提出「词表/框抽取 + 表 QA 引擎」混合解法；混合模型在 DVQA 上 58%（原 SOTA 46%）。</td>
+        <td class="mono">Nitesh Methani, Pritha Ganguly, Mitesh M. Khapra, Pratyush Kumar<br>2020 · WACV · arXiv:1909.00997</td>
+        <td><span class="num">28.9M 对 / 224k 图</span>；PlotQA 上模型 Acc <span class="hl">22.52%</span>（现有模型个位数），暴露 OOV 推理短板。</td>
+        <td><a href="https://arxiv.org/abs/1909.00997">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">Towards Complex Document Understanding By Discrete Reasoning（TAT-DQA）</td>
+        <td>把「表格+文本」的离散推理（加/减/乘/除/计数/比较/排序）量化成可评测任务，直接对标财报解读。</td>
+        <td>真实财报、3,067 页、16,558 问答对，含半结构表+非结构文本；答案形态覆盖单 span / 多 span / 自由式；提出 MHST（多模态混合选择 + 表达式树生成），显式预测运算类型再生成算式。</td>
+        <td class="mono">Fengbin Zhu, Wenqiang Lei, Fuli Feng, Chao Wang, Haozhou Zhang, Tat-Seng Chua<br>2022 · ACM Multimedia · DOI:10.1145/3503161.3548422</td>
+        <td>MHST：<span class="num">EM 41.5 / F1 50.7</span>，显著优于 TagOp 33.7 EM、NumNet+ v2 30.6 EM；指标 <span class="pill">EM</span><span class="pill">F1</span><span class="pill">算式执行校验</span>。</td>
+        <td><a href="https://arxiv.org/html/2207.11871">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s4">
+  <h2 class="sec">④ 多页 / 长文档评测（最贴近生产）</h2>
+  <p class="sub">这一层的共性贡献是：跨页证据、证据定位、不可答题（幻觉探测）、以及「图文表混合」。规模与难度呈阶梯上升。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:175px">论文</th><th style="width:245px">核心价值</th><th>关键贡献</th>
+      <th style="width:215px">作者 / 年份 / venue</th><th style="width:255px">价值指标（规模 / 成绩 / 指标）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">Hierarchical Multimodal Transformers for Multi-Page DocVQA（MP-DocVQA）</td>
+        <td>DocVQA 从单页走向多页的起点；同时给出「逐页摘要→整文档解码」这一至今仍在用的长文档建模范式，并附带可解释的页级证据定位。</td>
+        <td>46,176 问 / 47,952 页图 / 5,928 份多页文档（最多 20 页，85.95% 真多页）；提出 Hi-VT5，用 M 个可学习 [PAGE] token 逐页压缩，解码端融合；单阶段同时输出答案与证据页。</td>
+        <td class="mono">Rubèn Tito, Dimosthenis Karatzas, Ernest Valveny<br>2023 · Pattern Recognition（2022 arXiv:2212.05935）</td>
+        <td><span class="num">46k 问 / 48k 页</span>；指标 <span class="pill">ANLS</span><span class="pill">证据页召回</span>；首次验证「页级压缩」可兼顾长文档与可解释性。</td>
+        <td><a href="https://arxiv.org/abs/2212.05935">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">Document Understanding Dataset and Evaluation（DUDE）</td>
+        <td>首个把「多页 + 多行业 + 多任务 + 不可答」打包的通用文档理解基准，直接模拟真实文档流。</td>
+        <td>41,000+ QA / 5,000 文档，均 5.72 页、跨 1860–2022 与 200+ 文档类型、15+ 行业；答案含抽取式、生成式、列表式、不可答四类；首创 layout-navigating 问题与多 OCR 版本（Tesseract/Azure/AWS）配套。</td>
+        <td class="mono">Jordy Van Landeghem, Rafal Powalski, Rubèn Tito, Dawid Jurkiewicz, Matthew B. Blaschko, Łukasz Borchmann 等<br>2023 · ICCV · DOI:10.1109/iccv51070.2023.01789</td>
+        <td>人类专家 <span class="num">ANLS 74.76</span>，最佳 T5-2D (large) 微调后 <span class="num">46.06</span>；文本-only LLM 35–47；视觉理解题落后人类约 25 分。</td>
+        <td><a href="https://openaccess.thecvf.com/content/ICCV2023/html/Van_Landeghem_Document_Understanding_Dataset_and_Evaluation_DUDE_ICCV_2023_paper.html">ICCV</a></td>
+      </tr>
+      <tr>
+        <td class="u">SlideVQA: A Dataset for Document VQA on Multiple Images</td>
+        <td>针对 PPT 演示文稿，把「跨页证据选择 + 问答」统一到一个 seq2seq 任务里，是跨图推理的代表。</td>
+        <td>2.6k+ 演示文稿 / 52k+ 页 / 14.5k 问；覆盖单跳、多跳、数值推理；标注算术表达式与文本/视觉元素 bbox；提出 M3D（FiD 骨架 + 统一证据选择与生成 + 符号计算）。</td>
+        <td class="mono">Ryota Tanaka, Kyosuke Nishida, Kosuke Nishida, Taku Hasegawa, Itsumi Saito, Kuniko Saito<br>2023 · AAAI · arXiv:2301.04883</td>
+        <td>人类 F1 ≈92%；M3D 证据选择 EM <span class="num">75.0</span>、算术题 +<span class="num">10.4</span> F1、联合 F1(JF1) <span class="num">37.3</span>；指标 <span class="pill">EM</span><span class="pill">JF1</span>。</td>
+        <td><a href="https://arxiv.org/abs/2301.04883">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">MMLongBench-Doc: Benchmarking Long-context Document Understanding with Visualizations</td>
+        <td>长上下文文档解读的标杆基准：明确量化了「跨页」与「图文表证据」两大衰减源，并把幻觉探测做成正式题目。</td>
+        <td>130 份 PDF（均 49.4 页 / 20,971 token）、1,062 专家标注问；单页 44.0% / 跨页 33.2% / 不可答 22.8%；证据模态覆盖 text 36.1%、table 25.9%、chart 20.5%、image 34.4%；三阶段协议（生成→GPT-4o 答案规整→规则打分）。</td>
+        <td class="mono">Yubo Ma, Yuhang Zang, Liangyu Chen, Meiqi Chen, Yizhu Jiao, Xinze Li, Xinyuan Lu, Ziyu Liu, Yan Ma, Xiaoyi Dong, Pan Zhang, Liangming Pan, Yu-Gang Jiang, Jiaqi Wang, Yixin Cao, Aixin Sun<br>2024 · NeurIPS（Spotlight）· arXiv:2407.01523</td>
+        <td><span class="hl">GPT-4o 总体 F1 仅 42.7%</span>（GPT-4V 31.4%）；12 个 LVLM 用视觉输入反而差于喂 OCR 文本的纯 LLM 版；指标 <span class="pill">按答案类型的 Acc/F1</span><span class="pill">不可答检测</span>。</td>
+        <td><a href="https://arxiv.org/abs/2407.01523">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">LongDocURL: a Comprehensive Multimodal Long Document Benchmark Integrating Understanding, Reasoning, and Locating</td>
+        <td>在 MMLongBench-Doc 之上把评测维度做细：理解/推理/定位三维 × 证据元素 × 单页/跨页/跨元素，可做归因诊断而非只给总分。</td>
+        <td>2,325 高质量 QA / 33,000+ 页，半自动流水线（Extract&Filter→QA 生成→自动校验→人工校验）；20 个子任务；定义 TXT/LAY/FIG/TAB 四类证据与 SP/MP/CE 三类证据位置；报告 26 种配置下的 generalized accuracy。</td>
+        <td class="mono">Chao Deng, Jiale Yuan, Pi Bu, Peijie Wang, Zhong-Zhi Li, Jian Xu, Xiao-Hui Li, Yuan Gao, Jun Song, Bo Zheng, Cheng-Lin Liu<br>2024 · arXiv:2412.18424</td>
+        <td><span class="num">2,325 对 / 33k+ 页</span>；主指标 <span class="pill">Generalized Accuracy (0–1)</span>，按 U/R/L × 证据模态 × 证据位置切片。</td>
+        <td><a href="https://arxiv.org/html/2412.18424v3">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">SynthDocBench: Controlled Benchmark for Long-Context Visual Document Understanding</td>
+        <td>用组合设计把「长度、布局、模态、题型」解耦，专门做失败归因——这是现有真实基准做不到的事。</td>
+        <td>全合成、六类布局原型 + 40% 随机覆盖防捷径；每个因素独立变化；测 7 个前沿 VLM，挖出三类新失败模式：长度陡降、<span class="hl">中段最难（6 模型中 5 个，Early-to-Late 最大落差 8.3 个百分点）</span>、长文档下图表理解崩溃。</td>
+        <td class="mono">Abhigya Verma, Khyati Mahajan, Amit Kumar Saha, Shruthan Radhakrishna, Sagar Davasam, Vikas Yadav, Sai Rajeswar Mudumba<br>2026 · arXiv:2607.10400</td>
+        <td>主指标 <span class="pill">按因素切片的 Acc</span>；价值在诊断能力，不在排名；可复用于新模型的回归测试。</td>
+        <td><a href="https://arxiv.org/abs/2607.10400">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s5">
+  <h2 class="sec">⑤ 多模态文档 RAG 评测（检索 + 解读一体化）</h2>
+  <p class="sub">这一层回答的是工程中最要紧的问题：文档库大了之后，先「找得对」还是先「读得懂」。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:175px">论文</th><th style="width:245px">核心价值</th><th>关键贡献</th>
+      <th style="width:215px">作者 / 年份 / venue</th><th style="width:255px">价值指标（规模 / 成绩 / 指标）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">M3DocRAG: Multi-modal Retrieval is What You Need for Multi-page Multi-document Understanding（含 M3DocVQA）</td>
+        <td>把文档 RAG 从「OCR 出文本再向量检索」改成「按页图像做视觉检索」，从根本上避免图表/版式信息在解析环节丢失。</td>
+        <td>多模态 RAG 框架（多模态 retriever + MLM），兼容 closed/open-domain、单跳/多跳、text/chart/figure 证据；新建 M3DocVQA：3,000+ PDF / 40,000+ 页开放域 DocVQA；系统分析索引方式、MLM 与检索器组合。</td>
+        <td class="mono">Jaemin Cho, Debanjan Mahata, Ozan Irsoy, Yujie He, Mohit Bansal<br>2024 · arXiv:2411.04952</td>
+        <td>ColPali + Qwen2-VL 7B 在 M3DocVQA / MMLongBench-Doc / MP-DocVQA 上超强基线并取 MP-DocVQA SOTA；开放域 4 万页检索延迟 <span class="num">2s/query</span>（原 20s）。</td>
+        <td><a href="https://arxiv.org/html/2411.04952">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">ViDoRe: Visual Document Retrieval（+ ColPali / V2 / V3）</td>
+        <td>视觉文档检索的事实标准基准，直接评测「从文档页里把对的那几页找出来」这一 RAG 第一关。</td>
+        <td>多领域、多语言、多设置的页级检索任务；配套 ColPali 模型（VLM 页图像嵌入 + late interaction）；V2 提高难度、V3 扩到 10 个真实场景数据集 / 26,000 页 / 3,099 查询 / 6 语种并含 bbox 与参考答案。</td>
+        <td class="mono">Manuel Faysse, Hugues Sibille, Tony Wu, Bilel Omrani, Gautier Viaud, Céline Hudelot, Pierre Colombo（ColPali，2024）; Quentin Macé, António Loison（V2，2025）; António Loison 等（V3，2026）<br>arXiv:2407.01449 / 2505.17166 / 2601.08620</td>
+        <td>主指标 <span class="pill">Recall@k</span><span class="pill">nDCG@k</span><span class="pill">mAP</span>；按领域/语种/页类型切片，是检索模块选型的首选对照表。</td>
+        <td><a href="https://github.com/illuin-tech/vidore-benchmark">GitHub</a></td>
+      </tr>
+      <tr>
+        <td class="u">MMDocRAG: Benchmarking Retrieval-Augmented Multimodal Generation for Document QA</td>
+        <td>首个同时评「多模态证据选择」和「图文交织答案生成」的 DocRAG 基准，直接对应带引用、带原图的文档助手。</td>
+        <td>222 份长文档（均 67 页）、4,055 专家标注 QA、8 类问题；四阶段标注 + 硬负例（候选 15/20 条中金证据仅占 13.5%–18.0%）；允许答案图文交织并带引用；评 60 个 VLM/LLM + 14 个检索器。</td>
+        <td class="mono">Kuicai Dong, Yujing Chang, Shijie Huang, Yasheng Wang, Ruiming Tang, Yong Liu<br>2025 · NeurIPS 2025 · arXiv:2505.16470</td>
+        <td>最强 GPT-4.1：<span class="hl">Quote Selection F1 70.2%</span>、答案质量均分 <span class="num">4.14/5</span>；开源模型用图文输入普遍掉点；指标 <span class="pill">Quote P/R/F1（文/图分开）</span><span class="pill">BLEU/ROUGE-L</span><span class="pill">LLM-judge 5 维 0–5</span>。</td>
+        <td><a href="https://arxiv.org/abs/2505.16470">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s6">
+  <h2 class="sec">⑥ 自动判分与工程化评测（LLM-as-Judge 与长式 RAG 评测）</h2>
+  <p class="sub">当答案是自由长文本、且必须带引用时，规则指标失效，这一层的方法决定评测系统能不能上线。</p>
+  <div class="card">
+  <table>
+    <thead><tr>
+      <th style="width:200px">论文</th><th style="width:250px">核心价值</th><th>关键贡献</th>
+      <th style="width:215px">作者 / 年份 / venue</th><th style="width:250px">价值指标（规模 / 成绩 / 指标）</th><th style="width:80px">链接</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">CRUX: Controlled Retrieval-augmented Context Evaluation for Long-form RAG</td>
+        <td>解决了长式 RAG 的核心难题：<span class="hl">检索好不好，不能只看相关度</span>，要看「是否覆盖回答问题所需的信息、且不过度冗余」。</td>
+        <td>用人工摘要控制信息边界生成 oracle 子问题；定义 Coverage（子问题可答比例）与 Density（单位 token 的覆盖率，惩罚冗余）；设 oracle retrieval 上下界；在 CRUX-DUC（50 查询）/ CRUX-Multi-News（100 测试查询，约 50 万候选 passage）验证。</td>
+        <td class="mono">Jia-Huei Ju, Suzan Verberne, Maarten de Rijke, Andrew Yates<br>2025 · arXiv:2506.20051（Findings of EMNLP 2025）</td>
+        <td>Coverage/Density 与最终 RAG 质量的 Kendall's τ 达 <span class="hl">0.7–0.8</span>，显著优于传统 IR 指标；oracle retrieval Cov ≈<span class="num">64%</span>，BM25 仅 35–38%。</td>
+        <td><a href="https://arxiv.org/abs/2506.20051">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">RAG-QA Arena: Evaluating Domain Robustness for Long-form Retrieval Augmented QA</td>
+        <td>用「模型答案 vs 人工长答案」的成对比较替代不可靠的抽取式 EM，专门测跨域鲁棒性。</td>
+        <td>构建 LFRQA：26K 查询、7 个领域、人工撰写长式答案（多文档证据融合成连贯叙述）；RAG-QA Arena 用 LLM 做成对偏好判断，并验证其与人类判断高度相关。</td>
+        <td class="mono">Rujun Han, Yuhao Zhang, Peng Qi, Yumo Xu, Jenyuan Wang, Lan Liu, William Yang Wang, Bonan Min, Vittorio Castelli<br>2024 · arXiv:2407.13998</td>
+        <td>最强 LLM 答案仅 <span class="num">41.3%</span> 被偏好于 LFRQA；指标 <span class="pill">pairwise win rate</span><span class="pill">与人类偏好的一致性</span>；test 集 16.1K 查询。</td>
+        <td><a href="https://arxiv.org/html/2407.13998v2">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">EnSI-RAG: Entity-Structure-Indexed RAG for Long-Document QA</td>
+        <td>把「实体-结构索引」引入长文档 RAG，并给出数值聚合题与生成题<span class="hl">分治的指标方案</span>——这是工程落地常被忽略的一点。</td>
+        <td>以实体为中心的 passage 表示 + 查询无关的实体结构索引，把证据定位与答案合成解耦；在 Loong（177 题，金融/法律/学术多文档）与 Oolong（192 题，大规模聚合）上评测，对比 RAG/LongRAG/GraphRAG/DocETL/Chain-of-Agent 等 9 类基线。</td>
+        <td class="mono">实体结构索引 + LLM 合成（作者署名以 arXiv 版本为准）<br>2026 · arXiv:2608.21252</td>
+        <td>Loong 平均 Acc <span class="num">84.64</span>（SLIDERS 78.57）；Oolong <span class="num">71.84</span>（SLIDERS 64.67），均 Acc <span class="num">78.24</span>（+6.62）；数值题用偏差指标、非数值题用 LLM judge。</td>
+        <td><a href="https://arxiv.org/pdf/2608.21252">原文</a></td>
+      </tr>
+      <tr>
+        <td class="u">Overview of the NTCIR-19 AEOLLM-2 Task（Deep Research Evaluation）</td>
+        <td>把长报告（&gt;1500 token，科研综述 8000+）的自动评测做成正式评测任务，给出「retrieval-assisted LLM judge + 人工校正」的可复现流水线。</td>
+        <td>640 份报告 / 40 中英文问题，多 prompt 变体与 deep research 系统；维度：全面性、洞察、指令遵循、可读性；客观维度用带检索的 LLM 判分再人工校正，可读性直接人工评；91 次提交 / 10 队参与。</td>
+        <td class="mono">AEOLLM-2 组委会（NTCIR-19）<br>2025–2026 · arXiv:2610.11598（任务页 2026-03 发数据 / 07-08 评测）</td>
+        <td>对齐指标 <span class="pill">pairwise accuracy</span><span class="pill">Spearman ρ</span><span class="pill">Kendall τ</span>；覆盖 640 报告的维度级人工标注，是 judge 校准研究的直接数据来源。</td>
+        <td><a href="https://arxiv.org/html/2610.11598v1">原文</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="s7">
+  <h2 class="sec">⑦ 选型对照与落地建议</h2>
+  <p class="sub">按你的实际场景挑基准组合，比单跑一个排行榜更有说服力。</p>
+  <div class="card">
+  <table>
+    <thead><tr><th style="width:230px">场景</th><th>推荐基准组合</th><th style="width:330px">指标方案</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="u">扫描件 / 合同 / 表单 / 发票抽取</td>
+        <td><span class="pill">DocVQA</span><span class="pill">DUDE</span> + 自建字段级集</td>
+        <td>字段级 EM + <span class="hl">ANLS</span>（容 OCR 错）+ 缺字段率；按 form / layout / handwritten 切片</td>
+      </tr>
+      <tr>
+        <td class="u">研报 / 财报 / 论文长文问答</td>
+        <td><span class="pill">MMLongBench-Doc</span><span class="pill">LongDocURL</span><span class="pill">DUDE</span></td>
+        <td>分类型 Acc/F1 + 跨页 vs 单页差 + 不可答召回；证据页/证据块 Recall 必报</td>
+      </tr>
+      <tr>
+        <td class="u">图表 / 仪表盘解读</td>
+        <td><span class="pill">ChartQA</span> → ChartQAPro / CharXiv → <span class="pill">PlotQA</span></td>
+        <td>宽松/严格 Acc + 数值执行结果校验（归一化误差）+ 算术步骤正确率</td>
+      </tr>
+      <tr>
+        <td class="u">PPT / 会议纪要 / 演示文稿</td>
+        <td><span class="pill">SlideVQA</span> + MP-DocVQA</td>
+        <td>证据选择 EM + 联合 F1（JF1）+ 算术表达式准确率</td>
+      </tr>
+      <tr>
+        <td class="u">文档库 RAG 产品</td>
+        <td><span class="pill">ViDoRe V3</span>（检索）→ <span class="pill">MMDocRAG</span>（生成）→ <span class="pill">CRUX</span>（诊断）</td>
+        <td>Recall@k / nDCG@k + Quote F1 + 引用正确率 + 事实性 judge 分 + Coverage/Density</td>
+      </tr>
+      <tr>
+        <td class="u">报告型长答案 / 深度研究</td>
+        <td><span class="pill">RAG-QA Arena</span> + <span class="pill">AEOLLM-2 协议</span></td>
+        <td>pairwise win rate + Spearman/Kendall 对人工 + 维度分（全面性/洞察/指令遵循/可读性）</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+  <table>
+    <thead><tr><th style="width:230px">指标</th><th>适用答案形态</th><th style="width:360px">注意事项</th></tr></thead>
+    <tbody>
+      <tr><td class="u">ANLS</td><td>短答案、词/数字串</td><td>对 OCR 小写/空格/近形字符容错，比 EM 更贴合文档场景；需设阈值 τ（常用 0.5）</td></tr>
+      <tr><td class="u">EM / F1</td><td>span、列表、多 span</td><td>数值要归一化单位与格式后再算；列表要排序无关化</td></tr>
+      <tr><td class="u">按答案类型的 Acc/F1</td><td>int / float / string / list / 不可答</td><td>MMLongBench-Doc 协议：先规整答案再规则打分，避免被格式拖累</td></tr>
+      <tr><td class="u">Recall@k / nDCG@k / mAP</td><td>检索到的证据页/块</td><td>ViDoRe 体系；按领域、语种、页类型切片才有诊断价值</td></tr>
+      <tr><td class="u">Coverage / Density</td><td>长式 RAG 的检索上下文</td><td>CRUX：Coverage 看信息覆盖，Density 惩罚冗余，两者都要报</td></tr>
+      <tr><td class="u">LLM-as-Judge 5 维 0–5</td><td>自由长答案、图文交织答案</td><td>必须同时报与人工的 Spearman/Kendall/pairwise accuracy，并固定 judge 模型与版本</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+  <table>
+    <thead><tr><th style="width:250px">如果只能做三件事</th><th>建议</th></tr></thead>
+    <tbody>
+      <tr><td class="u">1. 选 2 个公开基准 + 1 个自建集</td><td>公开集保证可比性，自建集必须覆盖你的真实版式、语种、长尾行业与失败 case；建议用 SynthDocBench 式因素解耦做归因集。</td></tr>
+      <tr><td class="u">2. 指标至少报「三层」</td><td>检索层（Recall@k）→ 证据层（证据页/块 F1、不可答检测）→ 答案层（ANLS/数值误差 + LLM judge），任一层单独报都是不完整的。</td></tr>
+      <tr><td class="u">3. 把评测做成流水线</td><td>离线集版本化管理 + 答案规整器 + 规则指标与 judge 并行 + 人工抽检校准（AEOLLM-2 式 retrieval-assisted 判分再人工复核）+ 按因素切片的回归看板。</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<footer>
+  <p><strong>说明：</strong>表中数值均引自各论文原文或其官方发布页，跨论文比较时请注意模型版本、输入形式（原图 / OCR 文本 / 拼接图）与评测协议不同；部分 arXiv 预印本在正式发表后数据可能有更新。链接优先指向 arXiv / ACL Anthology / 官方项目与代码仓库。</p>
+  <p>整理日期：2026-10-12 ｜ 条目数：21 ｜ 可直接打印或另存为 PDF 归档。</p>
+</footer>
+
+</div>
+</body>
+</html>

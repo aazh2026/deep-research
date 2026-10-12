@@ -1,0 +1,62 @@
+# P7 Output Schema
+
+artifact_type: p7_revision
+version: 1.0
+
+required_fields:
+  revision_task_list:
+    - id: string  # V-NNN
+      original_defect: string  # D-NNN
+      root_cause: string
+      revision_action: string
+      expected_output: string
+      acceptance_criteria: string
+      status: enum  # pending / completed / partial / blocked / not_applicable
+      completion_evidence: string  # 仅在 status=completed 时填写
+
+  revision_changes:
+    - claim_id: string  # C-NNN
+      before: string
+      after: string
+      change_type: enum  # rephrase / add_evidence / fix_reasoning / fix_method / narrow_conclusion / remove
+      evidence_added: list[string]  # E-NNN
+
+  defect_closure_report:
+    - defect_id: string  # D-NNN
+      closure_status: enum  # resolved / partial / unresolved / not_applicable
+      evidence: string
+
+  new_issues:
+    - id: string  # D-NNN（修订引入的，可后缀 -REV）
+      related_claim_id: string  # C-NNN
+      description: string
+      severity: enum  # P0 / P1 / P2 / P3
+
+  before_after_comparison:
+    dimension_scores:
+      - dim_id: enum  # DIM-01 至 DIM-08
+        before: integer
+        after: integer
+        evidence_supported_change: boolean  # 评分变化是否有实质性证据支持
+        justification: string
+    claim_status_changes: list[object]  # {claim_id, before_status, after_status, evidence}
+    p0_p1_defect_count:
+      before: integer
+      after: integer
+      changes_evidence_backed: boolean
+
+  final_reassessment:
+    meets_quality_threshold: boolean
+    remaining_work: list[string]  # 尚需完成的工作（含需新增实验/专家判断/外部核查的事项）
+    new_verdict_proposal: string  # 重新评估的 verdict
+
+  affected_phases_to_rerun:
+    - phase: enum  # P2 / P3 / P4 / P5 / P6
+      reason: string  # 为什么需要重跑
+
+validation_rules:
+  - "closure_status=resolved 的 defect 必须有 evidence（可追溯的验收证据）"
+  - "closure_status=resolved 但实际只是改措辞的，应改为 partial"
+  - "affected_phases_to_rerun 中如果包含 P5/P6，必须给出明确的 reason"
+  - "new_issues 不允许为空（任何修订都有副作用，必须显式记录）"
+  - "如果 change_type=remove，必须在 revision_changes 中说明为什么删除"

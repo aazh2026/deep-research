@@ -1,0 +1,50 @@
+# P2.5 Output Schema
+
+artifact_type: p2_5_literature_supplement
+version: 1.0
+
+required_fields:
+  supplement_summary:
+    total_pending_claims: integer
+    resolved_to_supported: integer
+    resolved_to_partial: integer
+    resolved_to_refuted: integer
+    still_pending: integer
+    new_e_count: integer
+    new_d_count: integer
+    avg_searches_per_claim: float  # 健康度指标
+    p2_consistency: enum  # consistent | has_conflict | partial_conflict
+
+  per_claim_results:
+    - claim_id: string  # C-NNN
+      pending_reason: string  # 来自 P3
+      p2_evidence_status: enum  # 来自 P2：none | partial | failed | source_unavailable
+      search_queries: list[string]  # 实际搜索的 query 字符串
+      found_evidence:
+        - evidence_id: string  # E-NNN（E-500 起）
+          type: enum  # direct_support | indirect_support | counter_evidence | negative_finding | source_unavailable
+          source: string  # URL 或论文标题
+          quote: string  # 关键引用
+          verdict: string  # 一句话评估
+      cross_check_with_p2: string  # 若与 P2 矛盾则说明，可空
+      final_status: enum  # supported | partial | refuted | pending_insufficient_evidence | pending_source_unavailable
+      new_defects:
+        - defect_id: string  # D-5XX-2.5
+          severity: enum  # P0 / P1 / P2 / P3
+          related_claim_id: string
+          brief_problem: string
+
+  unresolved_claims:
+    - claim_id: string
+      reason_unresolved: string
+      recommended_next_step: string
+      downgrade_acceptable: boolean  # 若 true，P6 可考虑降级该 claim 而非 verdict 降级
+
+validation_rules:
+  - "P2.5-1: per_claim_results 必须覆盖所有 {{P3_PENDING_CLAIMS}} 中的 claim_id（不遗漏）"
+  - "P2.5-2: E-NNN 必须从 E-500 起，避免与 P2（E-001~E-499）冲突"
+  - "P2.2.5-3: D-NNN 必须使用 D-5XX-2.5 后缀，避免与 P2-P5 冲突"
+  - "P2.5-4: 任何 type=counter_evidence 的 E-NNN 必须有对应的 new_defects 记录"
+  - "P2.5-5: 任何 new_defects.severity=P0 必须有 cross_check_with_p2 显式记录（避免孤证 P0）"
+  - "P2.5-6: avg_searches_per_claim ≤ 3（每条 claim 最多 3 次搜索，否则标记为 unresolved）"
+  - "P2.5-7: p2_consistency=has_conflict 时必须至少一条 per_claim_results 含 cross_check_with_p2 非空"

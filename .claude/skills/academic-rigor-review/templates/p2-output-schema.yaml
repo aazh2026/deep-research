@@ -1,0 +1,69 @@
+# P2 Output Schema
+
+artifact_type: p2_literature_audit
+version: 1.0
+
+required_fields:
+  theory_concept_audit:
+    - concept_or_theory: string
+      meaning_in_article: string
+      position: string
+      source: string  # 声称来源
+      verification_result: enum  # verified / partial / pending / unverifiable
+      evidence_id: string  # E-NNN
+      role_in_research: string
+
+  citation_audit:
+    - citation_entry: string
+      source_exists: enum  # yes / no / partial
+      supports_claim: enum  # yes / no / partial / context_distorted
+      context_accurate: enum  # yes / no
+      evidence_id: string  # E-NNN
+      verification_status: enum  # supported / partial / pending / refuted
+
+  related_work_coverage:
+    covered_areas: list[string]
+    missing_critical_areas: list[string]
+    opposing_views:
+      status: enum  # missing / present / not_applicable
+      details: string
+    impact_on_article: string
+
+  innovation_review:
+    - claim_id: string  # C-NNN（来自 P1）
+      innovation_category: enum  # substantive / needs_more_check / recombination / renaming / application_transfer / insufficient_evidence / overlaps_with_known
+      evidence_id: string  # E-NNN
+      justification: string
+
+  defects:
+    - id: string  # D-NNN
+      related_claim_id: string  # C-NNN
+      evidence_id: string  # E-NNN
+      problem: string
+      severity: enum  # P0 / P1 / P2 / P3
+      impact_on_core_conclusion: string
+      suggested_remediation: string
+
+  overall_judgment:
+    theory_reliability:
+      score: integer  # 1-5
+      anchors: string
+      key_evidence: list[string]  # D-NNN / E-NNN
+    literature_coverage:
+      score: integer
+      anchors: string
+      key_evidence: list[string]
+    citation_accuracy:
+      score: integer
+      anchors: string
+      key_evidence: list[string]
+    innovation_evidence_sufficiency:
+      score: integer
+      anchors: string
+      key_evidence: list[string]
+
+validation_rules:
+  - "所有 D-NNN 必须关联到一个已存在的 C-NNN"
+  - "所有 E-NNN 在 P2 范围内唯一"
+  - "verification_result=verified 的项必须有 evidence_id 且能追溯到外部来源"
+  - "P0 缺陷必须给出明确的 impact_on_core_conclusion"

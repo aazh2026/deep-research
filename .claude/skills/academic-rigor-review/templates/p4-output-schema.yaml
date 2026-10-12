@@ -1,0 +1,114 @@
+# P4 Output Schema
+
+artifact_type: p4_method_review
+version: 1.1  # R8 升级：claim_evidence_ledger 与 P3 对齐
+
+required_fields:
+  method_question_fit:
+    - claim_id: string  # C-NNN
+      method_appropriate: enum  # yes / partial / no / not_applicable
+      reasoning: string
+
+  # R8 新增：与 P3 的 claim_evidence_ledger 对齐
+  # 命名规则：xxx_evidence_ids（list of E-NNN），与 P3 一致
+  claim_evidence_ledger:
+    - claim_id: string  # C-NNN
+      supporting_evidence_ids: list[string]  # E-NNN（方法学维度支持该 claim 的证据）
+      opposing_evidence_ids: list[string]  # E-NNN（方法学维度反对该 claim 的证据）
+      supporting_method_findings: list[string]  # P4 自己发现的方法学支持点（文字描述）
+      opposing_method_findings: list[string]  # P4 自己发现的方法学反对点（文字描述）
+      cross_reference_to_p3: string  # 引用 P3 同一 claim 的 ledger 条目，说明方法学层面新增/修正
+
+  research_design_audit:
+    - item: string
+      article_description: string
+      verification_evidence_ids: list[string]  # R8: string → list[string] (E-NNN 列表)，与 P3 对齐
+      issue_found: string
+      impact: string
+      status: enum  # confirmed / potential / insufficient_data
+
+  validity_threats:
+    internal_validity: list[object]
+      # R8: evidence_id: string → evidence_ids: list[string]
+    - threat: string
+      related_claim_id: string  # C-NNN
+      evidence_ids: list[string]  # E-NNN 列表
+      severity: enum  # P0 / P1 / P2 / P3
+    external_validity: list[object]
+      - threat: string
+        related_claim_id: string
+        evidence_ids: list[string]
+        severity: enum
+    construct_validity: list[object]
+      - threat: string
+        related_claim_id: string
+        evidence_ids: list[string]
+        severity: enum
+    statistical_conclusion_validity: list[object]
+      - threat: string
+        related_claim_id: string
+        evidence_ids: list[string]
+        severity: enum
+    reproducibility: list[object]
+      - threat: string
+        related_claim_id: string
+        evidence_ids: list[string]
+        severity: enum
+
+  key_defects:
+    - id: string  # D-NNN
+      severity: enum  # P0 / P1 / P2 / P3
+      related_claim_id: string  # C-NNN
+      evidence_ids: list[string]  # R8: string → list[string] (E-NNN 列表)
+      impact_category: enum  # data_credibility / measurement / causal_inference / comparison_fairness / generalization
+      description: string
+
+  supplementary_verification_plan:
+    - id: string  # V-NNN
+      question_to_verify: string
+      competing_explanations: list[string]
+      recommended_experiment: string
+      controls_needed: list[string]
+      observation_metrics: list[string]
+      decision_rule: string
+
+  method_overall_judgment:
+    method_appropriateness:
+      score: integer  # 1-5
+      anchors: string
+      key_evidence_ids: list[string]  # R8: key_evidence → key_evidence_ids，明确为 E/D-NNN 列表
+    evidence_quality:
+      score: integer
+      anchors: string
+      key_evidence_ids: list[string]
+    comparison_fairness:
+      score: integer
+      anchors: string
+      key_evidence_ids: list[string]
+    validity:
+      score: integer
+      anchors: string
+      key_evidence_ids: list[string]
+    reproducibility:
+      score: integer
+      anchors: string
+      key_evidence_ids: list[string]
+
+# R8 命名一致性映射表
+naming_convention:
+  principle: "所有 evidence 引用字段统一使用 xxx_evidence_ids 形式（list of E-NNN/D-NNN）"
+  aligned_with: P3 claim_evidence_ledger
+  changes:
+    - "research_design_audit.verification_evidence (string) → verification_evidence_ids (list[string])"
+    - "validity_threats.*.evidence_id (string) → evidence_ids (list[string])"
+    - "key_defects.evidence_id (string) → evidence_ids (list[string])"
+    - "method_overall_judgment.*.key_evidence (list) → key_evidence_ids (list, 明确为 ID)"
+
+validation_rules:
+  - "method_question_fit 至少覆盖 P1 中 importance=core 的全部 claim"
+  - "claim_evidence_ledger 至少覆盖 P3 ledger 中 importance=core 的全部 claim（R8 新增）"
+  - "claim_evidence_ledger 中每条 claim 必须有 cross_reference_to_p3（即使是空字符串也要显式声明无新增）"
+  - "supplementary_verification_plan 中每条 V-NNN 必须给出 decision_rule（不同结果如何影响结论）"
+  - "validity_threats 中不适用的类别应为空 list，不允许写 N/A 字符串"
+  - "severity=P0 的 key_defect 必须有 impact_category"
+  - "所有 *_evidence_ids 字段必须是 list（即使只有一个 E-NNN 也要写成 [E-001] 形式）"

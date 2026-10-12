@@ -1,0 +1,46 @@
+# P3 Output Schema
+
+artifact_type: p3_claim_evidence_ledger
+version: 1.0
+
+required_fields:
+  claim_evidence_ledger:
+    - claim_id: string  # C-NNN（来自 P1）
+      claim_text: string
+      position: string
+      claim_type: string
+      supporting_evidence_ids: list[string]  # E-NNN
+      opposing_evidence_ids: list[string]  # E-NNN
+      reasoning_rule: string
+      implicit_assumptions: list[string]
+      evidence_sufficiency: enum  # sufficient / partial / insufficient
+      reasoning_validity: enum  # valid / partial / invalid
+      scope_boundary: string
+      status: enum  # supported / partial / pending / refuted
+      judgment_basis: string
+
+  logic_defects:
+    - id: string  # D-NNN
+      related_claim_id: string  # C-NNN
+      defect_type: enum  # causal_confusion / overgeneralization / circular / selective / analogy / concept_swap / unproven_premise / other
+      textual_evidence: string  # 原文位置 + 引用
+      why_problematic: string
+      downstream_impact: string
+      severity: enum  # P0 / P1 / P2 / P3
+      suggested_fix: string
+
+  conclusion_strength_review:
+    - author_claim: string
+      evidence_supported_claim: string
+      gap: string
+      suggested_more_cautious_wording: string
+
+  dependency_analysis:
+    claim_dependencies: list[object]  # {claim_id, depends_on: [C-NNN]}
+    critical_premise_failures: list[object]  # {premise, affected_claims: [C-NNN]}
+
+validation_rules:
+  - "ledger 必须覆盖 P1 中 importance=core 的全部 claim"
+  - "status=refuted 的 claim 必须有 opposing_evidence_ids"
+  - "D-NNN 的 severity=P0 必须能在 dependency_analysis 中追溯到 critical_premise"
+  - "ledger 中每条 claim 至少有 1 条 evidence_id（除非 status=pending 且 judgment_basis 明确说明原因）"

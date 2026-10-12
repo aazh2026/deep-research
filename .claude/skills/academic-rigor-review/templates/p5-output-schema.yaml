@@ -1,0 +1,71 @@
+# P5 Output Schema
+
+artifact_type: p5_adversarial
+version: 1.1  # OPT-16: ensemble 模式增加 role 字段
+
+required_fields:
+  p5_metadata:
+    role: enum  # OPT-16: skeptic / practitioner / domain_expert
+    focus_dimensions: list[string]  # 该视角重点关注的 DIM
+    sub_field: string  # domain_expert 视角必填（如 "LLM multi-agent reasoning"）
+    narrative_type: enum  # OPT-15: 是否 optimistic 叙事（无 / mild / strong）
+    value_self_assessment: object  # OPT-R2.3: P5 自评（3 维评分）
+      novelty: integer  # 1-5
+      actionability: integer  # 1-5
+      impact: integer  # 1-5
+      total: integer  # novelty × actionability × impact
+      high_value_count: integer  # ≥12 分的缺陷数
+
+  core_claim_challenges:
+    - claim_id: string  # C-NNN
+      original_claim: string
+      strongest_counter_argument: string
+      counter_evidence_id: string  # E-NNN（P5 独立检索或推理得出）
+      key_assumption_under_attack: string
+      possible_counterexample: string
+      challenge_strength: enum  # fatal / major / moderate / weak
+      could_change_conclusion: enum  # yes / no / only_boundary
+
+  competing_explanations:
+    - alternative_explanation: string
+      why_plausible: string
+      article_addresses_it: enum  # yes / no / partial
+      evidence_needed_to_distinguish: string
+
+  new_defects:
+    - id: string  # D-NNN
+      related_claim_id: string  # C-NNN
+      evidence_id: string  # E-NNN
+      textual_position: string
+      description: string
+      severity: enum  # P0 / P1 / P2 / P3
+      defect_type: enum  # OPT-16: methodology / engineering / coverage
+      why_previous_reviewers_missed: string
+
+  conclusion_sensitivity:
+    - assumption_or_evidence: string
+      if_changed_conclusion: string
+
+  minimal_critical_verifications:
+    - id: string  # V-NNN
+      verification_target: string
+      expected_outcome: string
+      impact_on_conclusion: string
+
+  adversarial_final_judgment:
+    claims_surviving_challenge: list[string]  # C-NNN
+    claims_needing_rephrasing: list[string]  # C-NNN
+    claims_potentially_unsupported: list[string]  # C-NNN
+    unresolvable_questions: list[string]
+
+validation_rules:
+  - "如果 new_defects 为空，必须在 adversarial_final_judgment.unresolvable_questions 中说明为什么找不到前序未识别的问题"
+  - "challenge_strength=weak 的条目不允许超过全部 challenge 的 50%（否则视为凑数）"
+  - "minimal_critical_verifications 至少 1 条（必须有可执行的验证）"
+  - "D-NNN 必须与 P2-P4 已分配的 ID 互不重复（可后缀如 D-005-P5 表示 P5 分配的）"
+  # ---- OPT-16 P5 ensemble 校验 ----
+  - "ENS-1: p5_metadata.role 必填（skeptic / practitioner / domain_expert）"
+  - "ENS-2: domain_expert 视角必填 p5_metadata.sub_field"
+  - "ENS-3: new_defects 中每条 defect_type 必填（methodology / engineering / coverage）"
+  - "ENS-4: value_self_assessment.total = novelty × actionability × impact"
+  - "ENS-5: 独立 P5 输出（未 ensemble 合并）必须保留所有 3 个视角字段（role / focus_dimensions / sub_field）"
