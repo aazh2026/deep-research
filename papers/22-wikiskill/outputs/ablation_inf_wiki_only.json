@@ -1,0 +1,96 @@
+{
+  "config": {
+    "inf_wiki": true,
+    "prop_wiki": false
+  },
+  "n_train": 35,
+  "n_val": 10,
+  "n_iters": 3,
+  "val_per_iter": [
+    {
+      "iter": 0,
+      "R": 0.4,
+      "phase": "baseline"
+    },
+    {
+      "iter": 1,
+      "R": 0.5,
+      "R_best": 0.5,
+      "accepted": true
+    },
+    {
+      "iter": 2,
+      "R": 0.4,
+      "R_best": 0.5,
+      "accepted": false
+    },
+    {
+      "iter": 3,
+      "R": 0.6,
+      "R_best": 0.6,
+      "accepted": true
+    }
+  ],
+  "final_R_best": 0.6,
+  "final_wiki_size": 33,
+  "final_skills": [
+    "Apply: standard reasoning approach"
+  ],
+  "n_skills": 1,
+  "n_commits": 2,
+  "n_rollbacks": 1,
+  "elapsed_sec": 0.0008018016815185547,
+  "wiki_first_5": [
+    "pattern: let $m$ be",
+    "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
+    "pattern: let \\(n\\ge 2\\),",
+    "pattern: let $q=p^m$ be",
+    "pattern: let \\(\\omega\\) be"
+  ],
+  "log": [
+    {
+      "event": "baseline",
+      "iter": 0,
+      "R": 0.4
+    },
+    {
+      "event": "iteration",
+      "iter": 1,
+      "proposal": {
+        "skill_name": "skill-generic-baseline",
+        "skill_body": "Apply: standard reasoning approach",
+        "uses_wiki": false,
+        "iter": 1
+      },
+      "R_new": 0.5,
+      "R_best": 0.5,
+      "accepted": true
+    },
+    {
+      "event": "iteration",
+      "iter": 2,
+      "proposal": {
+        "skill_name": "skill-generic-baseline",
+        "skill_body": "Apply: standard reasoning approach",
+        "uses_wiki": false,
+        "iter": 2
+      },
+      "R_new": 0.4,
+      "R_best": 0.5,
+      "accepted": false
+    },
+    {
+      "event": "iteration",
+      "iter": 3,
+      "proposal": {
+        "skill_name": "skill-generic-baseline",
+        "skill_body": "Apply: standard reasoning approach",
+        "uses_wiki": false,
+        "iter": 3
+      },
+      "R_new": 0.6,
+      "R_best": 0.6,
+      "accepted": true
+    }
+  ]
+}
