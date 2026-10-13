@@ -1,0 +1,10 @@
+"""ChartQA 复现项目依赖。"""
+
+# 数据集加载
+datasets>=3.0,<4.0
+
+# PIL Image 解码（ChartQA 必装）
+Pillow>=10.0
+
+# 进度条
+tqdm>=4.65

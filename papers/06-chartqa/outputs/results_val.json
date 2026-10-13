@@ -1,0 +1,129 @@
+{
+  "config": {
+    "splits": [
+      "val"
+    ],
+    "text_vocab_size": 50,
+    "elapsed_sec": 57.38581705093384
+  },
+  "majority_predictor": {
+    "numeric": "64.0",
+    "text": "yes"
+  },
+  "val_results": {
+    "majority": {
+      "n_total": 1920,
+      "strict_acc": 0.0125,
+      "relaxed_acc": 0.024479166666666666,
+      "by_source": {
+        "human": {
+          "n": 960,
+          "n_correct": 35,
+          "acc": 0.036458333333333336
+        },
+        "machine": {
+          "n": 960,
+          "n_correct": 12,
+          "acc": 0.0125
+        }
+      },
+      "by_answer_type": {
+        "text": {
+          "n": 477,
+          "n_correct": 24,
+          "acc": 0.050314465408805034
+        },
+        "numeric": {
+          "n": 1443,
+          "n_correct": 23,
+          "acc": 0.01593901593901594
+        }
+      },
+      "by_source_x_type": {
+        "human_text": {
+          "n": 312,
+          "n_correct": 24,
+          "acc": 0.07692307692307693
+        },
+        "human_numeric": {
+          "n": 648,
+          "n_correct": 11,
+          "acc": 0.016975308641975308
+        },
+        "machine_text": {
+          "n": 165,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        "machine_numeric": {
+          "n": 795,
+          "n_correct": 12,
+          "acc": 0.01509433962264151
+        }
+      }
+    },
+    "random": {
+      "n_total": 1920,
+      "strict_acc": 0.0015625,
+      "relaxed_acc": 0.010416666666666666,
+      "by_source": {
+        "human": {
+          "n": 960,
+          "n_correct": 10,
+          "acc": 0.010416666666666666
+        },
+        "machine": {
+          "n": 960,
+          "n_correct": 10,
+          "acc": 0.010416666666666666
+        }
+      },
+      "by_answer_type": {
+        "text": {
+          "n": 477,
+          "n_correct": 3,
+          "acc": 0.006289308176100629
+        },
+        "numeric": {
+          "n": 1443,
+          "n_correct": 17,
+          "acc": 0.01178101178101178
+        }
+      },
+      "by_source_x_type": {
+        "human_text": {
+          "n": 312,
+          "n_correct": 3,
+          "acc": 0.009615384615384616
+        },
+        "human_numeric": {
+          "n": 648,
+          "n_correct": 7,
+          "acc": 0.010802469135802469
+        },
+        "machine_text": {
+          "n": 165,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        "machine_numeric": {
+          "n": 795,
+          "n_correct": 10,
+          "acc": 0.012578616352201259
+        }
+      }
+    }
+  },
+  "paper_claim_validation": {
+    "val_majority_gap": {
+      "human_acc": 0.036458333333333336,
+      "machine_acc": 0.0125,
+      "gap": -0.023958333333333335
+    },
+    "val_random_gap": {
+      "human_acc": 0.010416666666666666,
+      "machine_acc": 0.010416666666666666,
+      "gap": 0.0
+    }
+  }
+}
