@@ -1,0 +1,9 @@
+# 14-synthdocbench 本地缓存
+# （根 .gitignore 已覆盖 .venv/ 和 cache/，此处补充 PDF 缓存）
+
+# 所有 PDF 本地副本（按需下载的源数据，体量大）
+data/pdfs/**/*.pdf
+
+# HF dataset 缓存目录
+data/pdfs/pdfs/
+data/pdfs/.cache/

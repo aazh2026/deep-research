@@ -1,0 +1,13 @@
+"""SynthDocBench 复现项目依赖。"""
+
+# 数据集加载
+datasets>=3.0,<4.0
+
+# PDF 文本提取
+pymupdf>=1.24,<2.0
+
+# HuggingFace Hub（下载 PDF）
+huggingface_hub>=0.20,<1.0
+
+# 进度条
+tqdm>=4.65
