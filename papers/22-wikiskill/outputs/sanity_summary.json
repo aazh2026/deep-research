@@ -1,0 +1,72 @@
+{
+  "no_wiki": {
+    "config": {
+      "inf_wiki": false,
+      "prop_wiki": false,
+      "no_maintainer": false
+    },
+    "final_R_best": 0.6,
+    "final_wiki_size": 33,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_commits": 1,
+    "n_rollbacks": 7
+  },
+  "inf_wiki_only": {
+    "config": {
+      "inf_wiki": true,
+      "prop_wiki": false,
+      "no_maintainer": false
+    },
+    "final_R_best": 0.6,
+    "final_wiki_size": 33,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_commits": 1,
+    "n_rollbacks": 7
+  },
+  "prop_wiki_only": {
+    "config": {
+      "inf_wiki": false,
+      "prop_wiki": true,
+      "no_maintainer": false
+    },
+    "final_R_best": 0.6,
+    "final_wiki_size": 33,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_commits": 1,
+    "n_rollbacks": 7
+  },
+  "prop_wiki_no_mnt": {
+    "config": {
+      "inf_wiki": false,
+      "prop_wiki": true,
+      "no_maintainer": true
+    },
+    "final_R_best": 0.6,
+    "final_wiki_size": 0,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_commits": 1,
+    "n_rollbacks": 7
+  },
+  "full": {
+    "config": {
+      "inf_wiki": true,
+      "prop_wiki": true,
+      "no_maintainer": false
+    },
+    "final_R_best": 0.6,
+    "final_wiki_size": 33,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_commits": 1,
+    "n_rollbacks": 7
+  }
+}

@@ -33,6 +33,9 @@ class MockLLM:
         wiki_aware: 是否让 inference/proposer 真正"读" wiki
         base_accuracy: 不读 wiki 时的"基础"正确率（0.0-1.0）
         wiki_boost: 读 wiki 时多出来的正确率（叠加在 base 上）
+        forced_no_wiki: **调试用**——为 True 时无论 wiki_aware 与 wiki 是否有内容，
+            都强制走"不看 wiki"分支。用于 sanity 测试：验证 ablation 差异
+            真的来自 wiki 而不是 config 开关。
     """
 
     def __init__(
@@ -41,15 +44,23 @@ class MockLLM:
         wiki_aware: bool = True,
         base_accuracy: float = 0.30,
         wiki_boost: float = 0.20,
+        forced_no_wiki: bool = False,
     ):
         self.seed = seed
         self.wiki_aware = wiki_aware
         self.base_accuracy = base_accuracy
         self.wiki_boost = wiki_boost
+        self.forced_no_wiki = forced_no_wiki
         self._rng = random.Random(seed)
 
     def reset(self):
         self._rng = random.Random(self.seed)
+
+    def _wiki_active(self, wiki_entries: list[str]) -> bool:
+        """是否真的"用" wiki。forced_no_wiki 优先级最高（debug override）。"""
+        if self.forced_no_wiki:
+            return False
+        return self.wiki_aware and len(wiki_entries) > 0
 
     # ------------------------------------------------------------------
     # Inference Agent
@@ -70,7 +81,7 @@ class MockLLM:
             return ""
 
         # 概率：正确率 = base + (wiki_aware 且 wiki 非空 ? boost : 0)
-        wiki_active = self.wiki_aware and len(wiki_entries) > 0
+        wiki_active = self._wiki_active(wiki_entries)
         target_acc = self.base_accuracy + (self.wiki_boost if wiki_active else 0.0)
 
         if self._rng.random() < target_acc:
@@ -123,7 +134,7 @@ class MockLLM:
         wiki_aware=True 且 wiki 非空 → proposal 引用 wiki 第一条 pattern
         wiki_aware=False 或 wiki 空 → proposal 是 fixed 模板
         """
-        wiki_active = self.wiki_aware and len(wiki_entries) > 0
+        wiki_active = self._wiki_active(wiki_entries)
 
         if wiki_active:
             ref = wiki_entries[0]

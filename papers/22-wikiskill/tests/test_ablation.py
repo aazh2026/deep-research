@@ -68,9 +68,53 @@ def test_gating_happens():
     for name in ABLATION_CONFIGS:
         data = json.loads(Path(__file__).parent.parent.joinpath(f"outputs/ablation_{name}.json").read_text())
         total_rollbacks += data["n_rollbacks"]
-    # 3 iter × 4 config = 12 个 proposal 机会；至少应该有几次 rollback
+    # 8 iter × 5 config = 40 个 proposal 机会；至少应该有几次 rollback
     assert total_rollbacks >= 1, f"expected at least 1 rollback, got {total_rollbacks}"
     print(f"✓ test_gating_happens (total_rollbacks={total_rollbacks})")
+
+
+def test_sanity_forced_no_wiki_makes_ablations_identical():
+    """Sanity: 强制不看 wiki → 4 个 config 应该产生**完全相同**的 skill body。
+
+    意义：如果 sanity 下 4 config 仍然不同 → 说明原 ablation 的差异
+    不是 wiki 驱动的，是 config flag 自身驱动的（inf_wiki=True 时 MockLLM
+    base_accuracy 提升了 → gating 决策不同 → 间接改了 skill 路径）。
+    这种情况下原 ablation claim 不成立。
+    """
+    sanity = json.loads(
+        Path(__file__).parent.parent.joinpath("outputs/sanity_summary.json").read_text()
+    )
+
+    skill_sets = {name: frozenset(d["final_skills"]) for name, d in sanity.items()}
+    distinct = set(skill_sets.values())
+
+    print(f"  sanity distinct skill sets: {len(distinct)}")
+    for name, skills in skill_sets.items():
+        print(f"    {name}: {len(skills)} unique skill(s)")
+
+    # sanity 期望：1（全部相同）
+    assert len(distinct) == 1, (
+        f"sanity ablation produced {len(distinct)} distinct skill sets, expected 1.\n"
+        f"This means ablation diffs in main run are NOT purely wiki-driven.\n"
+        f"Skill sets: {skill_sets}"
+    )
+    print("✓ test_sanity_forced_no_wiki_makes_ablations_identical (ablation diffs are wiki-driven)")
+
+
+def test_multi_seed_summary_exists():
+    """多 seed 统计应该存在且每个 config 有 mean ± std。"""
+    p = Path(__file__).parent.parent / "outputs" / "ablation_multi_seed.json"
+    assert p.exists(), f"missing {p}"
+    data = json.loads(p.read_text())
+    for name in ABLATION_CONFIGS:
+        assert name in data
+        d = data[name]
+        assert "r_best_mean" in d and "r_best_std" in d
+        assert "wiki_size_mean" in d and "wiki_size_std" in d
+        assert d["n_seeds"] >= 3, f"expected at least 3 seeds, got {d['n_seeds']}"
+        # mean 在 [0, 1]
+        assert 0.0 <= d["r_best_mean"] <= 1.0
+    print(f"✓ test_multi_seed_summary_exists (5 configs × {data['no_wiki']['n_seeds']} seeds)")
 
 
 if __name__ == "__main__":
@@ -78,4 +122,6 @@ if __name__ == "__main__":
     test_full_skill_uses_wiki_pattern()
     test_wiki_monotonic_across_ablation()
     test_gating_happens()
+    test_sanity_forced_no_wiki_makes_ablations_identical()
+    test_multi_seed_summary_exists()
     print("\n所有 ablation 测试通过。")

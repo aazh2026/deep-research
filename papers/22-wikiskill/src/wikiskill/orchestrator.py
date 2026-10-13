@@ -14,17 +14,26 @@ from .workspace import WikiWorkspace
 
 
 # ---------------------------------------------------------------------------
-# 4 个 ablation 配置（Table 3, Gemini-3.5-Flash, default WikiSkill）
+# 5 个 ablation 配置（Table 3, Gemini-3.5-Flash, default WikiSkill）
 # ---------------------------------------------------------------------------
+# 字段说明：
+#   inf_wiki:  InferenceAgent 是否读 wiki
+#   prop_wiki: SkillProposer 是否读 wiki
+#   no_maintainer: 是否跳过 WikiMaintainer（paper row 3 在 Prop 读 wiki 但 Inf 不读
+#                  时**移除** Maintainer，因为 Maintainer 写 wiki 但 Inf 不读 → wiki 增长
+#                  对 inf 无用。本实现提供两个版本：prop_wiki_only 保留 Maintainer
+#                  （wiki 仍增长，便于看 wiki 累积）；prop_wiki_no_mnt 严格对齐 paper row 3）
 ABLATION_CONFIGS: dict[str, dict[str, bool]] = {
     # Table 3 第一行：NoSkill（baseline）—— Inf 和 Prop 都不读 wiki
-    "no_wiki": dict(inf_wiki=False, prop_wiki=False),
+    "no_wiki": dict(inf_wiki=False, prop_wiki=False, no_maintainer=False),
     # Table 3 第二行：Inf 读 wiki 但 Prop 不读
-    "inf_wiki_only": dict(inf_wiki=True, prop_wiki=False),
-    # Table 3 第三行：Prop 读 wiki 但 Inf 不读（去除 Maintainer）
-    "prop_wiki_only": dict(inf_wiki=False, prop_wiki=True),
+    "inf_wiki_only": dict(inf_wiki=True, prop_wiki=False, no_maintainer=False),
+    # Table 3 第三行（变体 A）：Prop 读 wiki 但 Inf 不读（保留 Maintainer 方便看 wiki 增长）
+    "prop_wiki_only": dict(inf_wiki=False, prop_wiki=True, no_maintainer=False),
+    # Table 3 第三行（**严格对齐 paper**）：Prop 读 wiki 但 Inf 不读，**且**移除 Maintainer
+    "prop_wiki_no_mnt": dict(inf_wiki=False, prop_wiki=True, no_maintainer=True),
     # Table 3 第四行：default WikiSkill，Inf 和 Prop 都读 wiki
-    "full": dict(inf_wiki=True, prop_wiki=True),
+    "full": dict(inf_wiki=True, prop_wiki=True, no_maintainer=False),
 }
 
 
@@ -55,6 +64,7 @@ def algorithm_one_loop(
     val: list[dict],
     n_iters: int = 3,
     early_stop: bool = True,
+    no_maintainer: bool = False,
 ) -> dict[str, Any]:
     """Algorithm 1: WikiSkill evolution loop.
 
@@ -101,9 +111,12 @@ def algorithm_one_loop(
                 **tr,
             })
 
-        # --- line 9: Wiki Maintainer ---
-        new_patterns = maintainer.consolidate(train_traces)
-        workspace.update_wiki(new_patterns, source="maintainer")
+        # --- line 9: Wiki Maintainer (skipped when no_maintainer=True, 对应 paper Table 3 row 3) ---
+        if not no_maintainer:
+            new_patterns = maintainer.consolidate(train_traces)
+            workspace.update_wiki(new_patterns, source="maintainer")
+        else:
+            new_patterns = []
 
         # --- line 10: Skill Proposer ---
         proposal: SkillPatch = proposer.propose(

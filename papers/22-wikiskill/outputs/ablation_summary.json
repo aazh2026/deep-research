@@ -2,11 +2,12 @@
   "no_wiki": {
     "config": {
       "inf_wiki": false,
-      "prop_wiki": false
+      "prop_wiki": false,
+      "no_maintainer": false
     },
     "n_train": 35,
     "n_val": 10,
-    "n_iters": 3,
+    "n_iters": 8,
     "val_per_iter": [
       {
         "iter": 0,
@@ -28,6 +29,36 @@
       {
         "iter": 3,
         "R": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 4,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 5,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 6,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 7,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 8,
+        "R": 0.4,
         "R_best": 0.6,
         "accepted": false
       }
@@ -39,8 +70,8 @@
     ],
     "n_skills": 1,
     "n_commits": 1,
-    "n_rollbacks": 2,
-    "elapsed_sec": 0.0009398460388183594,
+    "n_rollbacks": 7,
+    "elapsed_sec": 0.0029778480529785156,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -92,17 +123,83 @@
         "R_new": 0.3,
         "R_best": 0.6,
         "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 4,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 4
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 5,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 5
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 6,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 6
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 7,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 7
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 8,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 8
+        },
+        "R_new": 0.4,
+        "R_best": 0.6,
+        "accepted": false
       }
     ]
   },
   "inf_wiki_only": {
     "config": {
       "inf_wiki": true,
-      "prop_wiki": false
+      "prop_wiki": false,
+      "no_maintainer": false
     },
     "n_train": 35,
     "n_val": 10,
-    "n_iters": 3,
+    "n_iters": 8,
     "val_per_iter": [
       {
         "iter": 0,
@@ -126,17 +223,47 @@
         "R": 0.6,
         "R_best": 0.6,
         "accepted": true
+      },
+      {
+        "iter": 4,
+        "R": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 5,
+        "R": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 6,
+        "R": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 7,
+        "R": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 8,
+        "R": 0.7,
+        "R_best": 0.7,
+        "accepted": true
       }
     ],
-    "final_R_best": 0.6,
+    "final_R_best": 0.7,
     "final_wiki_size": 33,
     "final_skills": [
-      "Apply: standard reasoning approach"
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
     ],
     "n_skills": 1,
-    "n_commits": 2,
-    "n_rollbacks": 1,
-    "elapsed_sec": 0.0008018016815185547,
+    "n_commits": 3,
+    "n_rollbacks": 5,
+    "elapsed_sec": 0.0025839805603027344,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -188,17 +315,83 @@
         "R_new": 0.6,
         "R_best": 0.6,
         "accepted": true
+      },
+      {
+        "event": "iteration",
+        "iter": 4,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 4
+        },
+        "R_new": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 5,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 5
+        },
+        "R_new": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 6,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 6
+        },
+        "R_new": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 7,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 7
+        },
+        "R_new": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 8,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 8
+        },
+        "R_new": 0.7,
+        "R_best": 0.7,
+        "accepted": true
       }
     ]
   },
   "prop_wiki_only": {
     "config": {
       "inf_wiki": false,
-      "prop_wiki": true
+      "prop_wiki": true,
+      "no_maintainer": false
     },
     "n_train": 35,
     "n_val": 10,
-    "n_iters": 3,
+    "n_iters": 8,
     "val_per_iter": [
       {
         "iter": 0,
@@ -220,6 +413,36 @@
       {
         "iter": 3,
         "R": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 4,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 5,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 6,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 7,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 8,
+        "R": 0.4,
         "R_best": 0.6,
         "accepted": false
       }
@@ -231,8 +454,8 @@
     ],
     "n_skills": 1,
     "n_commits": 1,
-    "n_rollbacks": 2,
-    "elapsed_sec": 0.0007970333099365234,
+    "n_rollbacks": 7,
+    "elapsed_sec": 0.0027151107788085938,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -284,17 +507,269 @@
         "R_new": 0.3,
         "R_best": 0.6,
         "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 4,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 4
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 5,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 5
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 6,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 6
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 7,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 7
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 8,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 8
+        },
+        "R_new": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      }
+    ]
+  },
+  "prop_wiki_no_mnt": {
+    "config": {
+      "inf_wiki": false,
+      "prop_wiki": true,
+      "no_maintainer": true
+    },
+    "n_train": 35,
+    "n_val": 10,
+    "n_iters": 8,
+    "val_per_iter": [
+      {
+        "iter": 0,
+        "R": 0.4,
+        "phase": "baseline"
+      },
+      {
+        "iter": 1,
+        "R": 0.3,
+        "R_best": 0.4,
+        "accepted": false
+      },
+      {
+        "iter": 2,
+        "R": 0.6,
+        "R_best": 0.6,
+        "accepted": true
+      },
+      {
+        "iter": 3,
+        "R": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 4,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 5,
+        "R": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 6,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 7,
+        "R": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 8,
+        "R": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      }
+    ],
+    "final_R_best": 0.6,
+    "final_wiki_size": 0,
+    "final_skills": [
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
+    ],
+    "n_skills": 1,
+    "n_commits": 1,
+    "n_rollbacks": 7,
+    "elapsed_sec": 0.001786947250366211,
+    "wiki_first_5": [],
+    "log": [
+      {
+        "event": "baseline",
+        "iter": 0,
+        "R": 0.4
+      },
+      {
+        "event": "iteration",
+        "iter": 1,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 1
+        },
+        "R_new": 0.3,
+        "R_best": 0.4,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 2,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 2
+        },
+        "R_new": 0.6,
+        "R_best": 0.6,
+        "accepted": true
+      },
+      {
+        "event": "iteration",
+        "iter": 3,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 3
+        },
+        "R_new": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 4,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 4
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 5,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 5
+        },
+        "R_new": 0.0,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 6,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 6
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 7,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 7
+        },
+        "R_new": 0.2,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 8,
+        "proposal": {
+          "skill_name": "skill-generic-baseline",
+          "skill_body": "Apply: standard reasoning approach",
+          "uses_wiki": false,
+          "iter": 8
+        },
+        "R_new": 0.4,
+        "R_best": 0.6,
+        "accepted": false
       }
     ]
   },
   "full": {
     "config": {
       "inf_wiki": true,
-      "prop_wiki": true
+      "prop_wiki": true,
+      "no_maintainer": false
     },
     "n_train": 35,
     "n_val": 10,
-    "n_iters": 3,
+    "n_iters": 8,
     "val_per_iter": [
       {
         "iter": 0,
@@ -318,17 +793,47 @@
         "R": 0.6,
         "R_best": 0.6,
         "accepted": true
+      },
+      {
+        "iter": 4,
+        "R": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 5,
+        "R": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 6,
+        "R": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 7,
+        "R": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "iter": 8,
+        "R": 0.7,
+        "R_best": 0.7,
+        "accepted": true
       }
     ],
-    "final_R_best": 0.6,
+    "final_R_best": 0.7,
     "final_wiki_size": 33,
     "final_skills": [
-      "Apply: pattern: let $m$ be"
+      "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be"
     ],
     "n_skills": 1,
-    "n_commits": 2,
-    "n_rollbacks": 1,
-    "elapsed_sec": 0.0007348060607910156,
+    "n_commits": 3,
+    "n_rollbacks": 5,
+    "elapsed_sec": 0.002393960952758789,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -379,6 +884,71 @@
         },
         "R_new": 0.6,
         "R_best": 0.6,
+        "accepted": true
+      },
+      {
+        "event": "iteration",
+        "iter": 4,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 4
+        },
+        "R_new": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 5,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 5
+        },
+        "R_new": 0.3,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 6,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 6
+        },
+        "R_new": 0.4,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 7,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 7
+        },
+        "R_new": 0.5,
+        "R_best": 0.6,
+        "accepted": false
+      },
+      {
+        "event": "iteration",
+        "iter": 8,
+        "proposal": {
+          "skill_name": "skill-let-$m$-be",
+          "skill_body": "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be",
+          "uses_wiki": true,
+          "iter": 8
+        },
+        "R_new": 0.7,
+        "R_best": 0.7,
         "accepted": true
       }
     ]
