@@ -63,14 +63,14 @@
     }
   ],
   "final_R_best": 0.7,
-  "final_wiki_size": 33,
+  "final_wiki_size": 34,
   "final_skills": [
     "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
   ],
   "n_skills": 1,
   "n_commits": 3,
   "n_rollbacks": 5,
-  "elapsed_sec": 0.0025839805603027344,
+  "elapsed_sec": 0.0028841495513916016,
   "wiki_first_5": [
     "pattern: let $m$ be",
     "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",

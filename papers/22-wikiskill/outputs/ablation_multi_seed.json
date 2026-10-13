@@ -24,14 +24,14 @@
     "r_best_mean": 0.54,
     "r_best_std": 0.11401754250991378,
     "wiki_size_per_seed": [
-      33,
-      33,
-      33,
-      33,
-      33
+      34,
+      34,
+      34,
+      35,
+      34
     ],
-    "wiki_size_mean": 33.0,
-    "wiki_size_std": 0.0,
+    "wiki_size_mean": 34.2,
+    "wiki_size_std": 0.4472135954999579,
     "n_commits_per_seed": [
       1,
       1,
@@ -74,14 +74,14 @@
     "r_best_mean": 0.74,
     "r_best_std": 0.08944271909999163,
     "wiki_size_per_seed": [
-      33,
-      33,
-      33,
-      33,
-      33
+      34,
+      34,
+      35,
+      34,
+      35
     ],
-    "wiki_size_mean": 33.0,
-    "wiki_size_std": 0.0,
+    "wiki_size_mean": 34.4,
+    "wiki_size_std": 0.5477225575051661,
     "n_commits_per_seed": [
       3,
       2,
@@ -124,14 +124,14 @@
     "r_best_mean": 0.54,
     "r_best_std": 0.11401754250991378,
     "wiki_size_per_seed": [
-      33,
-      33,
-      33,
-      33,
-      33
+      34,
+      34,
+      34,
+      35,
+      34
     ],
-    "wiki_size_mean": 33.0,
-    "wiki_size_std": 0.0,
+    "wiki_size_mean": 34.2,
+    "wiki_size_std": 0.4472135954999579,
     "n_commits_per_seed": [
       1,
       1,
@@ -224,14 +224,14 @@
     "r_best_mean": 0.74,
     "r_best_std": 0.08944271909999163,
     "wiki_size_per_seed": [
-      33,
-      33,
-      33,
-      33,
-      33
+      34,
+      34,
+      35,
+      34,
+      35
     ],
-    "wiki_size_mean": 33.0,
-    "wiki_size_std": 0.0,
+    "wiki_size_mean": 34.4,
+    "wiki_size_std": 0.5477225575051661,
     "n_commits_per_seed": [
       3,
       2,

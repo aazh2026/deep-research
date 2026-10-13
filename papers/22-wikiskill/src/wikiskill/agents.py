@@ -49,8 +49,18 @@ class WikiMaintainer:
     def __init__(self, llm: MockLLM):
         self.llm = llm
 
-    def consolidate(self, traces: list[dict]) -> list[str]:
-        return self.llm.maintain(traces, current_wiki=[])
+    def consolidate(
+        self,
+        traces: list[dict],
+        current_skills: list[str] | None = None,
+    ) -> list[str]:
+        """从 traces + 当前已 commit 的 skills 抽 pattern。
+
+        `current_skills` 让 Maintainer **skill-aware**：不同 config 跑出
+        不同 skills 后，wiki 内容会真实地分歧（v1 弱点：4 config wiki
+        严格相同 → Jaccard=1.0）。
+        """
+        return self.llm.maintain(traces, current_wiki=[], current_skills=current_skills)
 
 
 class SkillProposer:

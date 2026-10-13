@@ -112,8 +112,9 @@ def algorithm_one_loop(
             })
 
         # --- line 9: Wiki Maintainer (skipped when no_maintainer=True, 对应 paper Table 3 row 3) ---
+        # 传 current_skills 让 Maintainer skill-aware（v2 改进）
         if not no_maintainer:
-            new_patterns = maintainer.consolidate(train_traces)
+            new_patterns = maintainer.consolidate(train_traces, current_skills=skills.current())
             workspace.update_wiki(new_patterns, source="maintainer")
         else:
             new_patterns = []

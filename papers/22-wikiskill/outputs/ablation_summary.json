@@ -64,14 +64,14 @@
       }
     ],
     "final_R_best": 0.6,
-    "final_wiki_size": 33,
+    "final_wiki_size": 34,
     "final_skills": [
       "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
     ],
     "n_skills": 1,
     "n_commits": 1,
     "n_rollbacks": 7,
-    "elapsed_sec": 0.0029778480529785156,
+    "elapsed_sec": 0.003237009048461914,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -256,14 +256,14 @@
       }
     ],
     "final_R_best": 0.7,
-    "final_wiki_size": 33,
+    "final_wiki_size": 34,
     "final_skills": [
       "Apply: DESTRUCTIVE_OVERRIDE Apply: standard reasoning approach"
     ],
     "n_skills": 1,
     "n_commits": 3,
     "n_rollbacks": 5,
-    "elapsed_sec": 0.0025839805603027344,
+    "elapsed_sec": 0.0028841495513916016,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -448,14 +448,14 @@
       }
     ],
     "final_R_best": 0.6,
-    "final_wiki_size": 33,
+    "final_wiki_size": 34,
     "final_skills": [
       "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be"
     ],
     "n_skills": 1,
     "n_commits": 1,
     "n_rollbacks": 7,
-    "elapsed_sec": 0.0027151107788085938,
+    "elapsed_sec": 0.003016948699951172,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",
@@ -647,7 +647,7 @@
     "n_skills": 1,
     "n_commits": 1,
     "n_rollbacks": 7,
-    "elapsed_sec": 0.001786947250366211,
+    "elapsed_sec": 0.0019299983978271484,
     "wiki_first_5": [],
     "log": [
       {
@@ -826,14 +826,14 @@
       }
     ],
     "final_R_best": 0.7,
-    "final_wiki_size": 33,
+    "final_wiki_size": 34,
     "final_skills": [
       "Apply: DESTRUCTIVE_OVERRIDE Apply: pattern: let $m$ be"
     ],
     "n_skills": 1,
     "n_commits": 3,
     "n_rollbacks": 5,
-    "elapsed_sec": 0.002393960952758789,
+    "elapsed_sec": 0.0026471614837646484,
     "wiki_first_5": [
       "pattern: let $m$ be",
       "pattern: let \\(\\mathbb d=\\{z\\in\\mathbb",

@@ -9,11 +9,11 @@
 
 | Config | Inf→wiki | Prop→wiki | Mnt? | R_best (mean±std) | Wiki (mean±std) | n_commits | n_rollbacks |
 |---|---|---|---|---:|---:|---:|---:|
-| `no_wiki` | False | False | ✅ | 0.540±0.114 | 33.0±0.0 | 1.8 | 6.2 |
-| `inf_wiki_only` | True | False | ✅ | 0.740±0.089 | 33.0±0.0 | 2.6 | 5.4 |
-| `prop_wiki_only` | False | True | ✅ | 0.540±0.114 | 33.0±0.0 | 1.8 | 6.2 |
+| `no_wiki` | False | False | ✅ | 0.540±0.114 | 34.2±0.4 | 1.8 | 6.2 |
+| `inf_wiki_only` | True | False | ✅ | 0.740±0.089 | 34.4±0.5 | 2.6 | 5.4 |
+| `prop_wiki_only` | False | True | ✅ | 0.540±0.114 | 34.2±0.4 | 1.8 | 6.2 |
 | `prop_wiki_no_mnt` | False | True | ❌ | 0.540±0.114 | 0.0±0.0 | 1.8 | 6.2 |
-| `full` | True | True | ✅ | 0.740±0.089 | 33.0±0.0 | 2.6 | 5.4 |
+| `full` | True | True | ✅ | 0.740±0.089 | 34.4±0.5 | 2.6 | 5.4 |
 
 ## 关键发现
 

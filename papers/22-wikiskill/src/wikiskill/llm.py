@@ -101,22 +101,37 @@ class MockLLM:
         self,
         traces: list[dict[str, Any]],
         current_wiki: list[str],
+        current_skills: list[str] | None = None,
     ) -> list[str]:
         """从 traces 抽 pattern，加进 wiki。
 
         Maintainer **总是**更新 wiki（与 wiki_aware 无关）——paper §3.2.4：
         "Wiki Maintainer revises the index.md catalog" 是无条件行为。
+
+        **Skill-aware (v2)**：除 query-based pattern 外，还会从已 commit 的
+        skills 抽 "skill_use: <name>" 模式加入 wiki。这样不同 ablation
+        config 跑出不同 skills 后，下一轮的 wiki 内容会**真实地分歧**
+        （之前 4 config wiki Jaccard=1.0 是 v1 的弱点）。
         """
         new_entries: list[str] = []
         for tr in traces:
             # 从 trace 的 query 抽前 3 个关键词当 pattern
             q = tr.get("query", "")
             toks = q.lower().split()[:3]
-            if not toks:
-                continue
-            pattern = "pattern: " + " ".join(toks)
-            if pattern not in current_wiki and pattern not in new_entries:
-                new_entries.append(pattern)
+            if toks:
+                pattern = "pattern: " + " ".join(toks)
+                if pattern not in current_wiki and pattern not in new_entries:
+                    new_entries.append(pattern)
+
+        # Skill-aware: 把已 commit 的 skills 编码进 wiki
+        if current_skills:
+            for sk in current_skills[-3:]:  # 最近 3 个 skills
+                # 用 skill_body 前 30 字符当 skill identifier
+                body_tokens = sk.replace("Apply:", "").strip().split()[:4]
+                if body_tokens:
+                    sk_pattern = "skill_use: " + " ".join(body_tokens)
+                    if sk_pattern not in current_wiki and sk_pattern not in new_entries:
+                        new_entries.append(sk_pattern)
         return new_entries
 
     # ------------------------------------------------------------------
