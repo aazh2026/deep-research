@@ -1,0 +1,4 @@
+datasets>=2.14
+editdistance>=0.8
+Pillow>=10.0
+tqdm>=4.66
