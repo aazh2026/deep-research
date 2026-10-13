@@ -1,0 +1,56 @@
+{
+  "scenarios": [
+    {
+      "scenario": "perfect",
+      "n_questions": 40,
+      "n_answers": 4,
+      "noise": 0.0,
+      "tie_rate": 0.0,
+      "accuracy": 1.0,
+      "spearman": 1.0,
+      "kendall": 1.0
+    },
+    {
+      "scenario": "reverse",
+      "n_questions": 40,
+      "n_answers": 4,
+      "noise": 10.0,
+      "tie_rate": 0.0,
+      "accuracy": 0.4458333333333333,
+      "spearman": 0.1685245166441891,
+      "kendall": 0.1358804391649821
+    },
+    {
+      "scenario": "moderate",
+      "n_questions": 40,
+      "n_answers": 4,
+      "noise": 0.5,
+      "tie_rate": 0.0,
+      "accuracy": 0.9708333333333334,
+      "spearman": 0.9650000000000001,
+      "kendall": 0.9416666666666667
+    },
+    {
+      "scenario": "moderate_with_ties",
+      "n_questions": 40,
+      "n_answers": 4,
+      "noise": 0.5,
+      "tie_rate": 0.3,
+      "accuracy": 0.7416666666666667,
+      "spearman": 0.766852332590832,
+      "kendall": 0.7120393247567159
+    }
+  ],
+  "paper_baseline": {
+    "RSLIR": {
+      "accuracy": 0.7796,
+      "spearman": 0.7071,
+      "kendall": 0.5592
+    },
+    "SCUNLP": {
+      "accuracy": 0.6883,
+      "spearman": 0.5197,
+      "kendall": 0.3827
+    }
+  }
+}
