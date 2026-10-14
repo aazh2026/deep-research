@@ -1,0 +1,372 @@
+=== astropy__astropy-12907 (astropy/astropy) ===
+Time: 17.1s, tokens 595→3424
+Predicted (539 chars):
+diff --git a/astropy/modeling/separable.py b/astropy/modeling/separable.py
+--- a/astropy/modeling/separable.py
++++ b/astropy/modeling/separable.py
+@@ -165,8 +165,8 @@ def _compound_separability_matrix(model):
+     if len(model) == 1:
+         return separability_matrix(model[0])
+ 
+-    left = _model_separability_matrix(model.left)
+-    right = _model_separability_matrix(model.right)
++    left = separability_matrix(model.left)
++    right = separability_matrix(model.right)
+ 
+     return _cstack_separable(_rstack_separable(left, right))
+
+Gold (470 chars):
+diff --git a/astropy/modeling/separable.py b/astropy/modeling/separable.py
+--- a/astropy/modeling/separable.py
++++ b/astropy/modeling/separable.py
+@@ -242,7 +242,7 @@ def _cstack(left, right):
+         cright = _coord_matrix(right, 'right', noutp)
+     else:
+         cright = np.zeros((noutp, right.shape[1]))
+-        cright[-right.shape[0]:, -right.shape[1]:] = 1
++        cright[-right.shape[0]:, -right.shape[1]:] = right
+ 
+     return np.hstack([cleft, cright])
+ 
+
+
+
+=== camel-ai__camel-1627 (camel-ai/camel) ===
+Time: 77.5s, tokens 446→16000
+Predicted (48087 chars):
+diff --git a/camel/prompts/instruction_filter.py b/camel/prompts/instruction_filter.py
+index ...
+--- ...
++++ ...
+@@
+-    def filter(self, instruction: str) -> str:
++    def filter(self, instruction: str) -> Optional[str]:
+         for filter_func in self.filters:
+-            instruction = filter_func(instruction)
++            filtered_instruction = filter_func(instruction)
++            if filtered_instruction:
++                return filtered_instruction
+-        return instruction
++        return None
+```
+Let's locate likely file via GitHub naming. Search package API from memory of autocompl
+... [truncated, total 48087 chars]
+
+Gold (4239 chars):
+diff --git a/camel/datagen/self_instruct/filter/instruction_filter.py b/camel/datagen/self_instruct/filter/instruction_filter.py
+index 155cc1aa88..1df0a2bd5f 100644
+--- a/camel/datagen/self_instruct/filter/instruction_filter.py
++++ b/camel/datagen/self_instruct/filter/instruction_filter.py
+@@ -11,14 +11,22 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ # ========= Copyright 2023-2024 @ CAMEL-AI.org. All Rights Reserved. =========
+-from typing import Any, Dict, List
++from typing import Any, Dict, List, Tuple, Union
++
++from camel.logg
+... [truncated]
+
+
+=== django__django-11099 (django/django) ===
+Time: 21.5s, tokens 447→1076
+Predicted (637 chars):
+diff --git a/django/contrib/auth/validators.py b/django/contrib/auth/validators.py
+--- a/django/contrib/auth/validators.py
++++ b/django/contrib/auth/validators.py
+@@ -20,7 +20,7 @@ __all__ = [
+ 
+ @deconstructible
+ class ASCIIUsernameValidator(RegexValidator):
+-    regex = r'^[\w.@+-]+$'
++    regex = r'\A[\w.@+-]+\Z'
+     message = _('Enter a valid username.')
+     flags = 0
+ 
+@@ -28,7 +28,7 @@ class ASCIIUsernameValidator(RegexValidator):
+ 
+ @deconstructible
+ class UnicodeUsernameValidator(RegexValidator):
+-    regex = r'^[\w.@+-]+$'
++    regex = r'\A[\w.@+-]+\Z'
+     message = _('Enter a vali
+... [truncated, total 637 chars]
+
+Gold (808 chars):
+diff --git a/django/contrib/auth/validators.py b/django/contrib/auth/validators.py
+--- a/django/contrib/auth/validators.py
++++ b/django/contrib/auth/validators.py
+@@ -7,7 +7,7 @@
+ 
+ @deconstructible
+ class ASCIIUsernameValidator(validators.RegexValidator):
+-    regex = r'^[\w.@+-]+$'
++    regex = r'^[\w.@+-]+\Z'
+     message = _(
+         'Enter a valid username. This value may contain only English letters, '
+         'numbers, and @/./+/-/_ characters.'
+@@ -17,7 +17,7 @@ class ASCIIUsernameValidator(validators.RegexValidator):
+ 
+ @deconstructible
+ class UnicodeUsernameValidator(validators.Reg
+... [truncated]
+
+
+=== fastapi__fastapi-1524 (fastapi/fastapi) ===
+Time: 36.9s, tokens 633→7103
+Predicted (454 chars):
+diff --git a/fastapi/utils.py b/fastapi/utils.py
+--- a/fastapi/utils.py
++++ b/fastapi/utils.py
+@@ -319,7 +319,9 @@ def jsonable_encoder(
+         obj_dict = obj.dict(
+             by_alias=by_alias,
+             exclude_unset=exclude_unset,
+             exclude_defaults=exclude_defaults,
+             exclude_none=exclude_none,
+         )
++        if "__root__" in obj_dict:
++            obj_dict = obj_dict["__root__"]
+         return jsonable_encoder(
+
+Gold (487 chars):
+diff --git a/fastapi/encoders.py b/fastapi/encoders.py
+index 26ceb21445f15..3f5b79d9ebbce 100644
+--- a/fastapi/encoders.py
++++ b/fastapi/encoders.py
+@@ -71,6 +71,8 @@ def jsonable_encoder(
+                 by_alias=by_alias,
+                 skip_defaults=bool(exclude_unset or skip_defaults),
+             )
++        if "__root__" in obj_dict:
++            obj_dict = obj_dict["__root__"]
+         return jsonable_encoder(
+             obj_dict,
+             exclude_none=exclude_none,
+
+
+
+=== keras-team__keras-20380 (keras-team/keras) ===
+Time: 73.4s, tokens 820→16000
+Predicted (46074 chars):
+diff --git a/keras/src/trainers/trainer.py b/keras/src/trainers/trainer.py
+index ... 
+--- ...
++++ ...
+@@ -...
+     @property
+     def metrics(self):
+         metrics = []
+         if self.compiled:
+             metrics.append(self._loss_tracker)
+             if self._compile_metrics is not None:
+-                metrics.append(self._compile_metrics)
++                metrics.extend(self._compile_metrics.metrics)
+         return metrics
+```
+This directly addresses `metrics_names`, and likely traceback because `get_metrics_result` iterates metrics. Let's verify: If `metrics` currently has wrapper
+... [truncated, total 46074 chars]
+
+Gold (9456 chars):
+diff --git a/.github/workflows/actions.yml b/.github/workflows/actions.yml
+index 1c23197e4d17..eb1d8859279a 100644
+--- a/.github/workflows/actions.yml
++++ b/.github/workflows/actions.yml
+@@ -70,14 +70,20 @@ jobs:
+         run: |
+           python integration_tests/import_test.py
+           python integration_tests/numerical_test.py
++      - name: Test JAX-specific integrations
++        if: ${{ matrix.backend == 'jax'}}
++        run: |
++          python integration_tests/jax_custom_fit_test.py
+       - name: Test TF-specific integrations
+         if: ${{ matrix.backend == 'tensorflow'}}
+       
+... [truncated]
+
+
+=== matplotlib__matplotlib-22865 (matplotlib/matplotlib) ===
+Time: 159.1s, tokens 685→16000
+Predicted (2079 chars):
+diff --git a/lib/matplotlib/colorbar.py b/lib/matplotlib/colorbar.py
+--- a/lib/matplotlib/colorbar.py
++++ b/lib/matplotlib/colorbar.py
+@@ -933,15 +933,47 @@
+     def _add_edges(self):
+         """
+         Add the colorbar dividers, i.e. the lines between the sections.
+         """
+         self._clear_edges()
+         # Horizontal colorbar
+         if self.orientation == 'horizontal':
+             X, Y = self.cboundaries, np.full_like(self.cboundaries, 1)
+             self.dividers = self.ax.vlines(
+                 X, 0, Y, colors='k', linewidth=1)
++            if self.extend in ['min', 'bot
+... [truncated, total 2079 chars]
+
+Gold (844 chars):
+diff --git a/lib/matplotlib/colorbar.py b/lib/matplotlib/colorbar.py
+--- a/lib/matplotlib/colorbar.py
++++ b/lib/matplotlib/colorbar.py
+@@ -651,8 +651,12 @@ def _add_solids(self, X, Y, C):
+             if not self.drawedges:
+                 if len(self._y) >= self.n_rasterize:
+                     self.solids.set_rasterized(True)
+-        self.dividers.set_segments(
+-            np.dstack([X, Y])[1:-1] if self.drawedges else [])
++        if self.drawedges:
++            start_idx = 0 if self._extend_lower() else 1
++            end_idx = len(X) if self._extend_upper() else -1
++            self.d
+... [truncated]
+
+
+=== mwaskom__seaborn-3069 (mwaskom/seaborn) ===
+Time: 75.9s, tokens 550→16000
+Predicted (7318 chars):
+diff --git a/seaborn/_core/scale.py` and a hunk using known lines. If exact context mismatch due formatting, patch won't apply. Need settle exact code around insertion.
+
+Google-brain of seaborn `_core/scale.py` at initial commit:
+```
+        if variable is not None and axis is not None:
+            axis.set_major_locator(FixedLocator(order))
+            axis.set_major_formatter(FixedFormatter(order))
+
+    def _finalize(self, p, var, prop):
+```
+Maybe existing. Search model latent completion: If prompted code:
+```
+class Nominal(Scale):
+    """A scale with discrete domain and range."""
+    _prior
+... [truncated, total 7318 chars]
+
+Gold (2235 chars):
+diff --git a/seaborn/_core/plot.py b/seaborn/_core/plot.py
+--- a/seaborn/_core/plot.py
++++ b/seaborn/_core/plot.py
+@@ -25,7 +25,7 @@
+ from seaborn._stats.base import Stat
+ from seaborn._core.data import PlotData
+ from seaborn._core.moves import Move
+-from seaborn._core.scales import Scale
++from seaborn._core.scales import Scale, Nominal
+ from seaborn._core.subplots import Subplots
+ from seaborn._core.groupby import GroupBy
+ from seaborn._core.properties import PROPERTIES, Property
+@@ -1238,7 +1238,6 @@ def _setup_scales(
+             # This only affects us when sharing *paired* axes. This is a
+... [truncated]
+
+
+=== psf__requests-1921 (psf/requests) ===
+Time: 80.1s, tokens 452→16000
+Predicted (67572 chars):
+diff --git`. We don't have filesystem, but can infer paths and context. Could make minimal diff targeting known lines:
+```
+diff --git a/requests/sessions.py b/requests/sessions.py
+index ... .. ...
+--- a/requests/sessions.py
++++ b/requests/sessions.py
+@@ -... 
+...
+```
+Unified diff can omit index line; apply cleanly based context. Need exact old code at commit. Better reconstruct.
+
+Let's locate version from commit hash via knowledge. Commit 3c88e520 maybe benchmark generated issue where repository at specific commit and expected patch. We need solve. Often SWE tasks provide repository + commit, 
+... [truncated, total 67572 chars]
+
+Gold (388 chars):
+diff --git a/requests/sessions.py b/requests/sessions.py
+--- a/requests/sessions.py
++++ b/requests/sessions.py
+@@ -59,6 +59,8 @@ def merge_setting(request_setting, session_setting, dict_class=OrderedDict):
+         if v is None:
+             del merged_setting[k]
+ 
++    merged_setting = dict((k, v) for (k, v) in merged_setting.items() if v is not None)
++
+     return merged_setting
+ 
+ 
+
+
+
+=== pytest-dev__pytest-10051 (pytest-dev/pytest) ===
+Time: 74.6s, tokens 700→10055
+Predicted (295 chars):
+diff --git a/src/_pytest/logging.py b/src/_pytest/logging.py
+--- a/src/_pytest/logging.py
++++ b/src/_pytest/logging.py
+@@ -343,3 +343,3 @@ class LogCaptureFixture:
+     def clear(self) -> None:
+         """Clear the captured records."""
+-        self._records = []
++        self._records.clear()
+
+Gold (1119 chars):
+diff --git a/src/_pytest/logging.py b/src/_pytest/logging.py
+--- a/src/_pytest/logging.py
++++ b/src/_pytest/logging.py
+@@ -40,7 +40,6 @@
+ else:
+     logging_StreamHandler = logging.StreamHandler
+ 
+-
+ DEFAULT_LOG_FORMAT = "%(levelname)-8s %(name)s:%(filename)s:%(lineno)d %(message)s"
+ DEFAULT_LOG_DATE_FORMAT = "%H:%M:%S"
+ _ANSI_ESCAPE_SEQ = re.compile(r"\x1b\[[\d;]+m")
+@@ -345,6 +344,10 @@ def reset(self) -> None:
+         self.records = []
+         self.stream = StringIO()
+ 
++    def clear(self) -> None:
++        self.records.clear()
++        self.stream = StringIO()
++
+     def handleError(sel
+... [truncated]
+
+
+=== scikit-learn__scikit-learn-26194 (scikit-learn/scikit-learn) ===
+Time: 100.0s, tokens 602→16000
+Predicted (27549 chars):
+diff --git a/sklearn/metrics/_ranking.py b/sklearn/metrics/_ranking.py
+@@
+-    thresholds = np.r_[y_score[0] + 1, y_score[threshold_idxs]]
++    thresholds = np.r_[np.inf, y_score[threshold_idxs]]
+diff --git a/sklearn/metrics/tests/test_ranking.py b/...
+@@
+ def test_roc_curve_with_probability_estimates():
+...
+-    assert thresholds.max() &lt;= 1
++    assert thresholds[0] == np.inf
+```
+Could be all.
+
+Let's search latent wording from current tests. Current test suite likely has:
+```
+def test_roc_curve_with_nan():
+...
+```
+No probability test now because contract changed to inf? Perhaps test introd
+... [truncated, total 27549 chars]
+
+Gold (1850 chars):
+diff --git a/sklearn/metrics/_ranking.py b/sklearn/metrics/_ranking.py
+--- a/sklearn/metrics/_ranking.py
++++ b/sklearn/metrics/_ranking.py
+@@ -1016,10 +1016,10 @@ def roc_curve(
+         Increasing true positive rates such that element `i` is the true
+         positive rate of predictions with score >= `thresholds[i]`.
+ 
+-    thresholds : ndarray of shape = (n_thresholds,)
++    thresholds : ndarray of shape (n_thresholds,)
+         Decreasing thresholds on the decision function used to compute
+         fpr and tpr. `thresholds[0]` represents no instances being predicted
+-        and is arbitra
+... [truncated]
+
+
