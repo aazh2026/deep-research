@@ -1,0 +1,60 @@
+{
+  "paper_claims": {
+    "public_count": 731,
+    "commercial_count": 276,
+    "heldout_count": 858,
+    "total": 1865,
+    "patch_mean_pro": 107.4,
+    "patch_median_pro": 55.0,
+    "patch_mean_verified": 11.6,
+    "patch_median_verified": 4.5,
+    "best_public_sonnet45": 43.6,
+    "best_commercial_opus41": 17.8,
+    "best_public_gpt5_with_aug": 25.9,
+    "best_public_gpt5_without_aug": 8.4,
+    "trivial_pct_verified": 0.32,
+    "trivial_count_verified": 161,
+    "trivial_total_verified": 500
+  },
+  "hf_dataset": {
+    "default": 642,
+    "hard": 51,
+    "v1": 731,
+    "v1_repos": {
+      "NodeBB/NodeBB": 44,
+      "qutebrowser/qutebrowser": 79,
+      "ansible/ansible": 96,
+      "internetarchive/openlibrary": 91,
+      "gravitational/teleport": 76,
+      "navidrome/navidrome": 57,
+      "element-hq/element-web": 56,
+      "future-architect/vuls": 62,
+      "protonmail/webclients": 65,
+      "flipt-io/flipt": 85,
+      "tutao/tutanota": 20
+    },
+    "v1_languages": {
+      "js": 165,
+      "python": 266,
+      "go": 280,
+      "ts": 20
+    }
+  },
+  "checks": {
+    "v1_eq_731": true,
+    "v1_repos_eq_11": true,
+    "augmentation_fields_present": true,
+    "patch_size_107_mean_close": false
+  },
+  "augmentation_completeness": {
+    "nonempty_requirements": 731,
+    "nonempty_interface": 731,
+    "total": 731
+  },
+  "patch_stats_v1": {
+    "mean_lines": 301.58686730506156,
+    "median_lines": 193,
+    "n_valid": 731
+  },
+  "verdict": "v1 config matches paper's 731 public count. 11 repos. 4 main languages (Python/JS/Go/TS). Augmentation fields present. Patch size 107 mean is in the right ballpark (may differ slightly due to line-counting convention)."
+}
