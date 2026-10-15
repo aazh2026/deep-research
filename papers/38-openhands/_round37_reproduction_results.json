@@ -1,0 +1,166 @@
+{
+  "paper": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+  "arxiv": "2407.16741v3",
+  "venue": "ICLR 2025",
+  "round": 37,
+  "claim": "A single CodeAct agent + 1 system prompt can do SWE + web + misc tasks competitively (CodeActAgent v1.8: SWE-Bench 26%, WebArena 15.3%, GPQA 52%).",
+  "verifications": {
+    "V1_pipeline_rerun": {
+      "ok": true,
+      "n_total": 7,
+      "n_pass_total": 4
+    },
+    "V2_task_structure": {
+      "by_category": {
+        "swe": {
+          "expected": 4,
+          "actual": 4,
+          "n_pass": 1,
+          "match": true
+        },
+        "web": {
+          "expected": 2,
+          "actual": 2,
+          "n_pass": 2,
+          "match": true
+        },
+        "misc": {
+          "expected": 1,
+          "actual": 1,
+          "n_pass": 1,
+          "match": true
+        }
+      },
+      "all_match": true,
+      "n_instances": 7
+    },
+    "V3_pass_rate_by_category": {
+      "rows": [
+        {
+          "category": "swe",
+          "n_pass": 1,
+          "n": 4,
+          "pass_rate": 0.25,
+          "avg_steps": 6.0
+        },
+        {
+          "category": "web",
+          "n_pass": 2,
+          "n": 2,
+          "pass_rate": 1.0,
+          "avg_steps": 1.0
+        },
+        {
+          "category": "misc",
+          "n_pass": 1,
+          "n": 1,
+          "pass_rate": 1.0,
+          "avg_steps": 1.0
+        }
+      ],
+      "capability_boundary_observed": true
+    },
+    "V4_step_distribution": {
+      "by_steps": {
+        "6": 4,
+        "1": 3
+      },
+      "by_steps_pass": {
+        "6": 0,
+        "1": 3
+      },
+      "one_step_perfect": true
+    },
+    "V5_token_usage": {
+      "by_category": {
+        "swe": {
+          "n": 4,
+          "n_pass": 1,
+          "avg_steps": 6.0,
+          "total_in_tokens": 32945,
+          "total_out_tokens": 3452
+        },
+        "web": {
+          "n": 2,
+          "n_pass": 2,
+          "avg_steps": 1.0,
+          "total_in_tokens": 2540,
+          "total_out_tokens": 117
+        },
+        "misc": {
+          "n": 1,
+          "n_pass": 1,
+          "avg_steps": 1.0,
+          "total_in_tokens": 1158,
+          "total_out_tokens": 78
+        }
+      },
+      "total_in": 36643,
+      "total_out": 3647,
+      "total_tasks": 7
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "CodeAct / single-prompt generalist (round 34 §IV Code Gen)": {
+          "needles": [
+            "CodeAct",
+            "single",
+            "generalist",
+            "Code"
+          ],
+          "matched": 4,
+          "total": 4,
+          "pct": 100.0
+        },
+        "Multi-agent / delegation framework (round 34 §X SE Process)": {
+          "needles": [
+            "delegate",
+            "delegation",
+            "agent",
+            "framework"
+          ],
+          "matched": 4,
+          "total": 4,
+          "pct": 100.0
+        },
+        "Cross-domain applicability (round 34 §XII Crosscut)": {
+          "needles": [
+            "web",
+            "misc",
+            "SWE",
+            "category",
+            "task"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        },
+        "Runtime / sandbox infrastructure (round 34 §VI Maintenance)": {
+          "needles": [
+            "sandbox",
+            "Runtime",
+            "Docker",
+            "isolation"
+          ],
+          "matched": 3,
+          "total": 4,
+          "pct": 75.0
+        },
+        "Multi-benchmark evaluation (round 34 §V Testing + §VIII Analytics)": {
+          "needles": [
+            "15",
+            "benchmark",
+            "SWE-Bench",
+            "WebArena",
+            "GPQA"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5
+    }
+  }
+}
