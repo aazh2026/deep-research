@@ -1,0 +1,84 @@
+{
+  "paper": "Agentic Coding in the Wild (arXiv:2608.00101)",
+  "round": 24,
+  "claim": "Production telemetry of Copilot: 3.2M users, 760M LLM calls",
+  "constraint": "raw telemetry not public; arithmetic + methodology check only",
+  "verifications": {
+    "V1_arithmetic_script": {
+      "available": true,
+      "rc": 0,
+      "data": {
+        "table_1": {
+          "users": 3200000,
+          "sessions": 13500000,
+          "user_turns": 95100000,
+          "llm_calls": 760500000,
+          "tool_calls": 774700000,
+          "prompt_tokens": 44900000000000,
+          "completion_tokens": 39300000000,
+          "models": 27,
+          "tools": 45
+        },
+        "checks": {
+          "mean_turns_per_session": 7.044444444444444,
+          "mean_llm_per_turn": 7.996845425867508,
+          "tool_llm_ratio": 1.018671926364234,
+          "mean_llm_per_session": 56.333333333333336,
+          "agent_initiated_calls_B": 0.661635,
+          "user_initiated_calls_B": 0.098865,
+          "mean_tool_per_turn": 8.146161934805468,
+          "mean_sessions_per_user": 4.21875,
+          "tokens_per_llm": 59040.10519395135,
+          "compaction_concentration_ratio": 5.666666666666667
+        },
+        "verdict": "All major aggregates internally consistent. Paper passes arithmetic cross-check."
+      }
+    },
+    "V2_takeaway_consistency": {
+      "checks": {
+        "T1_llm_tool_ratio": {
+          "claim": 1.1,
+          "computed": 1.019,
+          "consistent": true
+        },
+        "T2_agent_initiated": {
+          "claim_pct": 0.87,
+          "agent_M": 661.6,
+          "user_M": 98.9,
+          "consistent": true
+        },
+        "T2_6.6_llm_per_turn": {
+          "claim": 6.6,
+          "computed": 8.0,
+          "consistent": false
+        },
+        "T2_99pct_turns_ge2": {
+          "claim_pct": 0.99,
+          "verifiable_from_aggregates": false,
+          "consistent": "not_checkable"
+        }
+      }
+    },
+    "V3_prompt_completion_ratio": {
+      "computed_mean_ratio": 1142.5,
+      "paper_median_ratio": 275,
+      "consistent": true,
+      "interpretation": "Heavy-tailed: mean (1143) >> median (275) is expected because agent prompts include long tool outputs, repo files, etc."
+    },
+    "V4_model_tool_sanity": {
+      "n_combos": 1215,
+      "calls_per_combo": 625926.0,
+      "consistent": true
+    },
+    "V5_compaction_concentration": {
+      "pct_sessions": 0.078,
+      "pct_tokens": 0.442,
+      "concentration_x": 5.67,
+      "paper_claim_x": 5.7,
+      "consistent": true
+    },
+    "V6_public_corroboration": {
+      "public_sources": 5
+    }
+  }
+}

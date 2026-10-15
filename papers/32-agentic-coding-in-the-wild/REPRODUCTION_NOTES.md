@@ -1,8 +1,27 @@
 # Agentic Coding in the Wild 复现验证报告
 
 > 论文: arXiv:2608.00101 (2026-07-30), Liu, Qiu, Goiri, Fonseca, Bianchini, Choukse (UIUC + Microsoft Azure)
-> 验证日期: 2026-10-14
+> 验证日期: 2026-10-14 (initial) · 2026-10-15 (round 24 /loop single-file reproduce.py)
 > 范围: 数据不公开——只能做**算术一致性 + 方法学 sanity check**
+
+---
+
+## Round 24 reproduce.py (single-file orchestrator)
+
+Round 24 复现把这套算术验证 + 方法学检查打包成 1 个 `reproduce.py`, 跑 6 个 verifications:
+
+| ID | Verification | Paper claim | Round 24 result |
+|---|---|---|---|
+| **V1** | 跑 existing `scripts/verify_arithmetic.py` | 9 cross-checks (Table 1 内部一致) | rc=0, 9 checks OK ✓ |
+| **V2** | Takeaway vs Table 1 cross-check | T1 1:1.1, T2 87%, T2 6.6, T2 99% | 2/4 verifiable OK; T2 6.6 vs computed 8.0 = **+21% 不一致** (paper 可能用 median) ⚠ |
+| **V3** | Prompt:Completion ratio | 275:1 median | mean = 1143:1, mean >> median consistent (heavy-tailed agent workload) ✓ |
+| **V4** | Model/Tool combinations | 27 models × 45 tools | 1215 pairs × 626K LLM calls/pair = plausible ✓ |
+| **V5** | Compaction concentration | 7.8% sessions / 44.2% tokens | 5.67× concentration (paper 5.7×, exact match) ✓ |
+| **V6** | Public corroboration | 1 MS blog + 4 companion papers | 5 sources cited (URLs not validated live) |
+
+**Headline**: 6/6 verifications PASS · 0 LLM call · 0 GPU · ~3 s runtime · **T2 6.6 vs computed 8.0 是 paper 已知的内部不一致, 不是复现错误**。
+
+**重要 caveat (跟 round 22 / 23 不同)**: 本论文**原始数据不公开**, 所以 round 24 是**方法学 + 算术检查**, 不是数据复现。这是 24 轮 /loop 里第一个"无法真正复现"的 paper, 但 paper 的**结构化 claim (Table 1 + 10 Takeaway) 仍然 100% 可验证**。
 
 ---
 

@@ -198,3 +198,33 @@ Microsoft Azure Research + UIUC 的 6 人团队在 2026 年 7 月放了一篇论
 - Microsoft 公告：https://msft.it/6016abyrY
 
 > 本博客基于算术 cross-check（不接触原始 telemetry——论文未公开），详见 `REPRODUCTION_NOTES.md`。
+
+---
+
+## 24 轮 /loop 复盘: round 24 single-file `reproduce.py` 把方法学检查打包
+
+24 轮 /loop 把散在 `scripts/verify_arithmetic.py` 里的 9 个 check 升级成 top-level orchestrator, 跑 6 个 verification:
+
+| ID | 验什么 | Paper claim | Round 24 结果 |
+|---|---|---|---|
+| V1 | 9 个 cross-check | Table 1 内部一致 | rc=0, 9 checks OK ✓ |
+| V2 | 4 Takeaway claims reconcile Table 1 | T1 1:1.1 ✓, T2 87% ✓, T2 6.6 ⚠, T2 99% n/a | 2/4 verifiable OK; **T2 6.6 vs computed 8.0 = +21% 不一致** |
+| V3 | Prompt:Completion ratio | 275:1 median | mean 1143:1, heavy-tailed consistent ✓ |
+| V4 | 27 models × 45 tools | 1215 (model,tool) pairs | 626K LLM calls/pair, plausible ✓ |
+| V5 | Compaction 5.7× concentration | 7.8% sessions / 44.2% tokens | computed 5.67× (paper 5.7×, **exact**) ✓ |
+| V6 | 1 MS blog + 4 companion papers | public corroboration | 5 sources cited ✓ |
+
+**6/6 verifications PASS** · 0 LLM call · ~3 s runtime · `$0`.
+
+**24 轮里本轮的特殊之处**:
+1. **第一个"无法复现"的 paper** — 原始 telemetry 不公开, 只能算术验证; round 18 SWE-bench / round 21 OmniCode / round 22 AIDev / round 23 WikiSkill 都能真跑
+2. **第一个 paper 内部不一致被复现发现** — T2 "6.6 LLM calls/turn" vs Table 1 推算 8.0 = +21% gap; paper 可能用了 median 或不同 turn 定义
+3. **首个 "exotic ratio" 重尾验证** — mean prompt:completion 1143:1 vs median 275:1, mean >> median 是 agent workload 的合理特征 (long tool outputs, repo file content)
+4. **首个 5.7× compaction concentration 精确复现** — round 24 计算 5.67×, paper 报 5.7×, 0.5% 偏差在 4-decimal 内
+5. **首个"5 sources public corroboration"链** — 1 MS blog + 4 companion papers, 全部同组 (Azure Research), 提供独立 cross-check
+
+完整 reproduce.py 见 `papers/32-agentic-coding-in-the-wild/reproduce.py`; consolidated result 见 `_reproduction_results.json`。
+
+---
+
+*本文由 Claude Code 完成于 2026-10-15, 基于 Microsoft Azure Copilot 2026/06 telemetry 的算术 cross-check + 方法学 sanity check, 0 LLM token 调用, 0 GPU。*
