@@ -1,0 +1,106 @@
+[
+  {
+    "task_id": "mgr_1_divide_zero",
+    "category": "bug_fix",
+    "payout_usd": 500,
+    "issue": "Function calc.divide(a, b) currently returns None when b == 0. We need it to raise ZeroDivisionError so callers can handle errors properly. This affects 12 calling sites.",
+    "codebase_snippet": "def divide(a, b):\n    if b == 0:\n        return None\n    return a / b",
+    "proposals": {
+      "A": "Replace the b == 0 check with `raise ZeroDivisionError('division by zero')`. Update all 12 callers to wrap calls in try/except.",
+      "B": "Keep returning None but log a warning to stderr. Add docstring 'returns None on division by zero'.",
+      "C": "Change return type to Optional[float]; document that None means division by zero. Existing callers already handle None."
+    },
+    "correct_proposal": "A"
+  },
+  {
+    "task_id": "mgr_2_median_performance",
+    "category": "performance",
+    "payout_usd": 1500,
+    "issue": "stats.median(values) is O(n log n) due to sorted() on every call. For 10M-row datasets this takes 2s. Need to make it O(n) using quickselect. Backward compatible API.",
+    "codebase_snippet": "def median(values):\n    s = sorted(values)\n    n = len(s)\n    if n % 2 == 1: return s[n//2]\n    return (s[n//2 - 1] + s[n//2]) / 2",
+    "proposals": {
+      "A": "Add a cache decorator `@functools.lru_cache(maxsize=128)` so repeated identical calls are O(1).",
+      "B": "Replace the body with a quickselect implementation: pick pivot, partition, recurse. This achieves O(n) average. Keep the same signature.",
+      "C": "Convert to numpy: `return float(np.median(np.asarray(values)))`. Add numpy as a dependency."
+    },
+    "correct_proposal": "B"
+  },
+  {
+    "task_id": "mgr_3_user_auth_validation",
+    "category": "security",
+    "payout_usd": 3000,
+    "issue": "API endpoint POST /api/users accepts any string for email field, including empty string and 'a@b' (no TLD). Need proper email validation. Currently users can register with invalid emails and break our notification system.",
+    "codebase_snippet": "def create_user(email, name):\n    user = {'email': email, 'name': name}\n    db.users.insert(user)\n    return user",
+    "proposals": {
+      "A": "Use a regex `^\\S+@\\S+\\.\\S+$`. Return 400 if no match. This catches most invalid emails without external deps.",
+      "B": "Add a length check `len(email) < 254 and '@' in email`. Simpler but allows 'a@b'.",
+      "C": "Use the `email-validator` PyPI package. Strict RFC 5322 validation. Add to requirements.txt."
+    },
+    "correct_proposal": "C"
+  },
+  {
+    "task_id": "mgr_4_cache_invalidation",
+    "category": "correctness",
+    "payout_usd": 2000,
+    "issue": "Cache `get_user_profile(uid)` returns stale data after user updates their profile. The cache is set on read but never invalidated on write. Users see old name/avatar.",
+    "codebase_snippet": "PROFILE_CACHE = {}\n\ndef get_user_profile(uid):\n    if uid not in PROFILE_CACHE:\n        PROFILE_CACHE[uid] = db.profiles.find(uid)\n    return PROFILE_CACHE[uid]\n\ndef update_profile(uid, data):\n    db.profiles.update(uid, data)",
+    "proposals": {
+      "A": "Add `PROFILE_CACHE.pop(uid, None)` at the start of update_profile. This forces a re-read on next get.",
+      "B": "Add a 60-second TTL: store timestamp with cached value, expire after 60s. Reduces staleness window.",
+      "C": "Remove the cache entirely. Direct DB read on every get. Slower but always correct."
+    },
+    "correct_proposal": "A"
+  },
+  {
+    "task_id": "mgr_5_logging_sensitive_data",
+    "category": "security",
+    "payout_usd": 5000,
+    "issue": "Logger.info(request) is leaking user passwords in plaintext. Found in production logs. Security audit failure — must fix before next release.",
+    "codebase_snippet": "def handle_request(req):\n    logger.info(f'Request: {req}')\n    if req.authenticate():\n        return req.process()",
+    "proposals": {
+      "A": "Add a redact() function that masks any field named 'password' or 'token' in the dict before logging. Apply to logger.info calls.",
+      "B": "Change `logger.info` to `logger.debug` so it doesn't go to production by default. Disable debug logging in production config.",
+      "C": "Remove the log line entirely. Request data is rarely needed in logs anyway."
+    },
+    "correct_proposal": "A"
+  },
+  {
+    "task_id": "mgr_6_concurrent_writes",
+    "category": "concurrency",
+    "payout_usd": 4000,
+    "issue": "Function `increment_counter()` has a race condition: two threads call it simultaneously and one increment is lost. Need atomic increment.",
+    "codebase_snippet": "counter = 0\n\ndef increment_counter():\n    global counter\n    val = counter\n    counter = val + 1\n    return counter",
+    "proposals": {
+      "A": "Use threading.Lock(): `with lock: counter += 1`. Simple and correct.",
+      "B": "Use `counter = counter + 1` directly. Python's GIL makes this atomic for int operations.",
+      "C": "Use multiprocessing.Value with a Lock. Works across processes too."
+    },
+    "correct_proposal": "A"
+  },
+  {
+    "task_id": "mgr_7_api_versioning",
+    "category": "api_design",
+    "payout_usd": 1200,
+    "issue": "API endpoint GET /users returns full user object including password_hash. This is consumed by 5 internal services that need the full object. External clients (3 mobile apps) only need id, name, email. Need to split into two endpoints without breaking existing consumers.",
+    "codebase_snippet": "GET /users/<id> -> {id, name, email, password_hash, created_at, ...}",
+    "proposals": {
+      "A": "Add query parameter `?fields=public` to existing endpoint, omit password_hash when set. Update mobile clients to use this.",
+      "B": "Create new endpoint GET /users/<id>/public that returns {id, name, email}. Keep GET /users/<id> unchanged. Mobile clients switch to new endpoint over time.",
+      "C": "Remove password_hash from GET /users/<id> response. Internal services get password_hash via separate internal-only endpoint."
+    },
+    "correct_proposal": "B"
+  },
+  {
+    "task_id": "mgr_8_test_coverage",
+    "category": "testing",
+    "payout_usd": 800,
+    "issue": "Function `parse_csv_line(line)` handles single-line CSV but doesn't handle quoted fields with commas. Tests pass on simple cases but fail on real data with 'name, \"city, state\", age' style inputs. Need to fix parser to handle quoted fields.",
+    "codebase_snippet": "def parse_csv_line(line):\n    return line.split(',')",
+    "proposals": {
+      "A": "Use Python's csv module: `import csv; return next(csv.reader([line]))`. Battle-tested, handles all RFC 4180 cases.",
+      "B": "Add a manual check: if any field starts with `\"`, scan until matching `\"`. Otherwise split on `,`.",
+      "C": "Use regex: split on commas not inside double quotes. ~10 lines of regex."
+    },
+    "correct_proposal": "A"
+  }
+]

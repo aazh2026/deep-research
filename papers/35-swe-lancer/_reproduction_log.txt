@@ -1,0 +1,107 @@
+=== mgr_1_divide_zero (payout $500) ===
+Correct: A
+  Run 1: pick=A, pass=True
+    raw: A
+It directly implements the required ZeroDivisionError behavior and updates all affected callers to handle the exception appropriately.
+  Run 2: pick=A, pass=True
+    raw: A
+
+It directly implements the required exception behavior and updates all 12 call sites to handle the error safely.
+  Run 3: pick=A, pass=True
+    raw: A
+
+It directly implements the required `ZeroDivisionError` behavior and updates all 12 call sites to handle the exception safely.
+  pass@1=1.00, pass@k=1, majority=A (pass)
+
+=== mgr_2_median_performance (payout $1500) ===
+Correct: B
+  Run 1: pick=B, pass=True
+    raw: B
+It directly addresses the performance problem with quickselect, preserving the existing signature and API while avoiding a full sort. Its O(n) average-case complexity is appropriate for the stated requirement.
+  Run 2: pick=B, pass=True
+    raw: B
+Proposal B directly
+  Run 3: pick=B, pass=True
+    raw: B
+It directly addresses the requirement by using quickselect for average O(n) time while preserving the existing function signature and API.
+  pass@1=1.00, pass@k=1, majority=B (pass)
+
+=== mgr_3_user_auth_validation (payout $3000) ===
+Correct: C
+  Run 1: pick=C, pass=True
+    raw: C
+Using the `email-validator` package provides comprehensive RFC-compliant syntax validation and rejects empty strings and malformed addresses such as `a@b`, unlike the simpler checks in A and B.
+  Run 2: pick=C, pass=True
+    raw: C
+The `email-
+  Run 3: pick=A, pass=False
+    raw: We need answer exact letter first line then 1-2 sentences. Need assess proposals. A regex catches empty and a@b no TLD. C strict RFC package, dependency. Which best? Need think issue only proper validation. Proposal A simple common regex, catches stated invalids, no deps. C email-validator strict RF
+  pass@1=0.67, pass@k=1, majority=C (pass)
+
+=== mgr_4_cache_invalidation (payout $2000) ===
+Correct: A
+  Run 1: pick=A, pass=True
+    raw: A
+
+Invalidating the cache entry on profile updates ensures subsequent reads fetch the fresh data, directly fixing the stale name/avatar problem without sacrificing normal cache performance.
+  Run 2: pick=A, pass=True
+    raw: A
+Invalidating the cached profile during updates ensures subsequent reads fetch the current data while preserving the cache’s performance benefits.
+  Run 3: pick=A, pass=True
+    raw: We need answer exact first line one letter then 1-2 sentences justification no other. Need select best. A invalidates on write, though placement "at start" means race: if update fails, cache removed harmless. But concurrent reads/writes can stale repopulate. Simple issue likely A. C always correct b
+  pass@1=1.00, pass@k=1, majority=A (pass)
+
+=== mgr_5_logging_sensitive_data (payout $5000) ===
+Correct: A
+  Run 1: pick=A, pass=True
+    raw: A
+It explicitly prevents sensitive fields from being written to logs while retaining useful request visibility; changing log levels or removing the line does not provide reliable redaction.
+  Run 2: pick=None, pass=False
+    raw: We need answer exactly letter first line then 1-2 sentence justification, no other. Need assess. Issue logger.info(req) leaks passwords. A masks named password/token in dict before logging, apply logger.info calls. B lowers level, doesn't eliminate if debug enabled, perhaps still sensitive; C remove
+  Run 3: pick=C, pass=False
+    raw: C
+
+Removing the request log line directly eliminates the plaintext credential exposure without relying on incomplete redaction
+  pass@1=0.33, pass@k=1, majority=A (pass)
+
+=== mgr_6_concurrent_writes (payout $4000) ===
+Correct: A
+  Run 1: pick=A, pass=True
+    raw: A
+A `threading.Lock` provides the required mutual exclusion for thread calls while preserving the existing integer counter design.
+  Run 2: pick=A, pass=True
+    raw: We need answer exact first line letter then 1-2 sentences. Need decide A. Context two threads. Lock. Note proposal says with lock counter +=1, presumably retain global declaration? If function, without global causes UnboundLocalError. But shorthand likely assumes. C works across procs but requires c
+  Run 3: pick=A, pass=True
+    raw: A
+Using a `threading.Lock` makes the read-modify-write operation atomic, preventing lost increments. The GIL does not guarantee that compound integer updates are atomic, while `multiprocessing.Value` is unnecessary for the stated threading issue.
+  pass@1=1.00, pass@k=1, majority=A (pass)
+
+=== mgr_7_api_versioning (payout $1200) ===
+Correct: B
+  Run 1: pick=B, pass=True
+    raw: B
+
+It preserves the existing endpoint for internal consumers while providing a restricted public endpoint containing only the fields mobile clients need.
+  Run 2: pick=None, pass=False
+    raw: We need answer exact letter first line and 1-2 sentences justification, no other text. Need determine best. Need parse issue nuanced. API endpoint GET /users returns full user object including password_hash, consumed by 5 internal services need full. External 3 mobile only need id name email. Need s
+  Run 3: pick=B, pass=True
+    raw: B
+
+It preserves the existing full-object endpoint for internal services while giving mobile clients a dedicated endpoint that exposes only the required fields.
+  pass@1=0.67, pass@k=1, majority=B (pass)
+
+=== mgr_8_test_coverage (payout $800) ===
+Correct: A
+  Run 1: pick=A, pass=True
+    raw: A
+
+Python’s `csv.reader` correctly handles quoted fields, embedded commas, escaped quotes, and other RFC 4180 cases without fragile manual parsing.
+  Run 2: pick=A, pass=True
+    raw: A
+Using Python’s built-in `csv.reader` is the most correct, complete, and secure approach, properly handling quoted fields, escaped quotes, and other valid CSV syntax without fragile custom parsing.
+  Run 3: pick=A, pass=True
+    raw: A
+
+Python’s `csv.reader` correctly handles quoted fields, escaped quotes, and embedded commas without fragile custom parsing.
+  pass@1=1.00, pass@k=1, majority=A (pass)
+

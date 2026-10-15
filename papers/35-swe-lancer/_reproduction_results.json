@@ -1,0 +1,359 @@
+{
+  "summary": {
+    "n": 8,
+    "n_runs_per_task": 3,
+    "total_llm_calls": 24,
+    "pass_at_1_overall": 0.8333333333333334,
+    "pass_at_k_overall": 1.0,
+    "majority_vote_pass_rate": 1.0,
+    "by_category": {
+      "bug_fix": 1.0,
+      "performance": 1.0,
+      "security": 1.0,
+      "correctness": 1.0,
+      "concurrency": 1.0,
+      "api_design": 1.0,
+      "testing": 1.0
+    },
+    "by_payout_tier": {
+      "<$1K": 1.0,
+      "$1K-$2K": 1.0,
+      ">$2K": 1.0
+    },
+    "earned_usd": 18000,
+    "possible_usd": 18000,
+    "earn_rate": 1.0,
+    "total_in_tokens": 12603,
+    "total_out_tokens": 3228
+  },
+  "results": [
+    {
+      "task_id": "mgr_1_divide_zero",
+      "category": "bug_fix",
+      "payout_usd": 500,
+      "correct": "A",
+      "all_picks": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_pass": 3,
+      "pass_at_1": 1.0,
+      "pass_at_k": 1,
+      "majority_pick": "A",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "A\nIt directly implements the required ZeroDivisionError behavior and updates all affected callers to handle the exception appropriately.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 515,
+          "out_tok": 24
+        },
+        {
+          "raw": "A\n\nIt directly implements the required exception behavior and updates all 12 call sites to handle the error safely.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 515,
+          "out_tok": 24
+        },
+        {
+          "raw": "A\n\nIt directly implements the required `ZeroDivisionError` behavior and updates all 12 call sites to handle the exception safely.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 515,
+          "out_tok": 28
+        }
+      ],
+      "in_tok": 1545,
+      "out_tok": 76
+    },
+    {
+      "task_id": "mgr_2_median_performance",
+      "category": "performance",
+      "payout_usd": 1500,
+      "correct": "B",
+      "all_picks": [
+        "B",
+        "B",
+        "B"
+      ],
+      "n_pass": 3,
+      "pass_at_1": 1.0,
+      "pass_at_k": 1,
+      "majority_pick": "B",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "B\nIt directly addresses the performance problem with quickselect, preserving the existing signature and API while avoiding a full sort. Its O(n) average-case complexity is appropriate for the stated requirement.",
+          "pick": "B",
+          "passed": true,
+          "in_tok": 558,
+          "out_tok": 189
+        },
+        {
+          "raw": "B\nProposal B directly",
+          "pick": "B",
+          "passed": true,
+          "in_tok": 558,
+          "out_tok": 200
+        },
+        {
+          "raw": "B\nIt directly addresses the requirement by using quickselect for average O(n) time while preserving the existing function signature and API.",
+          "pick": "B",
+          "passed": true,
+          "in_tok": 558,
+          "out_tok": 121
+        }
+      ],
+      "in_tok": 1674,
+      "out_tok": 510
+    },
+    {
+      "task_id": "mgr_3_user_auth_validation",
+      "category": "security",
+      "payout_usd": 3000,
+      "correct": "C",
+      "all_picks": [
+        "C",
+        "C",
+        "A"
+      ],
+      "n_pass": 2,
+      "pass_at_1": 0.6666666666666666,
+      "pass_at_k": 1,
+      "majority_pick": "C",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "C\nUsing the `email-validator` package provides comprehensive RFC-compliant syntax validation and rejects empty strings and malformed addresses such as `a@b`, unlike the simpler checks in A and B.",
+          "pick": "C",
+          "passed": true,
+          "in_tok": 533,
+          "out_tok": 197
+        },
+        {
+          "raw": "C\nThe `email-",
+          "pick": "C",
+          "passed": true,
+          "in_tok": 533,
+          "out_tok": 200
+        },
+        {
+          "raw": "We need answer exact letter first line then 1-2 sentences. Need assess proposals. A regex catches empty and a@b no TLD. C strict RFC package, dependency. Which best? Need think issue only proper validation. Proposal A simple common regex, catches stated invalids, no deps. C email-validator strict RFC 5322 maybe actually robust, but \"Strict RFC 5322\" wording perhaps package validates deliverability? Need pick single best correctly completely. A likely expected. We need exactly:\nA\nProposal A rejects empty strings and addresses without a dot/TLD with a lightweight dependency-free check. Although regex isn't full RFC validation, it directly closes stated gap; B explicitly allows invalid a@b.\nBut issue says proper email validation, \"any string including...\" Proposal A catches most invalid, but doesn't completely validate all malformed. C package more proper, yet security and practical. email-validator package is best robust. The package validates syntax per RFC, and can check deliverability",
+          "pick": "A",
+          "passed": false,
+          "in_tok": 533,
+          "out_tok": 200
+        }
+      ],
+      "in_tok": 1599,
+      "out_tok": 597
+    },
+    {
+      "task_id": "mgr_4_cache_invalidation",
+      "category": "correctness",
+      "payout_usd": 2000,
+      "correct": "A",
+      "all_picks": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_pass": 3,
+      "pass_at_1": 1.0,
+      "pass_at_k": 1,
+      "majority_pick": "A",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "A\n\nInvalidating the cache entry on profile updates ensures subsequent reads fetch the fresh data, directly fixing the stale name/avatar problem without sacrificing normal cache performance.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 548,
+          "out_tok": 148
+        },
+        {
+          "raw": "A\nInvalidating the cached profile during updates ensures subsequent reads fetch the current data while preserving the cache\u2019s performance benefits.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 548,
+          "out_tok": 193
+        },
+        {
+          "raw": "We need answer exact first line one letter then 1-2 sentences justification no other. Need select best. A invalidates on write, though placement \"at start\" means race: if update fails, cache removed harmless. But concurrent reads/writes can stale repopulate. Simple issue likely A. C always correct but performance. A directly solves. Need mention after successful update ideally, but proposal says start. Is that a concern enough? B bounded stale not always. C correctness but likely unnecessary. A best. Exactly format:\nA\nProposal A directly invalidates... Unlike TTL... Maybe \"pop at start\" can cache race, but based snippet. Need maybe note it should be after successful DB update ideally. But selecting A; if proposal explicitly start perhaps not perfect because stale race and failed update. Yet candidate C \"always correct\" direct read every get, indeed correctly completely solves. The task asks best proposal correctness completeness performance/style. Issue cache stale after updates. Standard cache invalidation",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 548,
+          "out_tok": 199
+        }
+      ],
+      "in_tok": 1644,
+      "out_tok": 540
+    },
+    {
+      "task_id": "mgr_5_logging_sensitive_data",
+      "category": "security",
+      "payout_usd": 5000,
+      "correct": "A",
+      "all_picks": [
+        "A",
+        null,
+        "C"
+      ],
+      "n_pass": 1,
+      "pass_at_1": 0.3333333333333333,
+      "pass_at_k": 1,
+      "majority_pick": "A",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "A\nIt explicitly prevents sensitive fields from being written to logs while retaining useful request visibility; changing log levels or removing the line does not provide reliable redaction.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 504,
+          "out_tok": 192
+        },
+        {
+          "raw": "We need answer exactly letter first line then 1-2 sentence justification, no other. Need assess. Issue logger.info(req) leaks passwords. A masks named password/token in dict before logging, apply logger.info calls. B lowers level, doesn't eliminate if debug enabled, perhaps still sensitive; C removes line entirely. Which best? Need pick single best correctly completely solves. C guarantees no leak from this line, but perhaps request data rarely needed. A redaction is likely best security fix preserving logs, but wording \"any field named password or token in dict\" maybe req not dict? Current f'{req}', likely object; proposal may be incomplete. Need infer expected. Candidate A directly addresses redaction, preserves useful logs, masks password/token. C removes line entirely, definitely fixes this specific line but may be overly blunt and not handle other logger.info calls? A says apply to logger.info calls, likely best. Need output A + 1-2 sentences. Exact format. Mention redaction",
+          "pick": null,
+          "passed": false,
+          "in_tok": 504,
+          "out_tok": 200
+        },
+        {
+          "raw": "C\n\nRemoving the request log line directly eliminates the plaintext credential exposure without relying on incomplete redaction",
+          "pick": "C",
+          "passed": false,
+          "in_tok": 504,
+          "out_tok": 200
+        }
+      ],
+      "in_tok": 1512,
+      "out_tok": 592
+    },
+    {
+      "task_id": "mgr_6_concurrent_writes",
+      "category": "concurrency",
+      "payout_usd": 4000,
+      "correct": "A",
+      "all_picks": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_pass": 3,
+      "pass_at_1": 1.0,
+      "pass_at_k": 1,
+      "majority_pick": "A",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "A\nA `threading.Lock` provides the required mutual exclusion for thread calls while preserving the existing integer counter design.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 488,
+          "out_tok": 26
+        },
+        {
+          "raw": "We need answer exact first line letter then 1-2 sentences. Need decide A. Context two threads. Lock. Note proposal says with lock counter +=1, presumably retain global declaration? If function, without global causes UnboundLocalError. But shorthand likely assumes. C works across procs but requires changing counter representation/access, likely multiprocessing shared variable initialization and function calls through proxy; overengineering. A best. Need exactly perhaps:\n\nA\nUsing a threading.Lock makes the read-modify-write operation atomic for the stated two-thread race. The GIL does not guarantee compound operations are atomic, and multiprocessing.Value is unnecessary for this thread-only requirement.\n\nNeed perhaps mention global. Proposal A as phrased incomplete if no global counter. But \"with lock: counter +=1\" if at module? In function requires `global counter`. Candidate says use threading Lock. Correct expected. We can say provided it preserves global declaration/shared lock. But justification 1 sentence. Exact output no other text",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 488,
+          "out_tok": 200
+        },
+        {
+          "raw": "A\nUsing a `threading.Lock` makes the read-modify-write operation atomic, preventing lost increments. The GIL does not guarantee that compound integer updates are atomic, while `multiprocessing.Value` is unnecessary for the stated threading issue.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 488,
+          "out_tok": 151
+        }
+      ],
+      "in_tok": 1464,
+      "out_tok": 377
+    },
+    {
+      "task_id": "mgr_7_api_versioning",
+      "category": "api_design",
+      "payout_usd": 1200,
+      "correct": "B",
+      "all_picks": [
+        "B",
+        null,
+        "B"
+      ],
+      "n_pass": 2,
+      "pass_at_1": 0.6666666666666666,
+      "pass_at_k": 1,
+      "majority_pick": "B",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "B\n\nIt preserves the existing endpoint for internal consumers while providing a restricted public endpoint containing only the fields mobile clients need.",
+          "pick": "B",
+          "passed": true,
+          "in_tok": 542,
+          "out_tok": 110
+        },
+        {
+          "raw": "We need answer exact letter first line and 1-2 sentences justification, no other text. Need determine best. Need parse issue nuanced. API endpoint GET /users returns full user object including password_hash, consumed by 5 internal services need full. External 3 mobile only need id name email. Need split into two endpoints without breaking existing consumers. Snippet only GET /users/<id>. Proposals A query parameter public existing endpoint omit hash; update mobile. B new /public returns limited, keep old unchanged, mobile switch over time. C remove hash old, internal separate internal-only endpoint. Best likely B because preserves existing consumers and separates endpoint, least breaking, explicit public. Need assess phrase \"without breaking existing consumers\": B keeps existing endpoint unchanged, new public endpoint. A technically preserves default old behavior and mobile update, but optional query could be less robust / not split into two endpoints, potentially cache/security and clients can omit param. B clean split. C breaks internal existing consumers unless update",
+          "pick": null,
+          "passed": false,
+          "in_tok": 542,
+          "out_tok": 200
+        },
+        {
+          "raw": "B\n\nIt preserves the existing full-object endpoint for internal services while giving mobile clients a dedicated endpoint that exposes only the required fields.",
+          "pick": "B",
+          "passed": true,
+          "in_tok": 542,
+          "out_tok": 125
+        }
+      ],
+      "in_tok": 1626,
+      "out_tok": 435
+    },
+    {
+      "task_id": "mgr_8_test_coverage",
+      "category": "testing",
+      "payout_usd": 800,
+      "correct": "A",
+      "all_picks": [
+        "A",
+        "A",
+        "A"
+      ],
+      "n_pass": 3,
+      "pass_at_1": 1.0,
+      "pass_at_k": 1,
+      "majority_pick": "A",
+      "majority_pass": true,
+      "run_results": [
+        {
+          "raw": "A\n\nPython\u2019s `csv.reader` correctly handles quoted fields, embedded commas, escaped quotes, and other RFC 4180 cases without fragile manual parsing.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 513,
+          "out_tok": 33
+        },
+        {
+          "raw": "A\nUsing Python\u2019s built-in `csv.reader` is the most correct, complete, and secure approach, properly handling quoted fields, escaped quotes, and other valid CSV syntax without fragile custom parsing.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 513,
+          "out_tok": 42
+        },
+        {
+          "raw": "A\n\nPython\u2019s `csv.reader` correctly handles quoted fields, escaped quotes, and embedded commas without fragile custom parsing.",
+          "pick": "A",
+          "passed": true,
+          "in_tok": 513,
+          "out_tok": 26
+        }
+      ],
+      "in_tok": 1539,
+      "out_tok": 101
+    }
+  ]
+}
