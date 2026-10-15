@@ -1,0 +1,12 @@
+# AIDev-specific gitignore
+# data/ contains HuggingFace parquet downloads (1.4 GB total).
+# Download via:
+#   huggingface-cli download hao-li/AIDev \
+#     --repo-type dataset \
+#     --include "pull_request.parquet" "pr_commit_details.parquet" \
+#               "repository.parquet" "all_pull_request.parquet" \
+#     --local-dir ./data
+data/*.parquet
+__pycache__/
+*.pyc
+.env
