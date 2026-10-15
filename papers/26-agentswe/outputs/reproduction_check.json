@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "task_count_25": true,
+    "dev_2_holdout_6": true,
+    "opt_source_split": true,
+    "lite_8_tasks": true,
+    "lite_numbers_match_paper": true,
+    "creation_10_upstream": true,
+    "optimization_5_benchmarks": true,
+    "all_runnable": true
+  },
+  "tier_distribution": {
+    "T1": 19,
+    "T2": 3,
+    "T3": 3
+  },
+  "lite_tasks": [
+    "creation/db",
+    "creation/pdf",
+    "creation/repo",
+    "editing/aider",
+    "editing/deeptutor",
+    "editing/openwiki",
+    "optimization/pinch",
+    "optimization/tau3"
+  ],
+  "verdict": "All structural checks pass. Task structure (25 = 10+10+5), case split (2 dev + 6 holdout for creation/editing), 8 Lite task scope, and Lite reference numbers all match paper."
+}
