@@ -1,0 +1,539 @@
+{
+  "paper": "WikiSkill (arXiv:2608.27454)",
+  "round": 23,
+  "claim": "3-layer workspace + 4-agent loop, 5 ablation configs",
+  "verifications": {
+    "V1_pipeline_integrity": {
+      "src_import_rc": 0,
+      "n_configs": 5,
+      "config_names": [
+        "no_wiki",
+        "inf_wiki_only",
+        "prop_wiki_only",
+        "prop_wiki_no_mnt",
+        "full"
+      ],
+      "ablation_rc": 0
+    },
+    "V2_ablation_summary": {
+      "available": true,
+      "configs": [
+        "full",
+        "inf_wiki_only",
+        "no_wiki",
+        "prop_wiki_no_mnt",
+        "prop_wiki_only"
+      ],
+      "single_seed": {
+        "no_wiki": {
+          "final_R_best": 0.6,
+          "final_wiki_size": 34,
+          "n_commits": 1,
+          "n_rollbacks": 7
+        },
+        "inf_wiki_only": {
+          "final_R_best": 0.7,
+          "final_wiki_size": 34,
+          "n_commits": 3,
+          "n_rollbacks": 5
+        },
+        "prop_wiki_only": {
+          "final_R_best": 0.6,
+          "final_wiki_size": 34,
+          "n_commits": 1,
+          "n_rollbacks": 7
+        },
+        "prop_wiki_no_mnt": {
+          "final_R_best": 0.6,
+          "final_wiki_size": 0,
+          "n_commits": 1,
+          "n_rollbacks": 7
+        },
+        "full": {
+          "final_R_best": 0.7,
+          "final_wiki_size": 34,
+          "n_commits": 3,
+          "n_rollbacks": 5
+        }
+      },
+      "multi_seed": {
+        "no_wiki": {
+          "config": {
+            "inf_wiki": false,
+            "prop_wiki": false,
+            "no_maintainer": false
+          },
+          "n_seeds": 5,
+          "seeds": [
+            42,
+            123,
+            7,
+            256,
+            999
+          ],
+          "n_iters": 8,
+          "r_best_per_seed": [
+            0.6,
+            0.5,
+            0.4,
+            0.7,
+            0.5
+          ],
+          "r_best_mean": 0.54,
+          "r_best_std": 0.11401754250991378,
+          "wiki_size_per_seed": [
+            34,
+            34,
+            34,
+            35,
+            34
+          ],
+          "wiki_size_mean": 34.2,
+          "wiki_size_std": 0.4472135954999579,
+          "n_commits_per_seed": [
+            1,
+            1,
+            1,
+            3,
+            3
+          ],
+          "n_commits_mean": 1.8,
+          "n_rollbacks_per_seed": [
+            7,
+            7,
+            7,
+            5,
+            5
+          ],
+          "n_rollbacks_mean": 6.2
+        },
+        "inf_wiki_only": {
+          "config": {
+            "inf_wiki": true,
+            "prop_wiki": false,
+            "no_maintainer": false
+          },
+          "n_seeds": 5,
+          "seeds": [
+            42,
+            123,
+            7,
+            256,
+            999
+          ],
+          "n_iters": 8,
+          "r_best_per_seed": [
+            0.7,
+            0.8,
+            0.8,
+            0.6,
+            0.8
+          ],
+          "r_best_mean": 0.74,
+          "r_best_std": 0.08944271909999163,
+          "wiki_size_per_seed": [
+            34,
+            34,
+            35,
+            34,
+            35
+          ],
+          "wiki_size_mean": 34.4,
+          "wiki_size_std": 0.5477225575051661,
+          "n_commits_per_seed": [
+            3,
+            2,
+            2,
+            2,
+            4
+          ],
+          "n_commits_mean": 2.6,
+          "n_rollbacks_per_seed": [
+            5,
+            6,
+            6,
+            6,
+            4
+          ],
+          "n_rollbacks_mean": 5.4
+        },
+        "prop_wiki_only": {
+          "config": {
+            "inf_wiki": false,
+            "prop_wiki": true,
+            "no_maintainer": false
+          },
+          "n_seeds": 5,
+          "seeds": [
+            42,
+            123,
+            7,
+            256,
+            999
+          ],
+          "n_iters": 8,
+          "r_best_per_seed": [
+            0.6,
+            0.5,
+            0.4,
+            0.7,
+            0.5
+          ],
+          "r_best_mean": 0.54,
+          "r_best_std": 0.11401754250991378,
+          "wiki_size_per_seed": [
+            34,
+            34,
+            34,
+            35,
+            34
+          ],
+          "wiki_size_mean": 34.2,
+          "wiki_size_std": 0.4472135954999579,
+          "n_commits_per_seed": [
+            1,
+            1,
+            1,
+            3,
+            3
+          ],
+          "n_commits_mean": 1.8,
+          "n_rollbacks_per_seed": [
+            7,
+            7,
+            7,
+            5,
+            5
+          ],
+          "n_rollbacks_mean": 6.2
+        },
+        "prop_wiki_no_mnt": {
+          "config": {
+            "inf_wiki": false,
+            "prop_wiki": true,
+            "no_maintainer": true
+          },
+          "n_seeds": 5,
+          "seeds": [
+            42,
+            123,
+            7,
+            256,
+            999
+          ],
+          "n_iters": 8,
+          "r_best_per_seed": [
+            0.6,
+            0.5,
+            0.4,
+            0.7,
+            0.5
+          ],
+          "r_best_mean": 0.54,
+          "r_best_std": 0.11401754250991378,
+          "wiki_size_per_seed": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "wiki_size_mean": 0.0,
+          "wiki_size_std": 0.0,
+          "n_commits_per_seed": [
+            1,
+            1,
+            1,
+            3,
+            3
+          ],
+          "n_commits_mean": 1.8,
+          "n_rollbacks_per_seed": [
+            7,
+            7,
+            7,
+            5,
+            5
+          ],
+          "n_rollbacks_mean": 6.2
+        },
+        "full": {
+          "config": {
+            "inf_wiki": true,
+            "prop_wiki": true,
+            "no_maintainer": false
+          },
+          "n_seeds": 5,
+          "seeds": [
+            42,
+            123,
+            7,
+            256,
+            999
+          ],
+          "n_iters": 8,
+          "r_best_per_seed": [
+            0.7,
+            0.8,
+            0.8,
+            0.6,
+            0.8
+          ],
+          "r_best_mean": 0.74,
+          "r_best_std": 0.08944271909999163,
+          "wiki_size_per_seed": [
+            34,
+            34,
+            35,
+            34,
+            35
+          ],
+          "wiki_size_mean": 34.4,
+          "wiki_size_std": 0.5477225575051661,
+          "n_commits_per_seed": [
+            3,
+            2,
+            2,
+            2,
+            4
+          ],
+          "n_commits_mean": 2.6,
+          "n_rollbacks_per_seed": [
+            5,
+            6,
+            6,
+            6,
+            4
+          ],
+          "n_rollbacks_mean": 5.4
+        }
+      }
+    },
+    "V3_wiki_invariant": {
+      "per_config": {
+        "no_wiki": {
+          "final_wiki_size": 34,
+          "n_wiki_first_5": 5
+        },
+        "inf_wiki_only": {
+          "final_wiki_size": 34,
+          "n_wiki_first_5": 5
+        },
+        "prop_wiki_only": {
+          "final_wiki_size": 34,
+          "n_wiki_first_5": 5
+        },
+        "prop_wiki_no_mnt": {
+          "final_wiki_size": 0,
+          "n_wiki_first_5": 0
+        },
+        "full": {
+          "final_wiki_size": 34,
+          "n_wiki_first_5": 5
+        }
+      },
+      "invariant_ok": true
+    },
+    "V4_skill_gating": {
+      "per_config": {
+        "no_wiki": {
+          "commits": 1,
+          "rollbacks": 7,
+          "gating_fired": true
+        },
+        "inf_wiki_only": {
+          "commits": 3,
+          "rollbacks": 5,
+          "gating_fired": true
+        },
+        "prop_wiki_only": {
+          "commits": 1,
+          "rollbacks": 7,
+          "gating_fired": true
+        },
+        "prop_wiki_no_mnt": {
+          "commits": 1,
+          "rollbacks": 7,
+          "gating_fired": true
+        },
+        "full": {
+          "commits": 3,
+          "rollbacks": 5,
+          "gating_fired": true
+        }
+      },
+      "all_gating_fired": true
+    },
+    "V5_config_divergence": {
+      "available": true,
+      "config_names": [
+        "no_wiki",
+        "inf_wiki_only",
+        "prop_wiki_only",
+        "prop_wiki_no_mnt",
+        "full"
+      ],
+      "matrices": {
+        "wiki_all": [
+          [
+            1.0,
+            0.943,
+            0.943,
+            0.0,
+            0.943
+          ],
+          [
+            0.943,
+            1.0,
+            0.943,
+            0.0,
+            0.943
+          ],
+          [
+            0.943,
+            0.943,
+            1.0,
+            0.0,
+            0.943
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.943,
+            0.943,
+            0.943,
+            0.0,
+            1.0
+          ]
+        ],
+        "wiki_pattern": [
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "wiki_skill_use": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "skill_body": [
+          [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "no_mnt_vs_full_wiki": 0.0
+    },
+    "V6_pytest": {
+      "pytest_rc": 0,
+      "pytest_tail": "..................                                                       [100%]\n18 passed in 39.56s\n",
+      "test_files": [
+        "test_orchestrator.py",
+        "test_ablation.py",
+        "test_invariants.py",
+        "test_edge_cases.py"
+      ]
+    }
+  }
+}
