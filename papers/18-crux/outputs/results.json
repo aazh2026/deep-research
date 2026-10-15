@@ -6,7 +6,7 @@
     "n_subquestions": 5,
     "eta": 2,
     "w": 0.5,
-    "elapsed_sec": 7.1577417850494385
+    "elapsed_sec": 144.31215405464172
   },
   "per_method_summary": {
     "BM25": {
@@ -20,10 +20,10 @@
     "Random": {
       "n_samples": 47,
       "mean_n_retrieved": 18.23404255319149,
-      "mean_token_Z": 560.2765957446809,
-      "mean_coverage": 0.44574468085106383,
-      "mean_density": 0.31961146304555393,
-      "mean_rag_quality_proxy": 0.28569109274704735
+      "mean_token_Z": 556.1063829787234,
+      "mean_coverage": 0.4542553191489362,
+      "mean_density": 0.3279926645611132,
+      "mean_rag_quality_proxy": 0.2842373137597684
     },
     "Oracle": {
       "n_samples": 47,
@@ -35,8 +35,8 @@
     }
   },
   "kendall_tau": {
-    "all_methods_cov_vs_rag_quality": 0.5649208282582217,
-    "all_methods_den_vs_rag_quality": 0.38243690761676374,
+    "all_methods_cov_vs_rag_quality": 0.5599463349188926,
+    "all_methods_den_vs_rag_quality": 0.3765015444457156,
     "bm25_only_cov_vs_rag_quality": 0.4883203559510567,
     "bm25_only_den_vs_rag_quality": 0.42645698427382056
   }

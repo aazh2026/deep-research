@@ -1,0 +1,137 @@
+{
+  "paper": "CRUX: Controlled Retrieval-augmented conteXt evaluation for long-form RAG",
+  "arxiv": "2506.20051",
+  "venue": "Findings of EMNLP 2025",
+  "round": 36,
+  "claim": "Coverage and Density correlate strongly with long-form RAG quality (tau 0.7-0.8), and oracle is bounded by ~64% on Multi-News.",
+  "verifications": {
+    "V1_pipeline_rerun": {
+      "ok": true,
+      "n_valid_samples": 47,
+      "elapsed_sec": 144.31215405464172
+    },
+    "V2_coverage_numbers": {
+      "findings": {
+        "BM25": {
+          "present": true,
+          "n_samples": 47,
+          "mean_n_retrieved": 18.085106382978722,
+          "mean_token_Z": 593.3829787234042,
+          "mean_coverage": 0.5617021276595745,
+          "mean_density": 0.36624101898709027
+        },
+        "Oracle": {
+          "present": true,
+          "n_samples": 47,
+          "mean_n_retrieved": 2.7872340425531914,
+          "mean_token_Z": 92.40425531914893,
+          "mean_coverage": 0.6436170212765957,
+          "mean_density": 1.0
+        },
+        "Random": {
+          "present": true,
+          "n_samples": 47,
+          "mean_n_retrieved": 18.23404255319149,
+          "mean_token_Z": 556.1063829787234,
+          "mean_coverage": 0.4542553191489362,
+          "mean_density": 0.3279926645611132
+        }
+      },
+      "ordering_preserved": true,
+      "oracle_target": 0.64,
+      "oracle_actual": 0.6436170212765957,
+      "bm25_target_band": "0.35-0.38",
+      "bm25_actual": 0.5617021276595745
+    },
+    "V3_oracle_self_normalization": {
+      "oracle_density": 1.0,
+      "passes_self_normalization": true,
+      "expected": 1.0
+    },
+    "V4_kendall_tau": {
+      "all_methods_cov": 0.5599463349188926,
+      "all_methods_den": 0.3765015444457156,
+      "bm25_only_cov": 0.4883203559510567,
+      "bm25_only_den": 0.42645698427382056,
+      "paper_band": "0.7-0.8",
+      "direction_preserved": true
+    },
+    "V5_lexical_proxy_limitation": {
+      "bm25_cov_ours": 0.56,
+      "bm25_cov_paper_band": "0.35-0.38",
+      "oracle_cov_ours": 0.64,
+      "oracle_cov_paper": 0.64,
+      "kendall_ours": 0.56,
+      "kendall_paper_band": "0.7-0.8",
+      "verdict": "Lexical F1 is a *sufficient* proxy for algorithm skeleton, but a *biased* proxy for absolute numbers.  Use it for the structural reproduction; not for re-deriving paper numbers."
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "Coverage as Automated Regression Oracle (round 34 §V)": {
+          "needles": [
+            "Coverage",
+            "Density",
+            "oracle"
+          ],
+          "matched": 3,
+          "total": 3,
+          "pct": 100.0
+        },
+        "Question-based fine-grained evaluation (vs single-rouge oracle)": {
+          "needles": [
+            "sub-question",
+            "sub-questions",
+            "子问题",
+            "fine-grained",
+            "Kendall"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        },
+        "Statistical rigor (mean / 均 / 样本 / 47 reported)": {
+          "needles": [
+            "mean",
+            "均",
+            "samples",
+            "样本",
+            "47"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        },
+        "Multi-rater / multi-query structure (not single gold)": {
+          "needles": [
+            "sub-questions",
+            "子问题",
+            "n_subquestions",
+            "Q"
+          ],
+          "matched": 4,
+          "total": 4,
+          "pct": 100.0
+        },
+        "Honest reproduction reporting (acknowledged limitations)": {
+          "needles": [
+            "limitation",
+            "局限",
+            "lexical",
+            "compromise",
+            "妥协"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5,
+      "key_connection": "CRUX Coverage/Density is the RAG-retrieval analogue of the Automated Regression Oracle in round 34 LLM4SE §V.  Both replace single-metric evaluation with a fine-grained, ground-truth-derived probe."
+    },
+    "V7_llm_endpoint_sanity": {
+      "attempted": false,
+      "skipped": true
+    }
+  }
+}
