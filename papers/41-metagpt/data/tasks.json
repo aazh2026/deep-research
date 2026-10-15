@@ -1,0 +1,73 @@
+[
+  {
+    "task_id": "he_1_inc_dec",
+    "category": "arithmetic",
+    "description": "Given a list of integers, return a list with each element incremented by 1 if positive, decremented by 1 if negative, and 0 if zero.",
+    "function_signature": "def inc_dec(nums: list) -> list:",
+    "test_cases": [
+      "assert inc_dec([1, -2, 0, 3]) == [2, -3, 0, 4]",
+      "assert inc_dec([]) == []",
+      "assert inc_dec([0, 0, 0]) == [0, 0, 0]",
+      "assert inc_dec([-1, -5, 10]) == [-2, -6, 11]"
+    ]
+  },
+  {
+    "task_id": "he_2_count_vowels",
+    "category": "string",
+    "description": "Count the number of vowels (a, e, i, o, u) in a string, case-insensitive.",
+    "function_signature": "def count_vowels(s: str) -> int:",
+    "test_cases": [
+      "assert count_vowels('hello') == 2",
+      "assert count_vowels('HELLO') == 2",
+      "assert count_vowels('xyz') == 0",
+      "assert count_vowels('') == 0"
+    ]
+  },
+  {
+    "task_id": "he_3_unique_sorted",
+    "category": "list",
+    "description": "Return the unique elements of a list in sorted order (ascending).",
+    "function_signature": "def unique_sorted(nums: list) -> list:",
+    "test_cases": [
+      "assert unique_sorted([3, 1, 2, 2, 3]) == [1, 2, 3]",
+      "assert unique_sorted([]) == []",
+      "assert unique_sorted([5, 5, 5]) == [5]",
+      "assert unique_sorted([1, 2, 3]) == [1, 2, 3]"
+    ]
+  },
+  {
+    "task_id": "he_4_max_subarray",
+    "category": "algorithm",
+    "description": "Given a list of integers, find the contiguous subarray with the largest sum. Return the sum.",
+    "function_signature": "def max_subarray_sum(nums: list) -> int:",
+    "test_cases": [
+      "assert max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6",
+      "assert max_subarray_sum([1]) == 1",
+      "assert max_subarray_sum([-1, -2, -3]) == -1",
+      "assert max_subarray_sum([5, 4, -1, 7, 8]) == 23"
+    ]
+  },
+  {
+    "task_id": "he_5_word_freq",
+    "category": "dict",
+    "description": "Count word frequency in a string. Return a dict mapping word to count. Ignore case and punctuation.",
+    "function_signature": "def word_freq(text: str) -> dict:",
+    "test_cases": [
+      "r = word_freq('Hello world hello'); assert r == {'hello': 2, 'world': 1}",
+      "r = word_freq(''); assert r == {}",
+      "r = word_freq('a, a, b.'); assert r == {'a': 2, 'b': 1}"
+    ]
+  },
+  {
+    "task_id": "he_6_fizzbuzz",
+    "category": "logic",
+    "description": "Return a list of strings from 1 to n where multiples of 3 are 'Fizz', multiples of 5 are 'Buzz', multiples of both are 'FizzBuzz', and other numbers are the number as a string.",
+    "function_signature": "def fizzbuzz(n: int) -> list:",
+    "test_cases": [
+      "assert fizzbuzz(5) == ['1', '2', 'Fizz', '4', 'Buzz']",
+      "assert fizzbuzz(15)[-1] == 'FizzBuzz'",
+      "assert fizzbuzz(0) == []",
+      "assert fizzbuzz(3) == ['1', '2', 'Fizz']"
+    ]
+  }
+]
