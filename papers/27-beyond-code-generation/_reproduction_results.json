@@ -1,0 +1,162 @@
+{
+  "summary": {
+    "n_tasks": 6,
+    "total_generation_tokens": 3638,
+    "total_verification_tokens": 10230,
+    "verification_tax": 2.811984606926883,
+    "gate_pass_counts": {
+      "gate_0_gen": 6,
+      "gate_1_compile": 6,
+      "gate_2_test": 6,
+      "gate_3_review": 5,
+      "gate_4_security": 5,
+      "gate_5_deploy": 2
+    },
+    "gate_pass_rates": {
+      "gate_0_gen": 1.0,
+      "gate_1_compile": 1.0,
+      "gate_2_test": 1.0,
+      "gate_3_review": 0.8333333333333334,
+      "gate_4_security": 0.8333333333333334,
+      "gate_5_deploy": 0.3333333333333333
+    },
+    "candidate_generated": 6,
+    "candidate_rate": 1.0,
+    "test_pass": 6,
+    "test_pass_rate": 1.0,
+    "pqc_count": 2,
+    "pqc_rate": 0.3333333333333333,
+    "throughput_paradox_attenuation": {
+      "candidate_rate_minus_pqc": 0.6666666666666667,
+      "ratio_pqc_to_candidate": 0.3333333333333333
+    }
+  },
+  "results": [
+    {
+      "task_id": "task_1_humaneval_close",
+      "category": "humaneval",
+      "func_name": "has_close_elements",
+      "code_len": 233,
+      "gen_in": 396,
+      "gen_out": 125,
+      "ver_in": 1176,
+      "ver_out": 622,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": true,
+        "gate_4_security": true,
+        "gate_5_deploy": false
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": false
+    },
+    {
+      "task_id": "task_2_humaneval_separate",
+      "category": "humaneval",
+      "func_name": "separate_parity",
+      "code_len": 273,
+      "gen_in": 357,
+      "gen_out": 101,
+      "ver_in": 1200,
+      "ver_out": 285,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": true,
+        "gate_4_security": true,
+        "gate_5_deploy": true
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": true
+    },
+    {
+      "task_id": "task_3_string_normalize",
+      "category": "string",
+      "func_name": "normalize_string",
+      "code_len": 226,
+      "gen_in": 347,
+      "gen_out": 488,
+      "ver_in": 1197,
+      "ver_out": 762,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": true,
+        "gate_4_security": true,
+        "gate_5_deploy": false
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": false
+    },
+    {
+      "task_id": "task_4_dict_merge",
+      "category": "data_structure",
+      "func_name": "merge_dicts",
+      "code_len": 297,
+      "gen_in": 423,
+      "gen_out": 203,
+      "ver_in": 1245,
+      "ver_out": 416,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": true,
+        "gate_4_security": true,
+        "gate_5_deploy": true
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": true
+    },
+    {
+      "task_id": "task_5_filter_users",
+      "category": "filter",
+      "func_name": "filter_users",
+      "code_len": 185,
+      "gen_in": 426,
+      "gen_out": 122,
+      "ver_in": 1155,
+      "ver_out": 438,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": true,
+        "gate_4_security": true,
+        "gate_5_deploy": false
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": false
+    },
+    {
+      "task_id": "task_6_password_hash",
+      "category": "security",
+      "func_name": "verify_password",
+      "code_len": 123,
+      "gen_in": 339,
+      "gen_out": 311,
+      "ver_in": 1113,
+      "ver_out": 621,
+      "gates": {
+        "gate_0_gen": true,
+        "gate_1_compile": true,
+        "gate_2_test": true,
+        "gate_3_review": false,
+        "gate_4_security": false,
+        "gate_5_deploy": false
+      },
+      "g1_msg": "",
+      "g2_msg": "ALL_TESTS_PASS\n",
+      "pqc": false
+    }
+  ]
+}

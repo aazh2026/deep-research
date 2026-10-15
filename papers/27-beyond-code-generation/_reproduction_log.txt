@@ -1,0 +1,54 @@
+=== task_1_humaneval_close (humaneval) ===
+  code_len: 233
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': True, 'gate_4_security': True, 'gate_5_deploy': False}
+  PQC: False
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 396+125, ver tokens: 1176+622
+
+=== task_2_humaneval_separate (humaneval) ===
+  code_len: 273
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': True, 'gate_4_security': True, 'gate_5_deploy': True}
+  PQC: True
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 357+101, ver tokens: 1200+285
+
+=== task_3_string_normalize (string) ===
+  code_len: 226
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': True, 'gate_4_security': True, 'gate_5_deploy': False}
+  PQC: False
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 347+488, ver tokens: 1197+762
+
+=== task_4_dict_merge (data_structure) ===
+  code_len: 297
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': True, 'gate_4_security': True, 'gate_5_deploy': True}
+  PQC: True
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 423+203, ver tokens: 1245+416
+
+=== task_5_filter_users (filter) ===
+  code_len: 185
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': True, 'gate_4_security': True, 'gate_5_deploy': False}
+  PQC: False
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 426+122, ver tokens: 1155+438
+
+=== task_6_password_hash (security) ===
+  code_len: 123
+  gates: {'gate_0_gen': True, 'gate_1_compile': True, 'gate_2_test': True, 'gate_3_review': False, 'gate_4_security': False, 'gate_5_deploy': False}
+  PQC: False
+  g1_msg: 
+  g2_msg: ALL_TESTS_PASS
+
+  gen tokens: 339+311, ver tokens: 1113+621
+
