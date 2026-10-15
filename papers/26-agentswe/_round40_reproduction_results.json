@@ -1,0 +1,205 @@
+{
+  "paper": "AgentSWE: Can Coding Agents Build the Agent You Actually Want?",
+  "arxiv": "2610.13361v1",
+  "venue": "BAAI + CAS + Renmin (2026-10)",
+  "round": 40,
+  "claim": "First benchmark to measure 'agent-for-agent' — coding agent builds an agent from a requirement.  25 tasks: 10 Creation + 10 Editing + 5 Optimization.  No builder maintains >31.6/100 Editing score; Creation mean = 11.2/100; Optimization improvement = 0.9%.",
+  "verifications": {
+    "V1_pipeline_rerun": {
+      "ok": true,
+      "n_pass": 8,
+      "n_total": 8
+    },
+    "V2_task_distribution": {
+      "total_25": true,
+      "lite_8": true,
+      "tier_distribution": {
+        "T1": 19,
+        "T2": 3,
+        "T3": 3
+      },
+      "family_count": {
+        "creation": 10,
+        "editing": 10,
+        "optimization": 5
+      },
+      "all_match": true
+    },
+    "V3_case_structure": {
+      "by_family": {
+        "creation": {
+          "n_total": 10,
+          "n_correct": 10,
+          "all_correct": true
+        },
+        "editing": {
+          "n_total": 10,
+          "n_correct": 10,
+          "all_correct": true
+        }
+      },
+      "all_match": true
+    },
+    "V4_lite_tasks_scope": {
+      "expected": 8,
+      "actual": 8,
+      "all_match": true,
+      "missing": "set()"
+    },
+    "V5_lite_numbers": {
+      "rows": [
+        {
+          "family": "creation",
+          "short": "pdf",
+          "task_json": 31.93,
+          "paper": 31.9,
+          "diff": 0.030000000000001137,
+          "match": true
+        },
+        {
+          "family": "creation",
+          "short": "db",
+          "task_json": 38.67,
+          "paper": 38.7,
+          "diff": 0.030000000000001137,
+          "match": true
+        },
+        {
+          "family": "creation",
+          "short": "repo",
+          "task_json": 30.03,
+          "paper": 30.0,
+          "diff": 0.030000000000001137,
+          "match": true
+        },
+        {
+          "family": "editing",
+          "short": "openwiki",
+          "task_json": 21.0,
+          "paper": 21.0,
+          "diff": 0.0,
+          "match": true
+        },
+        {
+          "family": "editing",
+          "short": "aider",
+          "task_json": 39.33,
+          "paper": 39.3,
+          "diff": 0.030000000000001137,
+          "match": true
+        },
+        {
+          "family": "editing",
+          "short": "deeptutor",
+          "task_json": 27.56,
+          "paper": 27.6,
+          "diff": 0.0400000000000027,
+          "match": true
+        },
+        {
+          "family": "optimization",
+          "short": "tau3",
+          "task_json": 13.04,
+          "paper": 13.0,
+          "diff": 0.03999999999999915,
+          "match": true
+        },
+        {
+          "family": "optimization",
+          "short": "pinch",
+          "task_json": 24.35,
+          "paper": 24.3,
+          "diff": 0.05000000000000071,
+          "match": true
+        }
+      ],
+      "n_match": 8,
+      "n_total": 8
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "SE Process / multi-agent (round 34 §X SE Process)": {
+          "needles": [
+            "Agent",
+            "builder",
+            "delegation",
+            "delegat",
+            "process",
+            "agent",
+            "委托",
+            "流程"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Benchmark / dataset (round 34 §V Testing + §VIII Analytics)": {
+          "needles": [
+            "benchmark",
+            "25",
+            "Creation",
+            "Editing",
+            "Optimization",
+            "benchmark",
+            "任务",
+            "评测"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Domain-specific (round 34 §IX Domain-specific)": {
+          "needles": [
+            "domain",
+            "browsecomp",
+            "tau3",
+            "terminal",
+            "pinchbench",
+            "osworld",
+            "域",
+            "终端"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Human-in-the-loop / fidelity estimation (round 34 §IX)": {
+          "needles": [
+            "fidelity",
+            "human",
+            "dev",
+            "holdout",
+            "F(",
+            "开发",
+            "留出",
+            "case"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Multi-lifecycle / cross-domain (round 34 §XII Crosscut)": {
+          "needles": [
+            "lifecycle",
+            "Creation",
+            "Editing",
+            "Optimization",
+            "phase",
+            "阶段",
+            "阶段",
+            "全生命"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5
+    },
+    "V7_llm_endpoint_sanity": {
+      "skipped": true,
+      "reason": "no API key configured"
+    }
+  }
+}

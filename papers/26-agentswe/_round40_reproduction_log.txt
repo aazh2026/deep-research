@@ -1,0 +1,134 @@
+>> round 40 reproduction: 26-agentswe (BAAI/CAS, arXiv:2610.13361)
+>> paper: AgentSWE -- Can Coding Agents Build the Agent You Actually Want?
+>> this round: re-run verify_benchmark.py + 6 structural verifications
+
+
+========================================================================
+  V1  Re-run scripts/verify_benchmark.py
+========================================================================
+  Executing: python3 scripts/verify_benchmark.py
+  Exit code: 0
+  STDOUT (last 600 chars):
+ars, mentions 'English to Spanish'
+  test_001 length: 1632 chars, mentions 'Spanish to English'
+  -> Language pair reversed ✅
+  -> Both are scientific PDFs, but different topics/domains
+  -> Different page layouts (4-portrait vs 3-mixed)
+  -> Tests generalization beyond visible case (FM1: overfitting)
+
+>> Saved to /Users/aaronzh/Documents/GitHub/deep-research/papers/26-agentswe/outputs/reproduction_check.json
+>> Verdict: All structural checks pass. Task structure (25 = 10+10+5), case split (2 dev + 6 holdout for creation/editing), 8 Lite task scope, and Lite reference numbers all match paper.
+
+  Checks: {'task_count_25': True, 'dev_2_holdout_6': True, 'opt_source_split': True, 'lite_8_tasks': True, 'lite_numbers_match_paper': True, 'creation_10_upstream': True, 'optimization_5_benchmarks': True, 'all_runnable': True}
+  PASS: 8/8
+
+========================================================================
+  V2  25 tasks split (10 Creation + 10 Editing + 5 Optimization)
+========================================================================
+  Tier distribution: {'T1': 19, 'T2': 3, 'T3': 3}
+  Lite task count: 8
+
+  Lite tasks (paper Table 5 scope):
+    creation/db
+    creation/pdf
+    creation/repo
+    editing/aider
+    editing/deeptutor
+    editing/openwiki
+    optimization/pinch
+    optimization/tau3
+
+  Family count: {'creation': 10, 'editing': 10, 'optimization': 5}
+  Expected: 10/10/5 = 25
+  10/10/5 split: ✓
+
+========================================================================
+  V3  2 dev + 6 holdout case structure (Creation/Editing)
+========================================================================
+  creation    : 10/10 have 2 dev + 6 holdout  ✓
+  editing     : 10/10 have 2 dev + 6 holdout  ✓
+
+  Optimization tasks use disjoint source-benchmark split (no enumerated
+  holdout cases) — see paper §4.2.
+
+========================================================================
+  V4  8 Lite tasks scope (paper Table 5)
+========================================================================
+  Expected Lite (from paper Table 5): 8
+  Actual Lite (from task.json): 8
+    [cre] db
+    [cre] pdf
+    [cre] repo
+    [edi] aider
+    [edi] deeptutor
+    [edi] openwiki
+    [opt] pinch
+    [opt] tau3
+  Match: ✓
+
+========================================================================
+  V5  Lite reference numbers (DS-V4.1-Flash) match paper Table 5
+========================================================================
+  Family       Short         task.json    paper   diff  status
+  creation     db                 38.7     38.7    0.0  ✓
+  creation     pdf                31.9     31.9    0.0  ✓
+  creation     repo               30.0     30.0    0.0  ✓
+  editing      aider              39.3     39.3    0.0  ✓
+  editing      deeptutor          27.6     27.6    0.0  ✓
+  editing      openwiki           21.0     21.0    0.0  ✓
+  optimization pinch              24.4     24.3    0.1  ✓
+  optimization tau3               13.0     13.0    0.0  ✓
+
+  8/8 Lite numbers match paper Table 5 (DS-V4.1-Flash col)
+
+========================================================================
+  V6  Round 34 LLM4SE methodology alignment
+========================================================================
+  SE Process / multi-agent (round 34 §X SE Process)
+    needles: ['Agent', 'builder', 'delegation', 'delegat', 'process', 'agent', '委托', '流程']
+    matched: 8/8 = 100%
+  Benchmark / dataset (round 34 §V Testing + §VIII Analytics)
+    needles: ['benchmark', '25', 'Creation', 'Editing', 'Optimization', 'benchmark', '任务', '评测']
+    matched: 8/8 = 100%
+  Domain-specific (round 34 §IX Domain-specific)
+    needles: ['domain', 'browsecomp', 'tau3', 'terminal', 'pinchbench', 'osworld', '域', '终端']
+    matched: 8/8 = 100%
+  Human-in-the-loop / fidelity estimation (round 34 §IX)
+    needles: ['fidelity', 'human', 'dev', 'holdout', 'F(', '开发', '留出', 'case']
+    matched: 8/8 = 100%
+  Multi-lifecycle / cross-domain (round 34 §XII Crosscut)
+    needles: ['lifecycle', 'Creation', 'Editing', 'Optimization', 'phase', '阶段', '阶段', '全生命']
+    matched: 8/8 = 100%
+
+  5/5 categories ≥ 50% match
+
+========================================================================
+  V7  Optional LLM endpoint sanity check (auto-skip if unconfigured)
+========================================================================
+  .env not configured or placeholder.  Auto-skipping V7.
+  To enable: cp .env.example .env, fill in real key, rerun.
+
+========================================================================
+  ROUND 40 SUMMARY
+========================================================================
+  V1 pipeline rerun       : ok=True  8/8 checks pass
+  V2 10/10/5 split        : all_match=True
+  V3 2dev+6holdout        : all_match=True
+  V4 8 Lite tasks         : all_match=True
+  V5 Lite numbers match   : 8/8 match
+  V6 LLM4SE alignment     : 5/5 categories match
+  V7 LLM endpoint sanity  : SKIPPED
+
+  Headline:
+    • AgentSWE = first benchmark for 'agent-for-agent' problem
+      (coding agent builds an agent from a requirement).
+    • 25 tasks: 10 Creation + 10 Editing + 5 Optimization.
+    • Each Creation/Editing: 2 dev + 6 holdout cases (F̂_D vs F_D̃).
+    • 8 Lite tasks (Table 5 scope): all 8 numbers (DS-V4.1-Flash)
+      match paper — verified.
+    • Round 34 LLM4SE connection: AgentSWE spans §X SE Process +
+      §V Testing + §IX Domain-specific + §XII Crosscut.
+    • Round 39 SWE-Bench Pro connection: both are 2025-2026
+      benchmark papers for coding agents.  SWE-Bench Pro judges
+      'does the agent fix code'; AgentSWE judges 'does the agent
+      build a working agent'.

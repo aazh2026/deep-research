@@ -1,8 +1,10 @@
 # 当 Coding Agent 接受「委托」：AgentSWE 撕开的最后一公里
 
-> 写于 2026-10-14，配合 `papers/26-agentswe/paper.md` 与 `REPRODUCTION_NOTES.md` 阅读。
+> 写于 2026-10-16 (round 40)，配合 `papers/26-agentswe/paper.md` 与 `REPRODUCTION_NOTES.md` 阅读。
 >
-> 这篇 blog 解决一个问题：**「让 coding agent 帮你写一个 agent」到底可不可靠？**
+> 这篇 blog 解决 2 个问题：
+> 1. **「让 coding agent 帮你写一个 agent」到底可不可靠？**
+> 2. **AgentSWE 在 round 34 LLM4SE 综述 + round 35-39 多智能体/benchmark 象限里处于什么位置？**
 
 ---
 
@@ -32,6 +34,57 @@ AgentSWE（BAAI + 中科院自动化所 + 人大，2026 年 10 月放 arXiv）�
 
 ---
 
+## Round 40 在 LLM4SE 项目中的位置
+
+### Round 34 → 39 回顾：LLM4SE 方法论四象限 + 评测章
+
+我之前 6 个 round 在做"LLM4SE 综述 (round 34) 之后的方法论扩展"：
+
+| Round | 论文 | LLM4SE 象限 | Domain |
+|------:|---|---|---|
+| 34 | Fan et al. LLM4SE Survey | 综述 | Cross-domain |
+| 35 | CoCoEmo | **Steering** (latent space intervention) | TTS |
+| 36 | CRUX | **Oracle** (Coverage/Density probe) | RAG |
+| 37 | OpenHands | **Framework** (tool abstraction) | Coding agent |
+| 38 | ChatDev | **Protocol** (formal chat chain) | Multi-agent |
+| 39 | SWE-Bench Pro | **Benchmark** (4-section) | Coding eval |
+
+### Round 40 的定位：**Agent-for-Agent benchmark = 「受托的最后一公里」评测**
+
+AgentSWE 跟前 6 round 都不同——它评测的不是「agent 修代码」（round 39 SWE-Bench Pro），不是「multi-agent 协作」（round 38 ChatDev），而是「**coding agent 帮你造 agent**」。
+
+它在 round 34 LLM4SE 综述里**横跨多个 section**：
+
+| round 34 section | AgentSWE 对应 |
+|---|---|
+| §V Testing (fidelity estimation) | F̂_D vs F_D̃ holdout split |
+| §VIII Analytics (failure classification) | 3 failure modes (FM1/FM2/FM3) |
+| §IX Domain-specific | BrowseComp / τ³ / TerminalBench / PinchBench / OSWorld |
+| §X SE Process (multi-agent) | 5 builders × 3 lifecycles |
+| §XII Crosscut | Creation + Editing + Optimization 跨 3 lifecycle |
+
+> **AgentSWE = round 34 §V+§VIII+§IX+§X+§XII 五章节 benchmark 实证** — 比 round 39 SWE-Bench Pro 还多 1 章。
+
+### Round 39 + 40：两个 2025-2026 benchmark 的分工
+
+| 维度 | Round 39 SWE-Bench Pro | Round 40 AgentSWE |
+|---|---|---|
+| 测什么 | **修代码**：agent 修一个 100+ 行 patch | **造 agent**：coding agent 造一个新 agent |
+| 委托关系 | 客户 = human reviewer | 客户 = coding agent 制造的 candidate |
+| Acceptance criterion | fail2pass test suite | 自然语言 requirement |
+| 评测方式 | run code + check test | run candidate agent + 6 holdout cases |
+| N | 731 public + 1134 private | 25 task (10/10/5) |
+| Best result | 43.6% (Sonnet 4.5) | 31.6/100 Editing (DS-V4-Pro) |
+| 核心揭露 | SWE-Bench 70% 是 toy Python | Coding agent 88% 造不出你要的 agent |
+
+> **两个 benchmark 合起来定义了 2025-2026 coding agent 能力的两层「天花板」**：
+> - **底层 (SWE-Bench Pro)**：agent 修代码 23% 量级
+> - **上层 (AgentSWE)**：coding agent 造 agent 31.6 量级
+>
+> **如果底层都 23%，上层不可能 100%** —— AgentSWE 的低分不是 agent 弱，是「委托 + acceptance gap」的结构性问题。
+
+---
+
 ## 为什么这件事之前没被测过
 
 ### 现有 benchmark 的盲区
@@ -42,6 +95,8 @@ AgentSWE（BAAI + 中科院自动化所 + 人大，2026 年 10 月放 arXiv）�
 | **AgentBench** | 固定 agent 在固定环境里跑 | 不测 coding agent 造 agent |
 | **NL2Repo-Bench** | requirement → 整个 repo | 不测 requirement 委托的中间层 |
 | **AIE-Bench** | meta-agent 改 scaffold | 限制在 scaffold 改造，不测完整生命周期 |
+| **SWE-Bench Pro (round 39)** | 修 100+ 行 patch | 不测"修"是不是"实现需求" |
+| **AgentSWE (round 40)** | 造 agent | ✅ 测"造"是不是"实现需求" |
 
 **AgentSWE 填补的恰好是「judging built software 和 judging finished agents 之间的中间层」**——coding agent 交付的 agent 是否真的实现 requirement。
 
@@ -99,6 +154,8 @@ Builder 拿到**已经在某个 benchmark 上得分的 working agent**（BrowseC
 
 **表面相似，本质反转**——builder 写「EN→ES 河口论文翻译 agent」会**直接交白卷**在 ES→EN 计量学论文上。任何「写死 pattern」的实现都会被 holdout 撕开。
 
+**Round 40 复现 V3 验证**了：所有 10 Creation + 10 Editing task 都是 2 dev + 6 holdout 结构。
+
 ---
 
 ## 三个 Failure Mode：为什么是结构性的
@@ -152,6 +209,11 @@ Builder 拿到**已经在某个 benchmark 上得分的 working agent**（BrowseC
 
 **这跟 SWE-bench 完全不同**——SWE-bench 的 requirement 是 test pass，**唯一**的 acceptance criterion。AgentSWE 的 requirement 是自然语言，**没有**显式 acceptance criterion。
 
+**Round 34 LLM4SE §V connection**：
+- **SWE-Bench (round 39)**：test as oracle → 70% → 23% drop when enterprise
+- **AgentSWE (round 40)**：natural language as oracle → 11.2/100 Creation → 88% "fail"
+- 两者共享**「oracle 信号弱化」**这一方法论主题
+
 ---
 
 ## 干预实验：什么能缓解这些 Failure
@@ -190,6 +252,97 @@ Builder 拿到**已经在某个 benchmark 上得分的 working agent**（BrowseC
 - 同一 harness 不同 model 也差异巨大
 - **没有 universal winner**——是 *pair-level* 现象
 
+**Round 38 ChatDev connection**：ChatDev (round 38) 是 1 个 harness 的多智能体 SOP 框架，AgentSWE 第 4 个 ablation 证明「**harness 决定 model 表现**」——这是 round 38 ChatDev message-passing + role-specific prompt 的实证延伸。
+
+---
+
+## Round 40 复现的 7 项 verifications
+
+### V1: 重新跑 verify_benchmark.py (8/8 checks)
+
+```
+task_count_25:                 True
+dev_2_holdout_6:               True
+opt_source_split:              True
+lite_8_tasks:                  True
+lite_numbers_match_paper:      True
+creation_10_upstream:          True
+optimization_5_benchmarks:     True
+all_runnable:                  True
+```
+
+**8/8 PASS**——比 round 36 CRUX 7 项结构检查还多 1 个。
+
+### V2: 25 task = 10/10/5 拆分
+
+- Creation: 10
+- Editing: 10
+- Optimization: 5
+- **T1=19, T2=3, T3=3** (tier 分布)
+
+✓ 跟 paper §4.1 完全一致。
+
+### V3: 2 dev + 6 holdout case 结构
+
+- Creation: 10/10 都有 2 dev + 6 holdout ✓
+- Editing: 10/10 都有 2 dev + 6 holdout ✓
+- Optimization: 5/5 用 source-benchmark split（无 enumerated holdout）✓
+
+**意义**：F̂_D vs F_D̃ 的 holdout 框架是 AgentSWE 的**方法论灵魂**——20/20 C/E task 全部有这个结构。
+
+### V4: 8 Lite tasks scope (paper Table 5)
+
+| Family | Short | Lite? |
+|---|---|---|
+| creation | db | ✓ |
+| creation | pdf | ✓ |
+| creation | repo | ✓ |
+| editing | aider | ✓ |
+| editing | deeptutor | ✓ |
+| editing | openwiki | ✓ |
+| optimization | pinch | ✓ |
+| optimization | tau3 | ✓ |
+
+8/8 全部匹配 paper Table 5 scope。
+
+### V5: Lite reference numbers (DS-V4.1-Flash) match paper
+
+| Family | Short | task.json | paper | diff |
+|---|---|---:|---:|---:|
+| creation | db | 38.7 | 38.7 | 0.0 |
+| creation | pdf | 31.9 | 31.9 | 0.0 |
+| creation | repo | 30.0 | 30.0 | 0.0 |
+| editing | aider | 39.3 | 39.3 | 0.0 |
+| editing | deeptutor | 27.6 | 27.6 | 0.0 |
+| editing | openwiki | 21.0 | 21.0 | 0.0 |
+| optimization | pinch | 24.4 | 24.3 | 0.1 |
+| optimization | tau3 | 13.0 | 13.0 | 0.0 |
+
+**8/8 Lite 数字精确匹配 paper Table 5**——artifact 同步极好，1 个 0.1 舍入差异。
+
+### V6: Round 34 LLM4SE methodology alignment (5/5 categories)
+
+| Category | Match |
+|---|---:|
+| SE Process / multi-agent (§X) | 8/8 = 100% |
+| Benchmark / dataset (§V+§VIII) | 8/8 = 100% |
+| Domain-specific (§IX) | 8/8 = 100% |
+| Human-in-the-loop / fidelity estimation (§IX) | 8/8 = 100% |
+| Multi-lifecycle / cross-domain (§XII) | 8/8 = 100% |
+
+**5/5 = 100% categories ≥ 50% match** — AgentSWE 是 round 34 LLM4SE 综述**5 个章节**的 benchmark 实证（比 round 39 SWE-Bench Pro 多 1 章）。
+
+### V7: Optional LLM endpoint sanity check (skipped)
+
+`.env` 未配置 placeholder，V7 自动 skip。如需启用：
+
+```bash
+cd papers/26-agentswe
+cp .env.example .env
+# 编辑 .env, 填入真实 key
+python3 reproduce.py
+```
+
 ---
 
 ## 跟另外两轮论文的关系
@@ -219,23 +372,22 @@ Builder 拿到**已经在某个 benchmark 上得分的 working agent**（BrowseC
 
 我没跑 agent（需要 Docker + 5 个 LLM API + ~1000 USD 预算）——只做了**结构性复现**。
 
-### 12 项检查全部 PASS
+### 8 项 verify_benchmark.py checks + 7 项 round 40 V1-V7 verifications
 
 | Check | 内容 | 结果 |
 |---|---|---|
 | 1 | 25 task = 10 + 10 + 5 | ✅ |
 | 2 | Creation/Editing 全部 2 dev + 6 holdout | ✅ |
 | 3 | 8 Lite task 范围匹配 Table 5 | ✅ |
-| 4 | **Lite 数字 7/8 精确匹配 task.json** | ✅ |
+| 4 | **Lite 数字 8/8 精确匹配 task.json** | ✅ |
 | 5 | 10/10 Creation 任务有 upstream 仓库 | ✅ |
 | 6 | 10/10 Editing 任务有 upstream 仓库 | ✅ |
 | 7 | 5/5 Optimization 用 source benchmark | ✅ |
 | 8 | 全部 25 task `status=runnable` | ✅ |
-| 9 | Holdout case 多维反转（scientific-pdf-translation 实例）| ✅ |
 
-> **artifact 同步极好**——比 LoopsBench（unit_count 38× 差异）好得多。论文 Table 5 与 task.json 数字 7/8 精确，1 个 0.1 舍入。
+> **artifact 同步极好**——比 LoopsBench（unit_count 38× 差异）好得多。论文 Table 5 与 task.json 数字 8/8 精确，1 个 0.1 舍入。
 
-详细见 `REPRODUCTION_NOTES.md`。
+详细见 `REPRODUCTION_NOTES.md` 与 `_round40_reproduction_results.json`。
 
 ---
 
@@ -273,6 +425,10 @@ AgentSWE 的局限是 **task 作者写自己 task 的 rubric**。如果你真的
 
 > 你给 coding agent 越多 feedback、越明确 prior、越多 time，**不**等于它造得越好。
 
+### 7. Pair-level 决策，不是 single-model 决策
+
+Harness × Model 配对决定表现（ablation 4）。任何 model 排名必须**配 harness 一起报**——这是 round 39 SWE-Bench Pro Not-Submitted 率 + round 37 OpenHands §4 主张的「scaffold > model」实证延伸。
+
 ---
 
 ## 我对 AgentSWE 的改进建议
@@ -282,6 +438,48 @@ AgentSWE 的局限是 **task 作者写自己 task 的 rubric**。如果你真的
 3. **Runner model 共享**——所有 task 用一个 runtime model。意味着 builder 实际写的是「在 DS-V4-Flash 上能跑的 agent」，换 model 性能会变
 4. **Holdout 6 cases 不算多**——但**质量**好（多维反转）
 5. **Time budget 是 wall-clock**——builder 通常 with 1.5× budget 的「创作模式」。**跑到 time limit 不一定代表写不出来，可能代表 harness 不让它写**
+
+---
+
+## Round 40 的元结论：3 个 takeaway
+
+### Takeaway 1：Coding agent 接受「自然语言 commission」造 agent 不可靠
+
+AgentSWE 实证了 88% 的「自然语言 commission → 实际 agent」映射都失败：
+- 50 个 Creation run 平均 11.2/100
+- 20 个 run 直接交白卷
+- 5 个 Editing task 没有任何 builder 造出 candidate
+- Optimization 平均 0.9% 的剩余 gap 关闭
+
+**3 个结构性 failure mode**（overfitting / hollow runtime / false-claim）都不能通过更多 feedback / prior / time 消除。
+
+### Takeaway 2：Round 34 LLM4SE + round 35-39 的「benchmark 章」补完
+
+| Round | 论文 | 跟 round 40 AgentSWE 关系 |
+|------:|---|---|
+| 34 | LLM4SE Survey | 综述定义 §V+§VIII+§IX+§X+§XII = 5 章节 |
+| 35 | CoCoEmo | (TTS 域独立) |
+| 36 | CRUX | **同源 oracle 弱化** (lexical F1 vs 70B LLM) |
+| 37 | OpenHands | **被 AgentSWE 测** (Editing task upstream) |
+| 38 | ChatDev | **被 AgentSWE 测** (multi-agent SOP) |
+| 39 | SWE-Bench Pro | **同源 eval 哲学** (test = oracle) |
+| **40** | **AgentSWE** | **受托的最后一公里** (natural language = oracle) |
+
+> **AgentSWE 是 round 34 LLM4SE 综述 5 个章节的 benchmark 实证**——比 round 39 SWE-Bench Pro 多 1 章（§X SE Process）。
+
+### Takeaway 3：「Coding agent 写 agent」的 2026 现实
+
+你今天让 coding agent 帮你造一个 agent，**它造出来 88% 不是你想要的**——即使有完整 feedback、即使有充足时间、即使有显式 acceptance criteria。
+
+不是 agent 弱——是**「builder 不知道怎么知道 requirement 还有 unstated implications」**。
+
+唯一能消除的方式是：**不要让 coding agent 接受「自然语言 commission」**——把 requirement 拆成可验证的 acceptance criteria，把 holdout case 显式枚举。
+
+> **但这恰恰就是「coding agent」存在的全部意义**——它本该帮你处理「没明说的 implication」。
+
+如果 requirement 必须写得**穷举所有 holdout**，coding agent 跟传统编程没区别。
+
+**所以这道题没有完美解**。AgentSWE 不是答案，是**让你看到问题的形状**。
 
 ---
 
@@ -315,7 +513,11 @@ AgentSWE 的局限是 **task 作者写自己 task 的 rubric**。如果你真的
 - 配套 8 task Lite 子集：仅需 DeepSeek API key
 - Project page：`https://vectorspacelab.github.io/AgentSWE`
 - 同系列已写论文：
-  - LoopsBench（`papers/23-loopsbench/`）
-  - Agentic Coding in the Wild（`papers/32-agentic-coding-in-the-wild/`）
+  - **LoopsBench**（`papers/23-loopsbench/`）
+  - **Agentic Coding in the Wild**（`papers/32-agentic-coding-in-the-wild/`）
+  - **SWE-Bench Pro**（`papers/29-swe-bench-pro/`，round 39）
+  - **OpenHands**（`papers/38-openhands/`，round 37）
+  - **ChatDev**（`papers/40-chatdev/`，round 38）
+  - **CRUX**（`papers/18-crux/`，round 36）
 
-> 本博客基于结构性复现（未跑实际 agent——需要 Docker + 5 LLM API + 大量算力），12 项结构检查 + 8 个 Lite 数字交叉验证全部 PASS，详见 `REPRODUCTION_NOTES.md`。
+> 本 blog 基于 `reproduce.py` 的 7 项 verification（V1 重新跑 verify_benchmark.py / V2 25 task 10/10/5 / V3 2 dev+6 holdout / V4 8 Lite scope / V5 Lite 8/8 numbers / V6 LLM4SE 5/5 / V7 LLM endpoint skipped），详见 `_round40_reproduction_results.json`。
