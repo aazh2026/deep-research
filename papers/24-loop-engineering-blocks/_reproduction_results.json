@@ -1,0 +1,506 @@
+{
+  "summary": {
+    "Triggering & scheduling": {
+      "n_canonical_with_block": 3,
+      "n_canonical_total": 8,
+      "ours_pct": 37.5,
+      "paper_TP": 242,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.6603902305908037
+    },
+    "Goal & stop conditions": {
+      "n_canonical_with_block": 8,
+      "n_canonical_total": 8,
+      "ours_pct": 100.0,
+      "paper_TP": 0,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.0
+    },
+    "State & memory": {
+      "n_canonical_with_block": 5,
+      "n_canonical_total": 8,
+      "ours_pct": 62.5,
+      "paper_TP": 0,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.0
+    },
+    "Skills & intent": {
+      "n_canonical_with_block": 4,
+      "n_canonical_total": 8,
+      "ours_pct": 50.0,
+      "paper_TP": 1,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.0027288852503752218
+    },
+    "Parallel isolation": {
+      "n_canonical_with_block": 1,
+      "n_canonical_total": 8,
+      "ours_pct": 12.5,
+      "paper_TP": null,
+      "paper_n_repo": 36645,
+      "paper_pct": null
+    },
+    "Verification (maker/checker)": {
+      "n_canonical_with_block": 6,
+      "n_canonical_total": 8,
+      "ours_pct": 75.0,
+      "paper_TP": 0,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.0
+    },
+    "Human oversight & escalation": {
+      "n_canonical_with_block": 3,
+      "n_canonical_total": 8,
+      "ours_pct": 37.5,
+      "paper_TP": 13,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.035475508254877886
+    },
+    "Budgets & pause controls": {
+      "n_canonical_with_block": 7,
+      "n_canonical_total": 8,
+      "ours_pct": 87.5,
+      "paper_TP": 0,
+      "paper_n_repo": 36645,
+      "paper_pct": 0.0
+    }
+  },
+  "results": [
+    {
+      "name": "autogpt_classic",
+      "display": "AutoGPT (classic 2023)",
+      "category": "self-driving autonomous loop",
+      "source": "https://github.com/Significant-Gravitas/AutoGPT (paraphrased core loop)",
+      "code_len": 1251,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": false,
+          "evidence": []
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "explicit iteration cap (e.g. max_iterations)",
+            "completion marker (e.g. DONE_FILE)",
+            "for-range + break stop condition",
+            "stop condition mentioned in comment/docstring only"
+          ]
+        },
+        "State & memory": {
+          "present": true,
+          "evidence": [
+            "named state file (STATE.md / LOOP.md / state.json)",
+            "persistent state write (json.dump / sqlite / .log)",
+            "[NEGATIVE] explicit 'in-memory only' annotation"
+          ]
+        },
+        "Skills & intent": {
+          "present": false,
+          "evidence": []
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": false,
+          "evidence": []
+        },
+        "Human oversight & escalation": {
+          "present": false,
+          "evidence": []
+        },
+        "Budgets & pause controls": {
+          "present": false,
+          "evidence": []
+        }
+      },
+      "n_blocks_present": 2,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "claude_code_sdk",
+      "display": "Claude Code SDK (with worktree + /loop)",
+      "category": "harness with recurring loop",
+      "source": "https://docs.claude.com/en/docs/claude-code (paraphrased)",
+      "code_len": 1385,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": true,
+          "evidence": [
+            "cron/schedule trigger (e.g. `cron: '0 2 * * *'`)",
+            "GitHub Actions on: event trigger"
+          ]
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "completion marker (e.g. DONE_FILE)",
+            "stop condition mentioned in comment/docstring only"
+          ]
+        },
+        "State & memory": {
+          "present": false,
+          "evidence": []
+        },
+        "Skills & intent": {
+          "present": true,
+          "evidence": [
+            ".claude/settings.json with hooks/skills"
+          ]
+        },
+        "Parallel isolation": {
+          "present": true,
+          "evidence": [
+            "git worktree (local only, NOT pushed)",
+            "agent-prefix branch naming (worktree convention)"
+          ]
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "pytest / test runner",
+            "LLM-as-verifier (maker/checker)"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": true,
+          "evidence": [
+            "PR review / CODEOWNERS / approval gate"
+          ]
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)",
+            "runtime budget enforcement"
+          ]
+        }
+      },
+      "n_blocks_present": 7,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "aider",
+      "display": "Aider (interleaved edit + commit loop)",
+      "category": "interleaved edit loop with git",
+      "source": "https://github.com/Aider-AI/aider (paraphrased core loop)",
+      "code_len": 1400,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": true,
+          "evidence": [
+            "infinite loop `while :` or `while True`"
+          ]
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "explicit iteration cap (e.g. max_iterations)",
+            "for-range + break stop condition"
+          ]
+        },
+        "State & memory": {
+          "present": false,
+          "evidence": []
+        },
+        "Skills & intent": {
+          "present": false,
+          "evidence": []
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "pytest / test runner",
+            "LLM-as-verifier (maker/checker)"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": true,
+          "evidence": [
+            "input() / human-in-the-loop"
+          ]
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 5,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "metagpt",
+      "display": "MetaGPT (5-role SOP)",
+      "category": "multi-agent SOP with feedback",
+      "source": "round 41-metagpt reproduction",
+      "code_len": 820,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": false,
+          "evidence": []
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "for-range + break stop condition"
+          ]
+        },
+        "State & memory": {
+          "present": true,
+          "evidence": [
+            "[NEGATIVE] explicit 'in-memory only' annotation"
+          ]
+        },
+        "Skills & intent": {
+          "present": false,
+          "evidence": []
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "pytest / test runner"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": false,
+          "evidence": []
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 4,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "reflexion",
+      "display": "Reflexion (self-reflection)",
+      "category": "single-agent self-feedback",
+      "source": "Shinn et al. NeurIPS 2023 (paraphrased)",
+      "code_len": 870,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": false,
+          "evidence": []
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "explicit iteration cap (e.g. max_iterations)",
+            "for-range + break stop condition",
+            "stop condition mentioned in comment/docstring only"
+          ]
+        },
+        "State & memory": {
+          "present": true,
+          "evidence": [
+            "[NEGATIVE] explicit 'in-memory only' annotation"
+          ]
+        },
+        "Skills & intent": {
+          "present": true,
+          "evidence": [
+            "tool/skill registry"
+          ]
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "pytest / test runner"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": false,
+          "evidence": []
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 5,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "react",
+      "display": "ReAct (single thought/action loop)",
+      "category": "single-agent reasoning loop",
+      "source": "Yao et al. ICLR 2023 (paraphrased)",
+      "code_len": 810,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": false,
+          "evidence": []
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "explicit iteration cap (e.g. max_iterations)",
+            "for-range + break stop condition"
+          ]
+        },
+        "State & memory": {
+          "present": false,
+          "evidence": []
+        },
+        "Skills & intent": {
+          "present": true,
+          "evidence": [
+            "tool/skill registry"
+          ]
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "LLM-as-verifier (maker/checker)"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": false,
+          "evidence": []
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 4,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "round_15_pqc",
+      "display": "Beyond Code Gen (5-gate PQC)",
+      "category": "5-gate progressive quality control",
+      "source": "round 27-beyond-code-generation reproduction",
+      "code_len": 1218,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": false,
+          "evidence": []
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "for-range + break stop condition"
+          ]
+        },
+        "State & memory": {
+          "present": true,
+          "evidence": [
+            "[NEGATIVE] explicit 'in-memory only' annotation"
+          ]
+        },
+        "Skills & intent": {
+          "present": false,
+          "evidence": []
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": true,
+          "evidence": [
+            "pytest / test runner",
+            "LLM-as-verifier (maker/checker)"
+          ]
+        },
+        "Human oversight & escalation": {
+          "present": false,
+          "evidence": []
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 4,
+      "n_blocks_total": 8
+    },
+    {
+      "name": "ralph_wiggum",
+      "display": "Ralph Wiggum (Huntley 2025 - while : bash)",
+      "category": "shell-level infinite loop",
+      "source": "https://github.com/oldmangulf/Ralph (paraphrased)",
+      "code_len": 942,
+      "blocks": {
+        "Triggering & scheduling": {
+          "present": true,
+          "evidence": [
+            "infinite loop `while :` or `while True`"
+          ]
+        },
+        "Goal & stop conditions": {
+          "present": true,
+          "evidence": [
+            "explicit iteration cap (e.g. max_iterations)",
+            "completion marker (e.g. DONE_FILE)",
+            "stop condition mentioned in comment/docstring only"
+          ]
+        },
+        "State & memory": {
+          "present": true,
+          "evidence": [
+            "persistent state write (json.dump / sqlite / .log)"
+          ]
+        },
+        "Skills & intent": {
+          "present": true,
+          "evidence": [
+            "tool/skill registry"
+          ]
+        },
+        "Parallel isolation": {
+          "present": false,
+          "evidence": []
+        },
+        "Verification (maker/checker)": {
+          "present": false,
+          "evidence": []
+        },
+        "Human oversight & escalation": {
+          "present": true,
+          "evidence": [
+            "input() / human-in-the-loop"
+          ]
+        },
+        "Budgets & pause controls": {
+          "present": true,
+          "evidence": [
+            "token/cost budget (max_cost / max_tokens)"
+          ]
+        }
+      },
+      "n_blocks_present": 6,
+      "n_blocks_total": 8
+    }
+  ]
+}

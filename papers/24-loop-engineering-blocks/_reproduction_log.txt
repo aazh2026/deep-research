@@ -1,0 +1,175 @@
+=== AutoGPT (classic 2023) (autogpt_classic) ===
+  category: self-driving autonomous loop
+  source:   https://github.com/Significant-Gravitas/AutoGPT (paraphrased core loop)
+
+  ✗ Triggering & scheduling
+  ✓ Goal & stop conditions
+      - explicit iteration cap (e.g. max_iterations)
+      - completion marker (e.g. DONE_FILE)
+      - for-range + break stop condition
+      - stop condition mentioned in comment/docstring only
+  ✓ State & memory
+      - named state file (STATE.md / LOOP.md / state.json)
+      - persistent state write (json.dump / sqlite / .log)
+      - [NEGATIVE] explicit 'in-memory only' annotation
+  ✗ Skills & intent
+  ✗ Parallel isolation
+  ✗ Verification (maker/checker)
+  ✗ Human oversight & escalation
+  ✗ Budgets & pause controls
+
+  Total blocks present in code: 2/8
+
+=== Claude Code SDK (with worktree + /loop) (claude_code_sdk) ===
+  category: harness with recurring loop
+  source:   https://docs.claude.com/en/docs/claude-code (paraphrased)
+
+  ✓ Triggering & scheduling
+      - cron/schedule trigger (e.g. `cron: '0 2 * * *'`)
+      - GitHub Actions on: event trigger
+  ✓ Goal & stop conditions
+      - completion marker (e.g. DONE_FILE)
+      - stop condition mentioned in comment/docstring only
+  ✗ State & memory
+  ✓ Skills & intent
+      - .claude/settings.json with hooks/skills
+  ✓ Parallel isolation
+      - git worktree (local only, NOT pushed)
+      - agent-prefix branch naming (worktree convention)
+  ✓ Verification (maker/checker)
+      - pytest / test runner
+      - LLM-as-verifier (maker/checker)
+  ✓ Human oversight & escalation
+      - PR review / CODEOWNERS / approval gate
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+      - runtime budget enforcement
+
+  Total blocks present in code: 7/8
+
+=== Aider (interleaved edit + commit loop) (aider) ===
+  category: interleaved edit loop with git
+  source:   https://github.com/Aider-AI/aider (paraphrased core loop)
+
+  ✓ Triggering & scheduling
+      - infinite loop `while :` or `while True`
+  ✓ Goal & stop conditions
+      - explicit iteration cap (e.g. max_iterations)
+      - for-range + break stop condition
+  ✗ State & memory
+  ✗ Skills & intent
+  ✗ Parallel isolation
+  ✓ Verification (maker/checker)
+      - pytest / test runner
+      - LLM-as-verifier (maker/checker)
+  ✓ Human oversight & escalation
+      - input() / human-in-the-loop
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 5/8
+
+=== MetaGPT (5-role SOP) (metagpt) ===
+  category: multi-agent SOP with feedback
+  source:   round 41-metagpt reproduction
+
+  ✗ Triggering & scheduling
+  ✓ Goal & stop conditions
+      - for-range + break stop condition
+  ✓ State & memory
+      - [NEGATIVE] explicit 'in-memory only' annotation
+  ✗ Skills & intent
+  ✗ Parallel isolation
+  ✓ Verification (maker/checker)
+      - pytest / test runner
+  ✗ Human oversight & escalation
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 4/8
+
+=== Reflexion (self-reflection) (reflexion) ===
+  category: single-agent self-feedback
+  source:   Shinn et al. NeurIPS 2023 (paraphrased)
+
+  ✗ Triggering & scheduling
+  ✓ Goal & stop conditions
+      - explicit iteration cap (e.g. max_iterations)
+      - for-range + break stop condition
+      - stop condition mentioned in comment/docstring only
+  ✓ State & memory
+      - [NEGATIVE] explicit 'in-memory only' annotation
+  ✓ Skills & intent
+      - tool/skill registry
+  ✗ Parallel isolation
+  ✓ Verification (maker/checker)
+      - pytest / test runner
+  ✗ Human oversight & escalation
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 5/8
+
+=== ReAct (single thought/action loop) (react) ===
+  category: single-agent reasoning loop
+  source:   Yao et al. ICLR 2023 (paraphrased)
+
+  ✗ Triggering & scheduling
+  ✓ Goal & stop conditions
+      - explicit iteration cap (e.g. max_iterations)
+      - for-range + break stop condition
+  ✗ State & memory
+  ✓ Skills & intent
+      - tool/skill registry
+  ✗ Parallel isolation
+  ✓ Verification (maker/checker)
+      - LLM-as-verifier (maker/checker)
+  ✗ Human oversight & escalation
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 4/8
+
+=== Beyond Code Gen (5-gate PQC) (round_15_pqc) ===
+  category: 5-gate progressive quality control
+  source:   round 27-beyond-code-generation reproduction
+
+  ✗ Triggering & scheduling
+  ✓ Goal & stop conditions
+      - for-range + break stop condition
+  ✓ State & memory
+      - [NEGATIVE] explicit 'in-memory only' annotation
+  ✗ Skills & intent
+  ✗ Parallel isolation
+  ✓ Verification (maker/checker)
+      - pytest / test runner
+      - LLM-as-verifier (maker/checker)
+  ✗ Human oversight & escalation
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 4/8
+
+=== Ralph Wiggum (Huntley 2025 - while : bash) (ralph_wiggum) ===
+  category: shell-level infinite loop
+  source:   https://github.com/oldmangulf/Ralph (paraphrased)
+
+  ✓ Triggering & scheduling
+      - infinite loop `while :` or `while True`
+  ✓ Goal & stop conditions
+      - explicit iteration cap (e.g. max_iterations)
+      - completion marker (e.g. DONE_FILE)
+      - stop condition mentioned in comment/docstring only
+  ✓ State & memory
+      - persistent state write (json.dump / sqlite / .log)
+  ✓ Skills & intent
+      - tool/skill registry
+  ✗ Parallel isolation
+  ✗ Verification (maker/checker)
+  ✓ Human oversight & escalation
+      - input() / human-in-the-loop
+  ✓ Budgets & pause controls
+      - token/cost budget (max_cost / max_tokens)
+
+  Total blocks present in code: 6/8
+
