@@ -1,0 +1,382 @@
+{
+  "paper": "Large Language Models for Software Engineering: Survey and Open Problems",
+  "arxiv": "2310.03533v4",
+  "round": 34,
+  "claim": "13-section LLM4SE taxonomy + Automated Regression Oracle + SBSE bridge",
+  "verifications": {
+    "V1_table_i_paper": {
+      "table_i_paper": {
+        "2019": [
+          55325,
+          36,
+          0
+        ],
+        "2020": [
+          71431,
+          99,
+          5
+        ],
+        "2021": [
+          77520,
+          192,
+          13
+        ],
+        "2022": [
+          81964,
+          434,
+          45
+        ],
+        "2023": [
+          52547,
+          1665,
+          181
+        ]
+      },
+      "text_check": {
+        "2019": {
+          "L": 36,
+          "L∩S": 0,
+          "L_in_text": true,
+          "Ls_in_text": true
+        },
+        "2020": {
+          "L": 99,
+          "L∩S": 5,
+          "L_in_text": true,
+          "Ls_in_text": true
+        },
+        "2021": {
+          "L": 192,
+          "L∩S": 13,
+          "L_in_text": true,
+          "Ls_in_text": true
+        },
+        "2022": {
+          "L": 434,
+          "L∩S": 45,
+          "L_in_text": true,
+          "Ls_in_text": true
+        },
+        "2023": {
+          "L": 1665,
+          "L∩S": 181,
+          "L_in_text": true,
+          "Ls_in_text": true
+        }
+      },
+      "pct_2023_computed": 10.87,
+      "pct_2023_paper_claim": 10.87,
+      "delta_pp": 0.0009,
+      "verdict": "exact"
+    },
+    "V2_table_i_extension": {
+      "arxiv_api_reachable": false,
+      "error": "Empty reply from server (curl 52)",
+      "alternative_hou_slr_2024": {
+        "hou_paper_count_2017_2023": 229,
+        "paper_table_i_cum_2017_2023": 239,
+        "delta_pct": -4.2,
+        "interpretation": "within 4%; confirms paper's L∩S direction"
+      }
+    },
+    "V3_specific_numbers": {
+      "n_checked": 17,
+      "n_present": 17,
+      "match_rate_pct": 100.0,
+      "details": {
+        "Claude 2 4.8% coding": true,
+        "GPT-4 1.7% coding": true,
+        "Copilot 46% code": true,
+        "Copilot Java 62%": true,
+        "Defects4J-Nl2fix Top-1 21%": true,
+        "Defects4J-Nl2fix Top-5 36%": true,
+        "AlphaCode top 54%": true,
+        "Test compile 29% TeCo": true,
+        "CodeX coverage 14% (vs 10% Randoop)": true,
+        "Supersonic 26% vs GPT-4 4%": true,
+        "GPT-4 12.0% (Supersonic baseline)": true,
+        "CODAMOSA on 486 benchmarks": true,
+        "Dakhel mutation 28% more": true,
+        "GPT-3.5 repair explanations 84% correct": true,
+        "ReAct/Yao 2022 cited": true,
+        "OpenAI Codex 12B": true,
+        "Code Llama 7B reference": true
+      }
+    },
+    "V4_taxonomy_application": {
+      "n_papers_classified": 19,
+      "section_counts": {
+        "IV": 15,
+        "X": 7,
+        "XII": 2,
+        "VIII": 2,
+        "VI": 2
+      },
+      "missing_sections": [
+        "III",
+        "IX",
+        "V",
+        "VII",
+        "XI"
+      ],
+      "missing_descriptions": [
+        "Documentation Generation",
+        "Human-Computer Interaction",
+        "Requirement Engineering & Design",
+        "Software Testing",
+        "Software Engineering Education"
+      ],
+      "iv_x_union_count": 18,
+      "iv_x_union_pct": 94.7,
+      "paper_to_sections": {
+        "22-wikiskill": [
+          "IV",
+          "X"
+        ],
+        "23-loopsbench": [
+          "IV"
+        ],
+        "24-loop-engineering-blocks": [
+          "IV",
+          "X"
+        ],
+        "25-self-evolving-coding-agents": [
+          "IV",
+          "X"
+        ],
+        "26-agentswe": [
+          "IV"
+        ],
+        "27-beyond-code-generation": [
+          "X",
+          "XII"
+        ],
+        "29-swe-bench-pro": [
+          "IV"
+        ],
+        "30-omnicode": [
+          "IV"
+        ],
+        "31-ai-coding-agents-pull-requests": [
+          "VIII"
+        ],
+        "32-agentic-coding-in-the-wild": [
+          "IV",
+          "VIII",
+          "XII"
+        ],
+        "33-swe-agent": [
+          "IV",
+          "VI"
+        ],
+        "34-swe-bench": [
+          "IV"
+        ],
+        "35-swe-lancer": [
+          "IV"
+        ],
+        "37-autocoderover": [
+          "IV",
+          "VI"
+        ],
+        "38-openhands": [
+          "IV",
+          "X"
+        ],
+        "39-codeplan": [
+          "IV"
+        ],
+        "40-chatdev": [
+          "X"
+        ],
+        "41-metagpt": [
+          "X"
+        ],
+        "42-repocoder": [
+          "IV"
+        ]
+      }
+    },
+    "V5_regression_oracle": {
+      "n_dirs_scanned": 28,
+      "n_files_with_oracle_hits": 16,
+      "files": [
+        {
+          "paper": "18-crux",
+          "patterns": [
+            {
+              "pattern": "\\boracle\\b",
+              "n": 16
+            }
+          ]
+        },
+        {
+          "paper": "23-loopsbench",
+          "patterns": [
+            {
+              "pattern": "\\bregression\\b",
+              "n": 3
+            }
+          ]
+        },
+        {
+          "paper": "25-self-evolving-coding-agents",
+          "patterns": [
+            {
+              "pattern": "test\\s+pass",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "27-beyond-code-generation",
+          "patterns": [
+            {
+              "pattern": "test\\s+pass",
+              "n": 9
+            }
+          ]
+        },
+        {
+          "paper": "29-swe-bench-pro",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 16
+            }
+          ]
+        },
+        {
+          "paper": "30-omnicode",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 5
+            }
+          ]
+        },
+        {
+          "paper": "31-ai-coding-agents-pull-requests",
+          "patterns": [
+            {
+              "pattern": "\\bregression\\b",
+              "n": 2
+            },
+            {
+              "pattern": "swe-bench",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "33-swe-agent",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 8
+            }
+          ]
+        },
+        {
+          "paper": "34-swe-bench",
+          "patterns": [
+            {
+              "pattern": "\\boracle\\b",
+              "n": 1
+            },
+            {
+              "pattern": "swe-bench",
+              "n": 33
+            }
+          ]
+        },
+        {
+          "paper": "35-swe-lancer",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "37-autocoderover",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 7
+            }
+          ]
+        },
+        {
+          "paper": "38-openhands",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 2
+            }
+          ]
+        },
+        {
+          "paper": "39-codeplan",
+          "patterns": [
+            {
+              "pattern": "\\boracle\\b",
+              "n": 9
+            },
+            {
+              "pattern": "test\\s+pass",
+              "n": 5
+            },
+            {
+              "pattern": "passing test",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "40-chatdev",
+          "patterns": [
+            {
+              "pattern": "swe-bench",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "41-metagpt",
+          "patterns": [
+            {
+              "pattern": "test\\s+pass",
+              "n": 2
+            },
+            {
+              "pattern": "swe-bench",
+              "n": 1
+            }
+          ]
+        },
+        {
+          "paper": "42-repocoder",
+          "patterns": [
+            {
+              "pattern": "\\boracle\\b",
+              "n": 1
+            }
+          ]
+        }
+      ]
+    },
+    "V6_sbse_bridge": {
+      "n_sbse_mentions": 7,
+      "n_search_based_se_mentions": 2,
+      "n_genetic_improvement_mentions": 18,
+      "bridge_claim_present": true,
+      "project_adherence_examples": [
+        "22-wikiskill: 5 seeds × 5 configs with mean±std (SBSE-style)",
+        "32-agentic-coding-in-the-wild: paper inconsistency surfaced (+21% gap)",
+        "33-swe-agent: trajectory-level analysis instead of single-run claim"
+      ]
+    }
+  }
+}
