@@ -1,0 +1,20 @@
+=== SWE-bench reproduction ===
+
+  Figure 3: django/django: ours=850 paper=850 ✓
+  Figure 3: sympy/sympy: ours=386 paper=386 ✓
+  Figure 3: scikit-learn/scikit-learn: ours=229 paper=229 ✓
+  Figure 3: sphinx-doc/sphinx: ours=187 paper=187 ✓
+  Figure 3: matplotlib/matplotlib: ours=184 paper=184 ✓
+  Figure 3: pytest-dev/pytest: ours=119 paper=119 ✓
+  Figure 3: pydata/xarray: ours=110 paper=110 ✓
+  Figure 3: astropy/astropy: ours=95 paper=95 ✓
+  Figure 3: pylint-dev/pylint: ours=57 paper=57 ✓
+  Figure 3: psf/requests: ours=44 paper=44 ✓
+  Figure 3: mwaskom/seaborn: ours=22 paper=22 ✓
+  Figure 3: pallets/flask: ours=11 paper=11 ✓
+  Figure 3 total match: 12/12
+
+  Table 1: issue_text_words: ours=194.89 paper=195.10 diff=✓
+  Table 1: patch_lines: ours=37.71 paper=32.80 diff=~15.0%
+  Table 1: patch_files: ours=1.66 paper=1.70 diff=✓
+  Table 1: fail_to_pass: ours=9.03 paper=9.10 diff=✓

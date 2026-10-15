@@ -1,0 +1,82 @@
+{
+  "summary": {
+    "n_test": 2294,
+    "n_dev": 225,
+    "n_train": 19008,
+    "n_lite_test": 300,
+    "n_lite_dev": 23,
+    "n_repos": 12,
+    "n_train_repos": 35,
+    "fig3_match": 12,
+    "fig3_total": 12,
+    "table1_match": 3,
+    "table1_total": 4
+  },
+  "repo_distribution": {
+    "astropy/astropy": 95,
+    "django/django": 850,
+    "matplotlib/matplotlib": 184,
+    "mwaskom/seaborn": 22,
+    "pallets/flask": 11,
+    "psf/requests": 44,
+    "pydata/xarray": 110,
+    "pylint-dev/pylint": 57,
+    "pytest-dev/pytest": 119,
+    "scikit-learn/scikit-learn": 229,
+    "sphinx-doc/sphinx": 187,
+    "sympy/sympy": 386
+  },
+  "lite_distribution": {
+    "astropy/astropy": 6,
+    "django/django": 114,
+    "matplotlib/matplotlib": 23,
+    "mwaskom/seaborn": 4,
+    "pallets/flask": 3,
+    "psf/requests": 6,
+    "pydata/xarray": 5,
+    "pylint-dev/pylint": 6,
+    "pytest-dev/pytest": 17,
+    "scikit-learn/scikit-learn": 23,
+    "sphinx-doc/sphinx": 16,
+    "sympy/sympy": 77
+  },
+  "table1_stats": {
+    "n": 2294,
+    "issue_text_words_mean": 194.88840453356582,
+    "issue_text_words_max": 4477,
+    "patch_lines_mean": 37.71403661726242,
+    "patch_lines_max": 6400,
+    "patch_files_mean": 1.657802964254577,
+    "patch_files_max": 31,
+    "fail_to_pass_mean": 9.031386224934613,
+    "fail_to_pass_max": 1630
+  },
+  "bm25_mini": {
+    "path_recall_13000": {
+      "pct": 100.0,
+      "n": 20,
+      "note": "toy proxy: corpus = file paths only"
+    },
+    "path_recall_27000": {
+      "pct": 100.0,
+      "n": 20,
+      "note": "toy proxy: corpus = file paths only"
+    },
+    "path_recall_50000": {
+      "pct": 100.0,
+      "n": 20,
+      "note": "toy proxy: corpus = file paths only"
+    },
+    "issue_patch_overlap": {
+      "mean_pct": 20.12179784989267,
+      "n": 20,
+      "note": "% of unique issue words that appear in gold patch (proxy for issue->code relevance)"
+    }
+  },
+  "well_formedness": {
+    "has_issue": 2294,
+    "has_patch": 2294,
+    "has_f2p": 2294,
+    "all_three": 2294
+  }
+}
