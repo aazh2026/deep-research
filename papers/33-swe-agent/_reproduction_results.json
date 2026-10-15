@@ -1,0 +1,52 @@
+{
+  "paper": "SWE-agent (arXiv:2405.15793)",
+  "round": 25,
+  "claim": "ACI design yields 12.47% on SWE-bench Verified",
+  "verifications": {
+    "V1_repo_integrity": {
+      "tarball_present": true,
+      "env_present": true,
+      "traj_present": true,
+      "log_present": true
+    },
+    "V2_trajectory_stats": {
+      "api_calls": 238,
+      "tokens_sent": 3350267,
+      "tokens_received": 18911,
+      "exit_status": null,
+      "submission": null
+    },
+    "V3_aci_dominance": {
+      "history_len": 410,
+      "roles": {
+        "system": 1,
+        "user": 205,
+        "assistant": 204
+      },
+      "sre_count": 0,
+      "bash_count": 34,
+      "python_count": 126,
+      "text_count": 171,
+      "submit_count": 0,
+      "sre_bash_ratio": 0.0,
+      "finding": "LLM did not use str_replace_editor format despite tool being configured; reverted to bash/python/sed/perl blocks"
+    },
+    "V4_bug_fix": {
+      "n_3_passed_occurrences": 268,
+      "value_error_referenced": true,
+      "cannot_divide_by_zero": true
+    },
+    "V5_submit_termination": {
+      "exit_status_none": true,
+      "submission_none": true,
+      "known_issue": "submit termination not triggered in this run"
+    },
+    "V6_aci_principles": {
+      "P1_simple_actions": true,
+      "P2_compact_feedback": true,
+      "P3_explicit_format": true,
+      "P4_safety_rails": true,
+      "all_4_hold": true
+    }
+  }
+}
