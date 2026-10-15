@@ -1,0 +1,110 @@
+[
+  {
+    "task_id": "edit_1_add_log_param",
+    "category": "add_param",
+    "description": "Add an optional 'log' parameter (default False) to math_ops.add() and propagate the new signature to all callers.",
+    "initial_files": {
+      "math_ops.py": "def add(a, b):\n    return a + b\n\ndef sub(a, b):\n    return a - b\n",
+      "calc_app.py": "from math_ops import add, sub\n\ndef calc(x, y):\n    return add(x, y) + sub(x, y)\n\ndef calc_neg(x, y):\n    return -add(x, y)\n",
+      "test_app.py": "from math_ops import add\nfrom calc_app import calc, calc_neg\n\ndef test_basic():\n    assert add(1, 2) == 3\n    assert calc(5, 3) == (5 + 3) + (5 - 3)\n    assert calc_neg(5, 3) == -8\n",
+      "_unused.py": "def helper():\n    return 42\n"
+    },
+    "oracle_files": {
+      "math_ops.py": "def add(a, b, log=False):\n    return a + b\n\ndef sub(a, b):\n    return a - b\n",
+      "calc_app.py": "from math_ops import add, sub\n\ndef calc(x, y):\n    return add(x, y, log=False) + sub(x, y)\n\ndef calc_neg(x, y):\n    return -add(x, y, log=False)\n",
+      "test_app.py": "from math_ops import add\nfrom calc_app import calc, calc_neg\n\ndef test_basic():\n    assert add(1, 2, log=False) == 3\n    assert calc(5, 3) == (5 + 3) + (5 - 3)\n    assert calc_neg(5, 3) == -8\n",
+      "_unused.py": "def helper():\n    return 42\n"
+    },
+    "seed_edit": "Change math_ops.add(a, b) → math_ops.add(a, b, log=False)"
+  },
+  {
+    "task_id": "edit_2_rename_func",
+    "category": "rename",
+    "description": "Rename utils.fetch_user() → utils.get_user_profile() and propagate the rename through all callers.",
+    "initial_files": {
+      "utils.py": "def fetch_user(uid):\n    return {'id': uid, 'name': 'User'}\n\ndef fetch_count():\n    return 0\n",
+      "service.py": "from utils import fetch_user\n\ndef get_user_summary(uid):\n    u = fetch_user(uid)\n    return u['name']\n",
+      "main_app.py": "from utils import fetch_user, fetch_count\nfrom service import get_user_summary\n\ndef dashboard(uid):\n    user = fetch_user(uid)\n    name = get_user_summary(uid)\n    count = fetch_count()\n    return {'name': name, 'count': count}\n",
+      "_old_api.py": "def legacy():\n    return 'deprecated'\n"
+    },
+    "oracle_files": {
+      "utils.py": "def get_user_profile(uid):\n    return {'id': uid, 'name': 'User'}\n\ndef fetch_count():\n    return 0\n",
+      "service.py": "from utils import get_user_profile\n\ndef get_user_summary(uid):\n    u = get_user_profile(uid)\n    return u['name']\n",
+      "main_app.py": "from utils import get_user_profile, fetch_count\nfrom service import get_user_summary\n\ndef dashboard(uid):\n    user = get_user_profile(uid)\n    name = get_user_summary(uid)\n    count = fetch_count()\n    return {'name': name, 'count': count}\n",
+      "_old_api.py": "def legacy():\n    return 'deprecated'\n"
+    },
+    "seed_edit": "Rename utils.fetch_user → utils.get_user_profile in utils.py"
+  },
+  {
+    "task_id": "edit_3_add_field",
+    "category": "add_field",
+    "description": "Add a 'created_at' field to User class (default None) and update __init__ to accept it. Also update all places that instantiate User.",
+    "initial_files": {
+      "models.py": "class User:\n    def __init__(self, name, email):\n        self.name = name\n        self.email = email\n    \n    def to_dict(self):\n        return {'name': self.name, 'email': self.email}\n",
+      "api.py": "from models import User\n\ndef create_user(name, email):\n    user = User(name, email)\n    return user.to_dict()\n",
+      "admin.py": "from models import User\n\ndef bulk_create():\n    users = []\n    for i in range(3):\n        u = User(f'user{i}', f'u{i}@x.com')\n        users.append(u)\n    return users\n",
+      "_legacy.py": "def old_helper():\n    return 'legacy'\n"
+    },
+    "oracle_files": {
+      "models.py": "class User:\n    def __init__(self, name, email, created_at=None):\n        self.name = name\n        self.email = email\n        self.created_at = created_at\n    \n    def to_dict(self):\n        return {'name': self.name, 'email': self.email, 'created_at': self.created_at}\n",
+      "api.py": "from models import User\n\ndef create_user(name, email):\n    user = User(name, email, created_at=None)\n    return user.to_dict()\n",
+      "admin.py": "from models import User\n\ndef bulk_create():\n    users = []\n    for i in range(3):\n        u = User(f'user{i}', f'u{i}@x.com', created_at=None)\n        users.append(u)\n    return users\n",
+      "_legacy.py": "def old_helper():\n    return 'legacy'\n"
+    },
+    "seed_edit": "Add 'created_at=None' parameter to User.__init__ in models.py"
+  },
+  {
+    "task_id": "edit_4_change_return_type",
+    "category": "change_return_type",
+    "description": "Change stats.median() return type from float to Optional[float] (returns None for empty list). Update the docstring and all callers to handle None.",
+    "initial_files": {
+      "stats.py": "def median(values):\n    if not values:\n        return 0.0\n    s = sorted(values)\n    n = len(s)\n    if n % 2 == 1: return float(s[n//2])\n    return (s[n//2 - 1] + s[n//2]) / 2\n",
+      "report.py": "from stats import median\n\ndef summary(values):\n    m = median(values)\n    return f'Median: {m:.2f}'\n",
+      "test_stats.py": "from stats import median\n\ndef test_median():\n    assert median([1,2,3]) == 2\n    assert median([1,2,3,4]) == 2.5\n",
+      "_config.py": "DEBUG = False\n"
+    },
+    "oracle_files": {
+      "stats.py": "def median(values):\n    if not values:\n        return None\n    s = sorted(values)\n    n = len(s)\n    if n % 2 == 1: return float(s[n//2])\n    return (s[n//2 - 1] + s[n//2]) / 2\n",
+      "report.py": "from stats import median\n\ndef summary(values):\n    m = median(values)\n    if m is None:\n        return 'Median: N/A'\n    return f'Median: {m:.2f}'\n",
+      "test_stats.py": "from stats import median\n\ndef test_median():\n    assert median([1,2,3]) == 2\n    assert median([1,2,3,4]) == 2.5\n    assert median([]) is None\n",
+      "_config.py": "DEBUG = False\n"
+    },
+    "seed_edit": "Change stats.median() to return None for empty list (instead of 0.0)"
+  },
+  {
+    "task_id": "edit_5_remove_field",
+    "category": "remove_field",
+    "description": "Remove the 'internal_id' field from User class and remove all references to it.",
+    "initial_files": {
+      "models.py": "class User:\n    def __init__(self, name, email, internal_id):\n        self.name = name\n        self.email = email\n        self.internal_id = internal_id\n    \n    def to_dict(self):\n        return {'name': self.name, 'email': self.email, 'internal_id': self.internal_id}\n",
+      "service.py": "from models import User\n\ndef create(name, email, iid):\n    return User(name, email, iid).to_dict()\n",
+      "audit.py": "from models import User\n\ndef audit_log(user):\n    return f'User {user.name} (id={user.internal_id})'\n",
+      "_unused.py": "def helper():\n    return 42\n"
+    },
+    "oracle_files": {
+      "models.py": "class User:\n    def __init__(self, name, email):\n        self.name = name\n        self.email = email\n    \n    def to_dict(self):\n        return {'name': self.name, 'email': self.email}\n",
+      "service.py": "from models import User\n\ndef create(name, email):\n    return User(name, email).to_dict()\n",
+      "audit.py": "from models import User\n\ndef audit_log(user):\n    return f'User {user.name}'\n",
+      "_unused.py": "def helper():\n    return 42\n"
+    },
+    "seed_edit": "Remove 'internal_id' field from User class in models.py"
+  },
+  {
+    "task_id": "edit_6_change_default",
+    "category": "change_default",
+    "description": "Change the default timeout in http.get() from 30 to 60 seconds. Update callers that override the default value of 30 to be consistent.",
+    "initial_files": {
+      "http.py": "def get(url, timeout=30):\n    return f'GET {url} (timeout={timeout})'\n\ndef post(url, data, timeout=30):\n    return f'POST {url} (timeout={timeout})'\n",
+      "api.py": "from http import get, post\n\ndef fetch(url):\n    return get(url, timeout=30)\n\ndef send(url, data):\n    return post(url, data, timeout=30)\n",
+      "main.py": "from http import get\nfrom api import fetch, send\n\ndef main(url):\n    a = fetch(url)\n    b = get(url)\n    return a + b\n",
+      "_helpers.py": "def helper():\n    return 0\n"
+    },
+    "oracle_files": {
+      "http.py": "def get(url, timeout=60):\n    return f'GET {url} (timeout={timeout})'\n\ndef post(url, data, timeout=60):\n    return f'POST {url} (timeout={timeout})'\n",
+      "api.py": "from http import get, post\n\ndef fetch(url):\n    return get(url, timeout=60)\n\ndef send(url, data):\n    return post(url, data, timeout=60)\n",
+      "main.py": "from http import get\nfrom api import fetch, send\n\ndef main(url):\n    a = fetch(url)\n    b = get(url)\n    return a + b\n",
+      "_helpers.py": "def helper():\n    return 0\n"
+    },
+    "seed_edit": "Change http.get default timeout from 30 to 60"
+  }
+]
