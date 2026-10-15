@@ -1,0 +1,287 @@
+{
+  "summary": {
+    "n": 5,
+    "n_runs_per_method": 2,
+    "in_file": {
+      "em_mean": 0.3,
+      "es_mean": 0.49820000000000003
+    },
+    "repocoder_1": {
+      "em_mean": 0.2,
+      "es_mean": 0.25579999999999997
+    },
+    "repocoder_2": {
+      "em_mean": 0.0,
+      "es_mean": 0.10600000000000001
+    },
+    "total_in_tokens": 13406,
+    "total_out_tokens": 2394
+  },
+  "results": [
+    {
+      "task_id": "line-add",
+      "category": "line",
+      "gold": " add(a, b),",
+      "n_runs": 2,
+      "in_file": {
+        "pred": "a + b,",
+        "em": 0.0,
+        "es": 0.333,
+        "all_preds": [
+          "a + b,",
+          "a + b,"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 630,
+        "out_tok": 160
+      },
+      "repocoder_1": {
+        "pred": "add(a, b),",
+        "em": 0.5,
+        "es": 0.511,
+        "all_preds": [
+          "add(a, b),",
+          "We need infer desired completion shortest valid. Current dict {\"sum\": unfinished. Need likely utils imports/calls. Repository snippets irrelevant functions. Need complete line, likely add(a,b),. We output only completion text, starting directly. They explicitly line. Need syntax continuation. \"sum\": add(a, b), but imports absent? Context only functions. Could inline? likely intended from utils import add"
+        ],
+        "all_ems": [
+          1,
+          0
+        ],
+        "in_tok": 926,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      },
+      "repocoder_2": {
+        "pred": "\"sum\":",
+        "em": 0.0,
+        "es": 0.0,
+        "all_preds": [
+          "\"sum\":",
+          "\"sum\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 926,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      }
+    },
+    {
+      "task_id": "line-subtract",
+      "category": "line",
+      "gold": " subtract(a, b),",
+      "n_runs": 2,
+      "in_file": {
+        "pred": "\"diff\":",
+        "em": 0.0,
+        "es": 0.176,
+        "all_preds": [
+          "\"diff\":",
+          "\"diff\": sub(a, b),"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 648,
+        "out_tok": 160
+      },
+      "repocoder_1": {
+        "pred": "\"diff\":",
+        "em": 0.5,
+        "es": 0.5,
+        "all_preds": [
+          "\"diff\":",
+          "subtract(a, b),"
+        ],
+        "all_ems": [
+          0,
+          1
+        ],
+        "in_tok": 944,
+        "out_tok": 154,
+        "top1_path": "utils.py"
+      },
+      "repocoder_2": {
+        "pred": "\"diff\":",
+        "em": 0.0,
+        "es": 0.0,
+        "all_preds": [
+          "\"diff\":",
+          "\"diff\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 944,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      }
+    },
+    {
+      "task_id": "line-divide",
+      "category": "line",
+      "gold": " divide(a, b),",
+      "n_runs": 2,
+      "in_file": {
+        "pred": "\"ratio\": divide(a, b),",
+        "em": 0.0,
+        "es": 0.286,
+        "all_preds": [
+          "\"ratio\": divide(a, b),",
+          "\"ratio\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 666,
+        "out_tok": 160
+      },
+      "repocoder_1": {
+        "pred": "\"ratio\":",
+        "em": 0.0,
+        "es": 0.0,
+        "all_preds": [
+          "\"ratio\":",
+          "\"ratio\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 962,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      },
+      "repocoder_2": {
+        "pred": "\"ratio\":",
+        "em": 0.0,
+        "es": 0.0,
+        "all_preds": [
+          "\"ratio\":",
+          "\"ratio\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 962,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      }
+    },
+    {
+      "task_id": "line-median",
+      "category": "line",
+      "gold": " median(values),",
+      "n_runs": 2,
+      "in_file": {
+        "pred": "median(values)",
+        "em": 1.0,
+        "es": 1.0,
+        "all_preds": [
+          "median(values)",
+          "median(values),"
+        ],
+        "all_ems": [
+          1,
+          1
+        ],
+        "in_tok": 642,
+        "out_tok": 160
+      },
+      "repocoder_1": {
+        "pred": "\"med\":",
+        "em": 0.0,
+        "es": 0.143,
+        "all_preds": [
+          "\"med\":",
+          "\"med\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 1118,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      },
+      "repocoder_2": {
+        "pred": "\"med\": median(values)",
+        "em": 0.0,
+        "es": 0.405,
+        "all_preds": [
+          "\"med\": median(values)",
+          "\"med\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 1118,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      }
+    },
+    {
+      "task_id": "line-variance",
+      "category": "line",
+      "gold": " variance(values),",
+      "n_runs": 2,
+      "in_file": {
+        "pred": "variance(values)",
+        "em": 0.5,
+        "es": 0.696,
+        "all_preds": [
+          "variance(values)",
+          "def list_stats(values):"
+        ],
+        "all_ems": [
+          1,
+          0
+        ],
+        "in_tok": 656,
+        "out_tok": 160
+      },
+      "repocoder_1": {
+        "pred": "\"var\":",
+        "em": 0.0,
+        "es": 0.125,
+        "all_preds": [
+          "\"var\":",
+          "\"var\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 1132,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      },
+      "repocoder_2": {
+        "pred": "\"var\":",
+        "em": 0.0,
+        "es": 0.125,
+        "all_preds": [
+          "\"var\":",
+          "\"var\":"
+        ],
+        "all_ems": [
+          0,
+          0
+        ],
+        "in_tok": 1132,
+        "out_tok": 160,
+        "top1_path": "utils.py"
+      }
+    }
+  ]
+}

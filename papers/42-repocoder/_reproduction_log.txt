@@ -1,0 +1,82 @@
+=== line-add ===
+Gold: ' add(a, b),'
+In-File:  pred='a + b,', em=0.0, es=0.333
+  prompt: File: app.py
+
+def basic_calc(a: float, b: float) -> dict:
+    """Return a dict with sum, diff, and ratio of a and b."""
+    return {
+        "sum":
+R1: pred='add(a, b),', em=0.5, es=0.511
+  top-3: [('utils.py', 0.36), ('utils.py', 0.36), ('utils.py', 0.36)]
+R2: pred='"sum":', em=0.0, es=0.000
+  top-3: [('utils.py', 0.43), ('utils.py', 0.33), ('utils.py', 0.33)]
+
+=== line-subtract ===
+Gold: ' subtract(a, b),'
+In-File:  pred='"diff":', em=0.0, es=0.176
+  prompt: File: app.py
+
+def basic_calc(a: float, b: float) -> dict:
+    """Return a dict with sum, diff, and ratio of a and b."""
+    return {
+        "sum": add(a, b),
+        "diff":
+R1: pred='"diff":', em=0.5, es=0.500
+  top-3: [('utils.py', 0.43), ('utils.py', 0.33), ('utils.py', 0.33)]
+R2: pred='"diff":', em=0.0, es=0.000
+  top-3: [('utils.py', 0.43), ('utils.py', 0.33), ('utils.py', 0.33)]
+
+=== line-divide ===
+Gold: ' divide(a, b),'
+In-File:  pred='"ratio": divide(a, b),', em=0.0, es=0.286
+  prompt: File: app.py
+
+def basic_calc(a: float, b: float) -> dict:
+    """Return a dict with sum, diff, and ratio of a and b."""
+    return {
+        "sum": add(a, b),
+        "diff": subtract(a, b),
+        "
+R1: pred='"ratio":', em=0.0, es=0.000
+  top-3: [('utils.py', 0.29), ('utils.py', 0.29), ('utils.py', 0.2)]
+R2: pred='"ratio":', em=0.0, es=0.000
+  top-3: [('utils.py', 0.29), ('utils.py', 0.29), ('utils.py', 0.2)]
+
+=== line-median ===
+Gold: ' median(values),'
+In-File:  pred='median(values)', em=1.0, es=1.000
+  prompt: File: app.py
+
+def list_stats(values):
+    """Return descriptive stats for a numeric list."""
+    return {
+        "n": len(values),
+        "sum": sum_list(values),
+        "avg": average(values),
+   
+R1: pred='"med":', em=0.0, es=0.143
+  top-3: [('utils.py', 0.25), ('utils.py', 0.2), ('stats.py', 0.15)]
+R2: pred='"med": median(values)', em=0.0, es=0.405
+  top-3: [('utils.py', 0.25), ('utils.py', 0.2), ('stats.py', 0.15)]
+
+=== line-variance ===
+Gold: ' variance(values),'
+In-File:  pred='variance(values)', em=0.5, es=0.696
+  prompt: File: app.py
+
+def list_stats(values):
+    """Return descriptive stats for a numeric list."""
+    return {
+        "n": len(values),
+        "sum": sum_list(values),
+        "avg": average(values),
+   
+R1: pred='"var":', em=0.0, es=0.125
+  top-3: [('utils.py', 0.18), ('stats.py', 0.15), ('utils.py', 0.14)]
+R2: pred='"var":', em=0.0, es=0.125
+  top-3: [('utils.py', 0.18), ('stats.py', 0.15), ('utils.py', 0.14)]
+
+ar":', em=0.0, es=0.125
+  top-3: [('utils.py', 0.18), ('stats.py', 0.15), ('utils.py', 0.14)]
+

@@ -1,0 +1,37 @@
+[
+  {
+    "task_id": "line-add",
+    "file": "app.py",
+    "in_file_context": "def basic_calc(a: float, b: float) -> dict:\n    \"\"\"Return a dict with sum, diff, and ratio of a and b.\"\"\"\n    return {\n        \"sum\":",
+    "ground_truth": " add(a, b),",
+    "category": "line"
+  },
+  {
+    "task_id": "line-subtract",
+    "file": "app.py",
+    "in_file_context": "def basic_calc(a: float, b: float) -> dict:\n    \"\"\"Return a dict with sum, diff, and ratio of a and b.\"\"\"\n    return {\n        \"sum\": add(a, b),\n        \"diff\":",
+    "ground_truth": " subtract(a, b),",
+    "category": "line"
+  },
+  {
+    "task_id": "line-divide",
+    "file": "app.py",
+    "in_file_context": "def basic_calc(a: float, b: float) -> dict:\n    \"\"\"Return a dict with sum, diff, and ratio of a and b.\"\"\"\n    return {\n        \"sum\": add(a, b),\n        \"diff\": subtract(a, b),\n        \"ratio\":",
+    "ground_truth": " divide(a, b),",
+    "category": "line"
+  },
+  {
+    "task_id": "line-median",
+    "file": "app.py",
+    "in_file_context": "def list_stats(values):\n    \"\"\"Return descriptive stats for a numeric list.\"\"\"\n    return {\n        \"n\": len(values),\n        \"sum\": sum_list(values),\n        \"avg\": average(values),\n        \"med\":",
+    "ground_truth": " median(values),",
+    "category": "line"
+  },
+  {
+    "task_id": "line-variance",
+    "file": "app.py",
+    "in_file_context": "def list_stats(values):\n    \"\"\"Return descriptive stats for a numeric list.\"\"\"\n    return {\n        \"n\": len(values),\n        \"sum\": sum_list(values),\n        \"avg\": average(values),\n        \"med\": median(values),\n        \"var\":",
+    "ground_truth": " variance(values),",
+    "category": "line"
+  }
+]
