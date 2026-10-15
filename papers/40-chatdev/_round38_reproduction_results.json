@@ -1,0 +1,218 @@
+{
+  "paper": "ChatDev: Communicative Agents for Software Development",
+  "arxiv": "2307.07924v5",
+  "venue": "SANER 2024",
+  "round": 38,
+  "claim": "Multi-agent chat chain (CEO+CPO+CTO+Programmer+Reviewer+Tester) with Communicative Dehallucination produces higher-quality code than single-agent or simpler multi-agent baselines.",
+  "verifications": {
+    "V1_task_artifact_present": {
+      "ok": true,
+      "n_files": 17,
+      "missing": [],
+      "files": [
+        ".py",
+        "2.5",
+        "Calculator.prompt",
+        "Calculator_DefaultOrganization_20261014232048.log",
+        "ChatChainConfig.json",
+        "PhaseConfig.json",
+        "RoleConfig.json",
+        "calculator_cli.py",
+        "calculator_engine.py",
+        "calculator_gui.py",
+        "calculatorengine.py",
+        "calculatorgui.py",
+        "engine.divide",
+        "main.py",
+        "manual.md",
+        "meta.txt",
+        "readme.md"
+      ]
+    },
+    "V2_calculator_runs": {
+      "n_pass": 5,
+      "n_total": 5,
+      "all_pass": true,
+      "details": [
+        {
+          "expr": "1 + 2",
+          "out": "1 + 2 = 3",
+          "expected": "3",
+          "pass": true
+        },
+        {
+          "expr": "5 * 3",
+          "out": "5 * 3 = 15",
+          "expected": "15",
+          "pass": true
+        },
+        {
+          "expr": "10 / 4",
+          "out": "10 / 4 = 2.5",
+          "expected": "2.5",
+          "pass": true
+        },
+        {
+          "expr": "7 - 4",
+          "out": "7 - 4 = 3",
+          "expected": "3",
+          "pass": true
+        },
+        {
+          "expr": "6/0",
+          "out": "raised",
+          "expected": "raise",
+          "pass": true
+        }
+      ]
+    },
+    "V3_chat_log_integrity": {
+      "log_size_bytes": 1221902,
+      "n_lines": 18848,
+      "sections": {
+        "Preprocessing": true,
+        "ChatDev Starts": true,
+        "ChatDev Ends": true,
+        "DemandAnalysis": true,
+        "CodeComplete": true,
+        "CodeReview": true,
+        "Test": true,
+        "Manual": true,
+        "EnvironmentDoc": true,
+        "Software Info": true
+      },
+      "all_sections_present": true,
+      "duration_sec": 411.0,
+      "num_code_files": 6,
+      "num_total_tokens": 120947
+    },
+    "V4_token_analysis": {
+      "duration_sec": 411.0,
+      "num_total_tokens": 120947,
+      "tokens_per_sec": 294.2749391727494,
+      "paper_wallclock_sec": 148,
+      "paper_tokens": 22000,
+      "delta_factor_wallclock": 2.777027027027027,
+      "delta_factor_tokens": 5.497590909090909
+    },
+    "V5_failure_modes": {
+      "by_mode": {
+        "FILENAME placeholder not replaced": {
+          "present": true,
+          "evidence": [
+            ".py: contains 'FILENAME'",
+            "file: calculator_engine.py",
+            "file: calculator_cli.py"
+          ]
+        },
+        "Modality wrong (CLI asked, GUI generated)": {
+          "present": true,
+          "evidence": [
+            "calculator_gui.py: contains 'GUI'",
+            "calculatorgui.py: contains 'GUI'",
+            "manual.md: contains 'GUI'"
+          ]
+        },
+        "Duplicate module (snake_case + lowercase)": {
+          "present": true,
+          "evidence": [
+            "file: calculator_cli.py",
+            "manual.md: contains 'calculator_cli'",
+            "readme.md: contains 'calculator_cli'"
+          ]
+        },
+        "Method name as filename (engine.divide)": {
+          "present": true,
+          "evidence": [
+            "file: engine.divide",
+            "calculator_cli.py: contains 'engine.divide'",
+            "calculator_gui.py: contains 'engine.divide'"
+          ]
+        },
+        "Test stdout numbers as filenames (2.5, 5)": {
+          "present": true,
+          "evidence": [
+            "file: 2.5",
+            "manual.md: contains '2.5'",
+            "calculator_gui.py: contains '5\\n'"
+          ]
+        },
+        "Empty main.py (entry point missing)": {
+          "present": true,
+          "evidence": [
+            "file: main.py",
+            "manual.md: contains 'main.py'",
+            "readme.md: contains 'main.py'"
+          ]
+        }
+      },
+      "n_found": 6,
+      "n_total": 6
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "Multi-agent SE process (round 34 §X)": {
+          "needles": [
+            "agent",
+            "chat chain",
+            "CEO",
+            "CPO",
+            "CTO",
+            "Programmer"
+          ],
+          "matched": 6,
+          "total": 6,
+          "pct": 100.0
+        },
+        "Code Generation via role-based collaboration (round 34 §IV)": {
+          "needles": [
+            "Code",
+            "Programmer",
+            "CodeComplete",
+            "CodeReview"
+          ],
+          "matched": 4,
+          "total": 4,
+          "pct": 100.0
+        },
+        "Communicative Dehallucination as crosscut (round 34 §XII)": {
+          "needles": [
+            "Communicative",
+            "Dehallucination",
+            "CDH",
+            "cross"
+          ],
+          "matched": 3,
+          "total": 4,
+          "pct": 75.0
+        },
+        "Multi-role SOP / waterfall-like process (round 34 §II Design)": {
+          "needles": [
+            "DemandAnalysis",
+            "Coding",
+            "Test",
+            "Manual",
+            "phase"
+          ],
+          "matched": 5,
+          "total": 5,
+          "pct": 100.0
+        },
+        "Multi-agent evaluation / metrics (round 34 §V Testing)": {
+          "needles": [
+            "Quality",
+            "Completeness",
+            "Consistency",
+            "metric"
+          ],
+          "matched": 4,
+          "total": 4,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5,
+      "key_connection": "ChatDev is a multi-agent SOP framework that spans round 34 §II (Design - waterfall-like phases), §IV (Code Gen - Programmer role), §X (SE Process - multi-agent chat chain), and §XII (Crosscut - Communicative Dehallucination as cross-domain technique). 5/5 categories match confirms the 13-section taxonomy can absorb a 2023 multi-agent framework."
+    }
+  }
+}
