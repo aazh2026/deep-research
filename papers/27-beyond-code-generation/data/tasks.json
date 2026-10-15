@@ -1,0 +1,70 @@
+[
+  {
+    "task_id": "task_1_humaneval_close",
+    "category": "humaneval",
+    "description": "Implement a function that returns True if any two numbers in the list are closer than the threshold.",
+    "function_signature": "def has_close_elements(numbers: list, threshold: float) -> bool:",
+    "test_cases": [
+      "assert has_close_elements([1.0, 2.0, 3.0], 0.5) == False",
+      "assert has_close_elements([1.0, 2.8, 3.0, 4.0], 0.5) == True",
+      "assert has_close_elements([], 1.0) == False",
+      "assert has_close_elements([1.0, 2.0], 1.0) == False"
+    ]
+  },
+  {
+    "task_id": "task_2_humaneval_separate",
+    "category": "humaneval",
+    "description": "Separate a list into even-indexed and odd-indexed elements, returning (even_list, odd_list).",
+    "function_signature": "def separate_parity(numbers: list) -> tuple:",
+    "test_cases": [
+      "assert separate_parity([1, 2, 3, 4, 5]) == ([1, 3, 5], [2, 4])",
+      "assert separate_parity([]) == ([], [])",
+      "assert separate_parity([7]) == ([7], [])"
+    ]
+  },
+  {
+    "task_id": "task_3_string_normalize",
+    "category": "string",
+    "description": "Normalize a string by lowercasing, removing non-alphanumeric chars, and collapsing whitespace.",
+    "function_signature": "def normalize_string(s: str) -> str:",
+    "test_cases": [
+      "assert normalize_string('Hello, World!') == 'hello world'",
+      "assert normalize_string('  A  B  C  ') == 'a b c'",
+      "assert normalize_string('') == ''",
+      "assert normalize_string('Test123') == 'test123'"
+    ]
+  },
+  {
+    "task_id": "task_4_dict_merge",
+    "category": "data_structure",
+    "description": "Merge two dicts, with values from b overriding a. For keys present in both where both values are lists, concatenate the lists.",
+    "function_signature": "def merge_dicts(a: dict, b: dict) -> dict:",
+    "test_cases": [
+      "r = merge_dicts({'x': 1, 'y': 2}, {'y': 3, 'z': 4}); assert r == {'x': 1, 'y': 3, 'z': 4}",
+      "r = merge_dicts({'k': [1, 2]}, {'k': [3, 4]}); assert r == {'k': [1, 2, 3, 4]}",
+      "r = merge_dicts({}, {'a': 1}); assert r == {'a': 1}"
+    ]
+  },
+  {
+    "task_id": "task_5_filter_users",
+    "category": "filter",
+    "description": "Filter a list of user dicts to keep only users with age >= min_age and email containing the domain.",
+    "function_signature": "def filter_users(users: list, min_age: int, domain: str) -> list:",
+    "test_cases": [
+      "u = [{'name': 'A', 'age': 25, 'email': 'a@x.com'}, {'name': 'B', 'age': 17, 'email': 'b@x.com'}, {'name': 'C', 'age': 30, 'email': 'c@y.com'}]",
+      "r = filter_users(u, 18, 'x.com'); assert r == [{'name': 'A', 'age': 25, 'email': 'a@x.com'}]",
+      "assert filter_users([], 18, 'x.com') == []"
+    ]
+  },
+  {
+    "task_id": "task_6_password_hash",
+    "category": "security",
+    "description": "Write a function to verify a password against a stored hash. Should use a constant-time comparison and not log the password.",
+    "function_signature": "def verify_password(plain: str, stored_hash: str) -> bool:",
+    "test_cases": [
+      "assert verify_password('test', 'test') == True",
+      "assert verify_password('test', 'wrong') == False",
+      "assert verify_password('', '') == True"
+    ]
+  }
+]
