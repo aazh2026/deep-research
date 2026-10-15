@@ -1,0 +1,139 @@
+{
+  "paper": "AutoCodeRover: Autonomous Program Improvement",
+  "arxiv": "2404.05427v3",
+  "venue": "NUS, ISSTA 2024",
+  "round": 41,
+  "claim": "AST-based context retrieval (7 APIs) outperforms SWE-agent bash+grep.  Stratified search converges in 2 rounds / 4 LLM calls / 6.3K tokens.  Paper reports 19.7% on SWE-bench Lite vs 3.7% SWE-agent.",
+  "verifications": {
+    "V1_llm_endpoint_sanity": {
+      "ok": true,
+      "elapsed_sec": 17.2,
+      "endpoint": "https://api.minimaxi.com/v1",
+      "has_key": true
+    },
+    "V2_ast_retrieval_apis": {
+      "ok": true,
+      "api_hits": {
+        "search_class": 3,
+        "search_class_in_file": 1,
+        "search_method": 4,
+        "search_method_in_class": 2,
+        "search_method_in_file": 1,
+        "search_code": 2,
+        "search_code_in_file": 1
+      },
+      "n_apis_called": 7
+    },
+    "V3_e2e_search_iterative": {
+      "ok": true,
+      "elapsed_sec": 24.5,
+      "bug_section_present": true,
+      "target_file_mentioned": true,
+      "target_class_mentioned": true,
+      "target_method_mentioned": true,
+      "intended_behavior_mentioned": true,
+      "bug_located": true
+    },
+    "V4_convergence": {
+      "rounds": 2,
+      "llm_calls": 4,
+      "converged_in_2_rounds": true
+    },
+    "V5_token_usage": {
+      "total_in": 4737,
+      "total_out": 1591,
+      "total_tokens": 6328,
+      "wallclock_sec": 19.7,
+      "n_calls": 5,
+      "cost_usd": 0.0
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "Code Gen / AST-based retrieval (round 34 §IV Code Gen)": {
+          "needles": [
+            "AST",
+            "search_class",
+            "search_method",
+            "search_code",
+            "Code",
+            "AST",
+            "类",
+            "方法",
+            "代码"
+          ],
+          "matched": 9,
+          "total": 9,
+          "pct": 100.0
+        },
+        "SE Process / multi-round agent (round 34 §X SE Process)": {
+          "needles": [
+            "Search",
+            "round",
+            "iterative",
+            "SearchManager",
+            "ContextRetrieval",
+            "agent",
+            "检索",
+            "迭代",
+            "多轮"
+          ],
+          "matched": 9,
+          "total": 9,
+          "pct": 100.0
+        },
+        "Benchmark / evaluation (round 34 §V Testing + §VIII Analytics)": {
+          "needles": [
+            "SWE-bench",
+            "300",
+            "benchmark",
+            "evaluate",
+            "300",
+            "评测",
+            "评估"
+          ],
+          "matched": 7,
+          "total": 7,
+          "pct": 100.0
+        },
+        "Tool / API abstraction (round 34 §VI Maintenance)": {
+          "needles": [
+            "API",
+            "tool",
+            "backend",
+            "abstraction",
+            "tool",
+            "API",
+            "工具",
+            "抽象"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Domain-specific SE (round 34 §IX Domain-specific)": {
+          "needles": [
+            "Python",
+            "Django",
+            "Flask",
+            "bug",
+            "patch",
+            "domain",
+            "Python",
+            "Django",
+            "域",
+            "领域"
+          ],
+          "matched": 10,
+          "total": 10,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5
+    },
+    "V7_paper_claims_audit": {
+      "verified": 5,
+      "unverifiable": 4
+    }
+  }
+}
