@@ -1,0 +1,58 @@
+[
+  {
+    "name": "autogpt_classic",
+    "display": "AutoGPT (classic 2023)",
+    "category": "self-driving autonomous loop",
+    "source": "https://github.com/Significant-Gravitas/AutoGPT (paraphrased core loop)",
+    "code": "import openai\nimport subprocess\nimport json\nimport time\n\nclass AutoGPT:\n    def __init__(self, goal, max_iterations=100):\n        self.goal = goal\n        self.memory = []  # in-memory state\n        self.iteration = 0\n        self.max_iterations = max_iterations\n        self.state_file = 'autogpt_state.json'\n\n    def run(self):\n        while self.iteration < self.max_iterations:  # STOP CONDITION\n            self.iteration += 1\n            prompt = self.build_prompt()\n            response = openai.ChatCompletion.create(...)\n            command = self.parse_command(response)\n\n            # execute via subprocess\n            result = subprocess.run(command, shell=True, capture_output=True)\n\n            self.memory.append({\n                'iteration': self.iteration,\n                'command': command,\n                'result': str(result.stdout)[:500]\n            })\n            self.save_state()  # STATE PERSISTENCE\n\n            if 'TASK_COMPLETE' in result.stdout.decode():\n                break\n        return self.memory\n\n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump(self.memory, f)\n\nif __name__ == '__main__':\n    agent = AutoGPT('Write a Flask app', max_iterations=50)\n    agent.run()"
+  },
+  {
+    "name": "claude_code_sdk",
+    "display": "Claude Code SDK (with worktree + /loop)",
+    "category": "harness with recurring loop",
+    "source": "https://docs.claude.com/en/docs/claude-code (paraphrased)",
+    "code": "# .claude/settings.json\n{\n  \"hooks\": {\n    \"PreToolUse\": [{ \"matcher\": \"Write|Edit\", \"hooks\": [\"block_dangerous.sh\"] }]\n  },\n  \"skills\": [\"pdf-reader\", \"git-helper\", \"verifier\"]\n}\n\n# .claude/agents/verifier.md\n# Verifier agent: run pytest, return pass/fail\nYou are a verifier. After Engineer writes code, run pytest and report.\n\n# Run loop\nname: Agent Review\non:\n  pull_request:\n    types: [opened, synchronize]\n  schedule:\n    - cron: '0 2 * * *'  # nightly\njobs:\n  agent-review:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          ref: ${{ github.event.pull_request.head.ref }}\n      - name: Setup worktree\n        run: git worktree add /tmp/agent-workspace  # PARALLEL\n      - name: Run claude-code loop\n        run: |\n          for i in 1 2 3; do\n            claude-code --prompt '.claude/prompts/review.md' \\\n              --workdir /tmp/agent-workspace \\\n              --max-iterations 5  # STOP CONDITION\n            if [ -f /tmp/agent-workspace/REVIEW_DONE ]; then break; fi\n          done\n      - name: Verifier check\n        run: cd /tmp/agent-workspace && pytest -x  # VERIFICATION\n      - name: Human approval gate\n        if: github.event_name == 'pull_request'\n        uses: actions/labeler@v5\n      - name: Budget check\n        if: env.TOKEN_USED > 100000  # BUDGET\n        run: echo '::error::Token budget exceeded' && exit 1"
+  },
+  {
+    "name": "aider",
+    "display": "Aider (interleaved edit + commit loop)",
+    "category": "interleaved edit loop with git",
+    "source": "https://github.com/Aider-AI/aider (paraphrased core loop)",
+    "code": "import subprocess\nimport sys\nfrom aider.coders import Coder\nfrom aider import models, utils\n\nclass AiderLoop:\n    def __init__(self, fnames, model_name='gpt-4o'):\n        self.fnames = fnames\n        self.model = models.Model.create(model_name)\n        self.coder = Coder.create(main_model=self.model, fnames=fnames)\n        self.git_auto_commit = True\n        self.max_commits = 50\n        self.commits = 0\n\n    def run_interactive(self):\n        while True:  # INTERACTIVE LOOP\n            user_input = input('You> ')  # HUMAN OVERSIGHT\n            if user_input.lower() in ['exit', 'quit']:\n                break  # HUMAN TERMINATES\n            if self.commits >= self.max_commits:  # BUDGET\n                print('Max commits reached')\n                break\n\n            self.coder.run(user_input)\n\n            if self.git_auto_commit and self.coder.dirty:\n                msg = self.coder.get_commit_message()\n                subprocess.run(['git', 'add', '.'], check=True)\n                subprocess.run(['git', 'commit', '-m', msg], check=True)\n                self.commits += 1\n\n            # Run tests as verifier\n            result = subprocess.run(['pytest', '-x'], capture_output=True)\n            if result.returncode != 0:\n                self.coder.run(f'Tests failed. Fix:\\n{result.stderr.decode()}')\n\nif __name__ == '__main__':\n    AiderLoop(['app.py', 'tests.py']).run_interactive()"
+  },
+  {
+    "name": "metagpt",
+    "display": "MetaGPT (5-role SOP)",
+    "category": "multi-agent SOP with feedback",
+    "source": "round 41-metagpt reproduction",
+    "code": "def setting_3agent(task):\n    # Product Manager\n    prd = llm_chat(PRODUCT_SYSTEM, task)\n    # Architect\n    design = llm_chat(ARCHITECT_SYSTEM, task, prd)\n    # Engineer\n    code = llm_chat(ENGINEER_SYSTEM, task, design)\n    return code\n\ndef setting_3agent_feedback(task, max_retries=3):\n    code = setting_3agent(task)\n    for retry in range(max_retries):  # FEEDBACK LOOP\n        passed, msg = run_test(code, task)  # VERIFICATION\n        if passed:\n            break\n        # Send failure to engineer (SAME-AGENT re-prompt)\n        code = llm_chat(ENGINEER_FEEDBACK_SYSTEM, task, code, msg)\n    return code\n\n# NO cross-run state (in-memory only)\n# NO schedule (single run, human-in-loop)\n# NO parallel (sequential 3-agent)\n# NO budget (3.3 LLM call average, no max_cost)\n# HUMAN at end (developer runs the function)"
+  },
+  {
+    "name": "reflexion",
+    "display": "Reflexion (self-reflection)",
+    "category": "single-agent self-feedback",
+    "source": "Shinn et al. NeurIPS 2023 (paraphrased)",
+    "code": "class ReflexionAgent:\n    def __init__(self, llm, max_trials=3):\n        self.llm = llm\n        self.max_trials = max_trials\n        self.memory = []  # in-memory only\n        self.reflections = []  # reflections across trials\n\n    def run(self, task):\n        for trial in range(self.max_trials):  # STOP CONDITION\n            code = self.llm.generate(task, self.reflections)\n            passed, msg = run_pytest(code)\n            if passed:\n                return code\n            reflection = self.llm.reflect(task, code, msg)\n            self.reflections.append(reflection)\n        return code\n\n# Cross-trial state: in-memory `self.reflections`\n# NO cross-run persistence (reflections lost between runs)\n# NO schedule (single run)\n# NO human oversight (autonomous until max_trials)\n# NO budget (just max_trials count)\n# NO parallel\n# NO skill registry (just one LLM)"
+  },
+  {
+    "name": "react",
+    "display": "ReAct (single thought/action loop)",
+    "category": "single-agent reasoning loop",
+    "source": "Yao et al. ICLR 2023 (paraphrased)",
+    "code": "class ReActAgent:\n    def __init__(self, llm, tools, max_steps=10):\n        self.llm = llm\n        self.tools = tools\n        self.max_steps = max_steps\n\n    def run(self, question):\n        scratchpad = ''\n        for step in range(self.max_steps):\n            thought = self.llm.thought(question, scratchpad)\n            action, action_input = self.llm.action(thought)\n            if action == 'Finish':\n                return action_input\n            observation = self.tools[action](action_input)\n            scratchpad += f'Thought: {thought}\\nAction: {action}\\nObservation: {observation}\\n'\n        return 'Could not finish'\n\n# Single thought/action/observation loop\n# NO cross-run state\n# NO schedule\n# NO human oversight\n# NO budget (just max_steps)\n# NO parallel\n# NO verifier (loop ends at max_steps)"
+  },
+  {
+    "name": "round_15_pqc",
+    "display": "Beyond Code Gen (5-gate PQC)",
+    "category": "5-gate progressive quality control",
+    "source": "round 27-beyond-code-generation reproduction",
+    "code": "GATES = ['gate_1_compile', 'gate_2_test', 'gate_3_review', 'gate_4_security', 'gate_5_deploy']\n\ndef run_pqc(task, max_retries_per_gate=2):\n    code = llm_generate(task)\n    state = {'attempts': {}}  # IN-MEMORY ONLY\n\n    for gate in GATES:\n        for attempt in range(max_retries_per_gate):\n            if gate == 'gate_1_compile':\n                passed, msg = check_compile(code)\n            elif gate == 'gate_2_test':\n                passed, msg = check_pytest(code)  # VERIFICATION\n            elif gate == 'gate_3_review':\n                passed, msg = llm_review(code)  # LLM-AS-VERIFIER\n            elif gate == 'gate_4_security':\n                passed, msg = llm_security(code)\n            elif gate == 'gate_5_deploy':\n                passed, msg = check_deploy(code)\n            if passed:\n                break\n            code = llm_fix(code, msg)  # FEEDBACK LOOP\n            state['attempts'][gate] = state['attempts'].get(gate, 0) + 1\n    return code, state\n\n# G2 / G3 / G4 / G5 are all verifiers (maker/checker)\n# NO schedule (single run, human triggers)\n# NO cross-run state (state lost)\n# NO human oversight (autonomous gates)\n# NO budget (no max_cost / max_token)\n# NO parallel (sequential gates)"
+  },
+  {
+    "name": "ralph_wiggum",
+    "display": "Ralph Wiggum (Huntley 2025 - while : bash)",
+    "category": "shell-level infinite loop",
+    "source": "https://github.com/oldmangulf/Ralph (paraphrased)",
+    "code": "#!/bin/bash\n# ralph.sh - the simplest possible loop\nPROMPT_FILE='PROMPT.md'\nDONE_FILE='ralph.done'\nMAX_RUNS=100\nCOUNT=0\n\nwhile :; do  # INFINITE LOOP (only stop is DONE_FILE or MAX_RUNS)\n  COUNT=$((COUNT + 1))\n  if [ $COUNT -gt $MAX_RUNS ]; then  # BUDGET\n    echo 'Max runs reached' >> ralph.log  # STATE\n    break\n  fi\n  cat $PROMPT_FILE | claude-code \\\n    --workdir $(pwd) \\\n    --max-iterations 20 \\\n    --output ralph-run-$COUNT.log\n  if [ -f $DONE_FILE ]; then  # STOP CONDITION\n    echo \"Run $COUNT: DONE\" >> ralph.log\n    break\n  fi\n  echo \"Run $COUNT: continuing\" >> ralph.log  # STATE LOG\n  sleep 60  # SCHEDULE (1 min between runs)\ndone\n\n# STATE: ralph.log (committed, persistent)\n# BUDGET: MAX_RUNS=100\n# STOP: DONE_FILE (file existence)\n# TRIGGER: while : + sleep (TIME-BASED)\n# NO skill registry (just claude-code binary)\n# NO parallel (sequential)\n# NO verification (no test gate)\n# NO human oversight (autonomous, no input())"
+  }
+]
