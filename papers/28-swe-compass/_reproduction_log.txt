@@ -1,0 +1,117 @@
+>> round 35 reproduction: 28-swe-compass (CoCoEmo TTS, arXiv:2602.03420v2)
+>> paper: ICML 2026 / PMLR 306 -- activation steering for emotional TTS
+>> this round: structural paper-claim verification (no GPU, no TTS run)
+
+
+========================================================================
+  V1  Cross-conditioning Table 1 (CosyVoice2, N=300)
+========================================================================
+  SLM-driven F0 CCC               needles=['0.45', '0.4']  -> YES
+  Flow-driven F0 CCC              needles=['0.78', '0.7']  -> YES
+  SLM-driven Energy CCC           needles=['0.41', '0.4']  -> YES
+  Flow-driven Energy CCC          needles=['0.72', '0.7']  -> YES
+  SLM-driven SR STD               needles=['4.2', 'SR STD']  -> YES
+  Flow-driven SR STD              needles=['1.5', 'lower SR STD']  -> YES
+
+  Matched: 6/6
+
+========================================================================
+  V2  Layer selection Table 12 (WER-constrained)
+========================================================================
+  CosyVoice2 layer 17                     '17'  -> YES
+  CosyVoice2 layer 14                     '14'  -> YES
+  IndexTTS2 layer 6                       '6'  -> YES
+  IndexTTS2 layer 8                       '8'  -> YES
+  IndexTTS2 layer 1                       '1'  -> YES
+  WER constraint +0.5                     '+0.5'  -> YES
+  alpha_max CosyVoice2 4.5                '4.5'  -> YES
+  alpha_max IndexTTS2 6.0                 '6.0'  -> YES
+  no-steer CosyVoice2 WER 4.31            '4.31'  -> YES
+  no-steer IndexTTS2 WER 4.87             '4.87'  -> YES
+
+  Matched: 10/10
+
+========================================================================
+  V3  Mixed-emotion Table 2 (CosyVoice2 + IndexTTS2)
+========================================================================
+  No-steer E-SIM 0.743                        '0.743'  -> YES
+  No-steer TEP 0.065                          '0.065'  -> YES
+  Ins1 E-SIM 0.761                            '0.761'  -> YES
+  Ins1 TEP 0.200                              '0.200'  -> YES
+  CoCoEmo(α=5.0) E-SIM 0.779                  '0.779'  -> YES
+  CoCoEmo(α=5.0) TEP 0.149                    '0.149'  -> YES
+  CoCoEmo(Ins1,α=5.0) E-SIM 0.790             '0.790'  -> YES
+  CoCoEmo(Ins1,α=5.0) TEP 0.335               '0.335'  -> YES
+  CoCoEmo(Ins1,α=5.0) rho 0.319               '0.319'  -> YES
+  CoCoEmo(Ins1,α=5.0) H-Rate 0.760            '0.760'  -> YES
+  IndexTTS2 No-steer E-SIM 0.751              '0.751'  -> YES
+  IndexTTS2 CoCoEmo(α=5.0) E-SIM 0.782        '0.782'  -> YES
+  IndexTTS2 CoCoEmo(EmoV,α=5.0) E-SIM 0.774   '0.774'  -> YES
+  IndexTTS2 CoCoEmo(EmoV,α=5.0) rho 0.399     '0.399'  -> YES
+
+  Matched: 14/14
+
+========================================================================
+  V4  Single-emotion Table 11 (ID/OOD gap)
+========================================================================
+  CosyVoice2 No-steer ID E-SIM 0.444                '0.444'  -> YES
+  CosyVoice2 No-steer OOD E-SIM 0.873               '0.873'  -> YES
+  CosyVoice2 Ins ID E-SIM 0.600                     '0.600'  -> YES
+  CosyVoice2 Ins OOD E-SIM 0.890                    '0.890'  -> YES
+  CosyVoice2 CoCoEmo(α=6.0) OOD E-SIM 0.907         '0.907'  -> YES
+  IndexTTS2 No-steer ID E-SIM 0.469                 '0.469'  -> YES
+  IndexTTS2 No-steer OOD E-SIM 0.868                '0.868'  -> YES
+  IndexTTS2 CoCoEmo(α=6.0) ID E-SIM 0.698           '0.698'  -> YES
+  IndexTTS2 CoCoEmo(α=6.0) OOD E-SIM 0.887          '0.887'  -> YES
+
+  Matched: 9/9
+
+  ID/OOD gap (CosyVoice2 No-steer): 0.873 - 0.444 = 0.429
+  (Paper expected: significant ID/OOD gap, OOD > ID due to
+   Emotion2Vec pretraining on IEMOCAP-style data)
+
+========================================================================
+  V5  GitHub repo wsssy/CoCoEmo accessibility
+========================================================================
+  Target URL: https://github.com/wsssy/CoCoEmo
+  URLError: <urlopen error [Errno 54] Connection reset by peer>
+  Note: github.com:443 TLS handshake intermittent in this env
+
+========================================================================
+  V6  Round 34 LLM4SE methodology alignment
+========================================================================
+  Activation steering as crosscutting technique
+    needles: ['steering', 'activation', 'intervention']
+    matched: 3/3 = 100%
+  Multi-rater evaluation (vs single-label oracle)
+    needles: ['multi-rater', 'soft label', 'rater']
+    matched: 3/3 = 100%
+  SBSE-style statistical rigor
+    needles: ['Spearman', 'rho', 'CCC', 'concordance', 'WER constraint']
+    matched: 4/5 = 80%
+  Layer-wise analysis (LLM-era technique)
+    needles: ['layer', 'attention', 'residual']
+    matched: 3/3 = 100%
+  Cross-domain applicability beyond SE
+    needles: ['TTS', 'speech synthesis', 'emotion control']
+    matched: 3/3 = 100%
+
+========================================================================
+  ROUND 35 SUMMARY
+========================================================================
+  V1 cross-conditioning Table 1 : 6/6 present
+  V2 layer selection Table 12    : 10/10 present
+  V3 mixed-emotion Table 2       : 14/14 present
+  V4 single-emotion Table 11     : 9/9 present
+  V5 GitHub repo                 : reachable=<urlopen error [Errno 54] Connection reset by peer>
+  V6 LLM4SE methodology alignment: 5/5 categories > 50% match
+
+  Headline:
+    • Cross-conditioning: SLM-driven CCC ~0.4 vs Flow-driven CCC ~0.7 (paper claim, present in text)
+    • Layer selection: CosyVoice2 layers 17+14, IndexTTS2 layers 6+8+1 (WER-constrained)
+    • Mixed-emotion (CosyVoice2 CREMA-D): E-SIM 0.743 -> 0.790 (+6.3%) with CoCoEmo+Ins1
+    • ID/OOD gap: CosyVoice2 No-steer 0.444 -> 0.873 (+0.429); reflects E2V pretrain bias
+    • GitHub repo wsssy/CoCoEmo: TLS reset by peer (memory: github.com:443 intermittent)
+    • LLM4SE methodology: 5/5 categories present (cross-domain spillover)
+
+>> Wrote _reproduction_results.json

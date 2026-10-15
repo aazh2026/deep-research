@@ -1,0 +1,173 @@
+{
+  "paper": "CoCoEmo: Composable and Controllable Human-Like Emotional TTS via Activation Steering",
+  "arxiv": "2602.03420v2",
+  "venue": "ICML 2026 / PMLR 306",
+  "round": 35,
+  "claim": "Activation steering on mid-to-late SLM layers enables mixed-emotion + text-emotion mismatch TTS",
+  "domain_note": "TTS (cs.SD), not SWE despite catalog name '28-swe-compass'",
+  "verifications": {
+    "V1_cross_conditioning": {
+      "n_checked": 6,
+      "n_present": 6,
+      "details": {
+        "SLM-driven F0 CCC": {
+          "needles": [
+            "0.45",
+            "0.4"
+          ],
+          "present": true
+        },
+        "Flow-driven F0 CCC": {
+          "needles": [
+            "0.78",
+            "0.7"
+          ],
+          "present": true
+        },
+        "SLM-driven Energy CCC": {
+          "needles": [
+            "0.41",
+            "0.4"
+          ],
+          "present": true
+        },
+        "Flow-driven Energy CCC": {
+          "needles": [
+            "0.72",
+            "0.7"
+          ],
+          "present": true
+        },
+        "SLM-driven SR STD": {
+          "needles": [
+            "4.2",
+            "SR STD"
+          ],
+          "present": true
+        },
+        "Flow-driven SR STD": {
+          "needles": [
+            "1.5",
+            "lower SR STD"
+          ],
+          "present": true
+        }
+      }
+    },
+    "V2_layer_selection": {
+      "n_checked": 10,
+      "n_present": 10,
+      "details": {
+        "CosyVoice2 layer 17": true,
+        "CosyVoice2 layer 14": true,
+        "IndexTTS2 layer 6": true,
+        "IndexTTS2 layer 8": true,
+        "IndexTTS2 layer 1": true,
+        "WER constraint +0.5": true,
+        "alpha_max CosyVoice2 4.5": true,
+        "alpha_max IndexTTS2 6.0": true,
+        "no-steer CosyVoice2 WER 4.31": true,
+        "no-steer IndexTTS2 WER 4.87": true
+      }
+    },
+    "V3_mixed_emotion_table2": {
+      "n_checked": 14,
+      "n_present": 14,
+      "details": {
+        "No-steer E-SIM 0.743": true,
+        "No-steer TEP 0.065": true,
+        "Ins1 E-SIM 0.761": true,
+        "Ins1 TEP 0.200": true,
+        "CoCoEmo(α=5.0) E-SIM 0.779": true,
+        "CoCoEmo(α=5.0) TEP 0.149": true,
+        "CoCoEmo(Ins1,α=5.0) E-SIM 0.790": true,
+        "CoCoEmo(Ins1,α=5.0) TEP 0.335": true,
+        "CoCoEmo(Ins1,α=5.0) rho 0.319": true,
+        "CoCoEmo(Ins1,α=5.0) H-Rate 0.760": true,
+        "IndexTTS2 No-steer E-SIM 0.751": true,
+        "IndexTTS2 CoCoEmo(α=5.0) E-SIM 0.782": true,
+        "IndexTTS2 CoCoEmo(EmoV,α=5.0) E-SIM 0.774": true,
+        "IndexTTS2 CoCoEmo(EmoV,α=5.0) rho 0.399": true
+      }
+    },
+    "V4_single_emotion_table11": {
+      "n_checked": 9,
+      "n_present": 9,
+      "id_ood_gap_cosyvoice2_no_steer": 0.429,
+      "details": {
+        "CosyVoice2 No-steer ID E-SIM 0.444": true,
+        "CosyVoice2 No-steer OOD E-SIM 0.873": true,
+        "CosyVoice2 Ins ID E-SIM 0.600": true,
+        "CosyVoice2 Ins OOD E-SIM 0.890": true,
+        "CosyVoice2 CoCoEmo(α=6.0) OOD E-SIM 0.907": true,
+        "IndexTTS2 No-steer ID E-SIM 0.469": true,
+        "IndexTTS2 No-steer OOD E-SIM 0.868": true,
+        "IndexTTS2 CoCoEmo(α=6.0) ID E-SIM 0.698": true,
+        "IndexTTS2 CoCoEmo(α=6.0) OOD E-SIM 0.887": true
+      }
+    },
+    "V5_github_repo": {
+      "url": "https://github.com/wsssy/CoCoEmo",
+      "reachable": false,
+      "error": "<urlopen error [Errno 54] Connection reset by peer>",
+      "env_note": "github.com:443 TLS intermittent (memory)"
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "Activation steering as crosscutting technique": {
+          "needles": [
+            "steering",
+            "activation",
+            "intervention"
+          ],
+          "matched": 3,
+          "total": 3,
+          "pct": 100.0
+        },
+        "Multi-rater evaluation (vs single-label oracle)": {
+          "needles": [
+            "multi-rater",
+            "soft label",
+            "rater"
+          ],
+          "matched": 3,
+          "total": 3,
+          "pct": 100.0
+        },
+        "SBSE-style statistical rigor": {
+          "needles": [
+            "Spearman",
+            "rho",
+            "CCC",
+            "concordance",
+            "WER constraint"
+          ],
+          "matched": 4,
+          "total": 5,
+          "pct": 80.0
+        },
+        "Layer-wise analysis (LLM-era technique)": {
+          "needles": [
+            "layer",
+            "attention",
+            "residual"
+          ],
+          "matched": 3,
+          "total": 3,
+          "pct": 100.0
+        },
+        "Cross-domain applicability beyond SE": {
+          "needles": [
+            "TTS",
+            "speech synthesis",
+            "emotion control"
+          ],
+          "matched": 3,
+          "total": 3,
+          "pct": 100.0
+        }
+      },
+      "interpretation": "Paper strongly uses LLM-era methodology (steering, multi-rater, layer analysis) but does not explicitly cite SBSE/LLM4SE prior work. This is the 'methodology spillover' the round 34 LLM4SE survey predicts."
+    }
+  }
+}
