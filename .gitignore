@@ -61,3 +61,8 @@ htmlcov/
 # Local config
 .env
 *.local
+
+# Large upstream code/data repos (cloned for reproduction, not source-of-truth)
+papers/*/repo/
+papers/*/_sandbox/
+papers/*/data/
