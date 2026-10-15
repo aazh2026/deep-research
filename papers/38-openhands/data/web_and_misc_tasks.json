@@ -1,0 +1,23 @@
+[
+  {
+    "instance_id": "synth-web-shopping-1",
+    "category": "web",
+    "task": "Visit the local web page at http://localhost:8765/ and find the price of the 'mechanical keyboard'. Report the price (just the number, e.g. '99').",
+    "ground_truth": "99",
+    "eval_type": "exact_match"
+  },
+  {
+    "instance_id": "synth-web-forum-1",
+    "category": "web",
+    "task": "Visit the local web page at http://localhost:8765/forum and find the username of the user who posted topic 'Welcome to the forum'. Report the username.",
+    "ground_truth": "alice",
+    "eval_type": "exact_match"
+  },
+  {
+    "instance_id": "synth-misc-calc-1",
+    "category": "misc",
+    "task": "Calculate the sum of prime numbers between 100 and 200 (inclusive). Report just the number.",
+    "ground_truth": "3167",
+    "eval_type": "exact_match"
+  }
+]

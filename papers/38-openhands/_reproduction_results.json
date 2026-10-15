@@ -1,0 +1,131 @@
+{
+  "summary": {
+    "n_total": 7,
+    "n_pass_total": 3,
+    "by_category": {
+      "swe": {
+        "n": 4,
+        "n_pass": 0,
+        "avg_steps": 6.0,
+        "total_in_tokens": 26617,
+        "total_out_tokens": 3247
+      },
+      "web": {
+        "n": 2,
+        "n_pass": 2,
+        "avg_steps": 1.0,
+        "total_in_tokens": 2540,
+        "total_out_tokens": 79
+      },
+      "misc": {
+        "n": 1,
+        "n_pass": 1,
+        "avg_steps": 1.0,
+        "total_in_tokens": 1158,
+        "total_out_tokens": 89
+      }
+    },
+    "model": "openai/MiniMax-M3.1-Flash-Preview"
+  },
+  "results": [
+    {
+      "instance_id": "django__django-11099",
+      "category": "swe",
+      "task": "UsernameValidator allows trailing newline in usernames\nDescription\n\t\nASCIIUsernameValidator and UnicodeUsernameValidator use the regex \nr'^[\\w.@+-]+$'\nThe intent is to only allow alphanumeric characte",
+      "answer": null,
+      "elapsed_s": 58.2,
+      "in_tokens": 5762,
+      "out_tokens": 664,
+      "n_steps": 6,
+      "edited_target_file": false,
+      "files_in_gold": [
+        "django/contrib/auth/validators.py"
+      ],
+      "eval_mode": "real_file_exists"
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22865",
+      "category": "swe",
+      "task": "[Bug]: Colorbar with drawedges=True and extend='both' does not draw edges at extremities\n### Bug summary\n\nWhen creating a matplotlib colorbar, it is possible to set drawedges to True which separates t",
+      "answer": null,
+      "elapsed_s": 18.3,
+      "in_tokens": 8333,
+      "out_tokens": 696,
+      "n_steps": 6,
+      "edited_target_file": false,
+      "files_in_gold": [
+        "lib/matplotlib/colorbar.py"
+      ],
+      "eval_mode": "real_file_exists"
+    },
+    {
+      "instance_id": "psf__requests-1921",
+      "category": "swe",
+      "task": "Removing a default header of a session\n[The docs](http://docs.python-requests.org/en/latest/user/advanced/#session-objects) say that you can prevent sending a session header by setting the headers val",
+      "answer": null,
+      "elapsed_s": 36.0,
+      "in_tokens": 6542,
+      "out_tokens": 580,
+      "n_steps": 6,
+      "edited_target_file": false,
+      "files_in_gold": [
+        "requests/sessions.py"
+      ],
+      "eval_mode": "real_file_exists"
+    },
+    {
+      "instance_id": "mock-django-validators-1",
+      "category": "swe",
+      "task": "The file sandbox/django/contrib/auth/validators.py contains two regex patterns:\n  r'^[\\w.@+-]+$'   (line 1) \n  r'^[\\w.@+-]+$'   (line 2)\nThese should be changed to use \\A and \\Z anchors (instead of ^ ",
+      "answer": null,
+      "elapsed_s": 26.6,
+      "in_tokens": 5980,
+      "out_tokens": 1307,
+      "n_steps": 6,
+      "edited_target_file": false,
+      "files_in_gold": [
+        "django/contrib/auth/validators.py"
+      ],
+      "eval_mode": "mock_post_regex"
+    },
+    {
+      "instance_id": "synth-web-shopping-1",
+      "category": "web",
+      "task": "Visit the local web page at http://localhost:8765/ and find the price of the 'mechanical keyboard'. Report the price (just the number, e.g. '99').",
+      "answer": "99",
+      "elapsed_s": 2.3,
+      "in_tokens": 1283,
+      "out_tokens": 41,
+      "n_steps": 1,
+      "match": true,
+      "match_num": true,
+      "match_word": []
+    },
+    {
+      "instance_id": "synth-web-forum-1",
+      "category": "web",
+      "task": "Visit the local web page at http://localhost:8765/forum and find the username of the user who posted topic 'Welcome to the forum'. Report the username.",
+      "answer": "alice",
+      "elapsed_s": 3.4,
+      "in_tokens": 1257,
+      "out_tokens": 38,
+      "n_steps": 1,
+      "match": true,
+      "match_num": [],
+      "match_word": true
+    },
+    {
+      "instance_id": "synth-misc-calc-1",
+      "category": "misc",
+      "task": "Calculate the sum of prime numbers between 100 and 200 (inclusive). Report just the number.",
+      "answer": "3167",
+      "elapsed_s": 2.6,
+      "in_tokens": 1158,
+      "out_tokens": 89,
+      "n_steps": 1,
+      "match": true,
+      "match_num": true,
+      "match_word": []
+    }
+  ]
+}

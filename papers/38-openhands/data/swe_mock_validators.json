@@ -1,0 +1,13 @@
+[
+  {
+    "instance_id": "mock-django-validators-1",
+    "category": "swe",
+    "repo": "django/django",
+    "base_commit": "mock",
+    "task": "The file sandbox/django/contrib/auth/validators.py contains two regex patterns:\n  r'^[\\w.@+-]+$'   (line 1) \n  r'^[\\w.@+-]+$'   (line 2)\nThese should be changed to use \\A and \\Z anchors (instead of ^ and $) to prevent matching trailing newlines.\nFix both regex patterns in this file.",
+    "pre_patch_file": "django/contrib/auth/validators.py",
+    "pre_patch_content": "import re\nfrom django.core.exceptions import ValidationError\n\nclass ASCIIUsernameValidator:\n    regex = r'^[\\w.@+-]+$'\n\nclass UnicodeUsernameValidator:\n    regex = r'^[\\w.@+-]+$'\n",
+    "post_patch_regex_substring": "\\A[\\w.@+-]+\\Z",
+    "ground_truth_match": "both regexes contain \\A and \\Z"
+  }
+]
