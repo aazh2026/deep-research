@@ -1,0 +1,268 @@
+{
+  "summary": {
+    "baseline": {
+      "pass_count": 6,
+      "pass_rate": 1.0,
+      "avg_calls": 1.0,
+      "avg_tokens": 476.5,
+      "avg_structure": 1.1666666666666667
+    },
+    "1agent": {
+      "pass_count": 5,
+      "pass_rate": 0.8333333333333334,
+      "avg_calls": 1.0,
+      "avg_tokens": 617.1666666666666,
+      "avg_structure": 1.5
+    },
+    "3agent": {
+      "pass_count": 4,
+      "pass_rate": 0.6666666666666666,
+      "avg_calls": 3.0,
+      "avg_tokens": 3040.6666666666665,
+      "avg_structure": 2.3333333333333335
+    },
+    "3agent+FB": {
+      "pass_count": 6,
+      "pass_rate": 1.0,
+      "avg_calls": 3.3333333333333335,
+      "avg_tokens": 3779.0,
+      "avg_structure": 2.3333333333333335
+    }
+  },
+  "results": [
+    {
+      "task_id": "he_1_inc_dec",
+      "category": "arithmetic",
+      "func_name": "inc_dec",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 398,
+          "code_len": 101,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 534,
+          "code_len": 113,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "3agent": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 2623,
+          "code_len": 514,
+          "structure_score": 2,
+          "msg": "PASS"
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 2556,
+          "code_len": 343,
+          "structure_score": 2,
+          "msg": "PASS"
+        }
+      }
+    },
+    {
+      "task_id": "he_2_count_vowels",
+      "category": "string",
+      "func_name": "count_vowels",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 391,
+          "code_len": 83,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 486,
+          "code_len": 148,
+          "structure_score": 2,
+          "msg": "PASS"
+        },
+        "3agent": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 3249,
+          "code_len": 429,
+          "structure_score": 3,
+          "msg": "PASS"
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 2882,
+          "code_len": 196,
+          "structure_score": 2,
+          "msg": "PASS"
+        }
+      }
+    },
+    {
+      "task_id": "he_3_unique_sorted",
+      "category": "list",
+      "func_name": "unique_sorted",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 388,
+          "code_len": 67,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 465,
+          "code_len": 67,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "3agent": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 2349,
+          "code_len": 144,
+          "structure_score": 2,
+          "msg": "PASS"
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 4,
+          "tokens": 4951,
+          "code_len": 132,
+          "structure_score": 2,
+          "msg": "PASS"
+        }
+      }
+    },
+    {
+      "task_id": "he_4_max_subarray",
+      "category": "algorithm",
+      "func_name": "max_subarray_sum",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 501,
+          "code_len": 285,
+          "structure_score": 2,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 582,
+          "code_len": 373,
+          "structure_score": 3,
+          "msg": "PASS"
+        },
+        "3agent": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 2828,
+          "code_len": 459,
+          "structure_score": 3,
+          "msg": "PASS"
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 3491,
+          "code_len": 605,
+          "structure_score": 3,
+          "msg": "PASS"
+        }
+      }
+    },
+    {
+      "task_id": "he_5_word_freq",
+      "category": "dict",
+      "func_name": "word_freq",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 657,
+          "code_len": 182,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": false,
+          "n_calls": 1,
+          "tokens": 971,
+          "code_len": 166,
+          "structure_score": 1,
+          "msg": "Traceback (most recent call last):\n  File \"/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_5_word_freq/run_test.py\", line "
+        },
+        "3agent": {
+          "pass": false,
+          "n_calls": 3,
+          "tokens": 3756,
+          "code_len": 514,
+          "structure_score": 3,
+          "msg": "Traceback (most recent call last):\n  File \"/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_5_word_freq/run_test.py\", line "
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 4,
+          "tokens": 5344,
+          "code_len": 439,
+          "structure_score": 2,
+          "msg": "PASS"
+        }
+      }
+    },
+    {
+      "task_id": "he_6_fizzbuzz",
+      "category": "logic",
+      "func_name": "fizzbuzz",
+      "settings": {
+        "baseline": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 524,
+          "code_len": 321,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "1agent": {
+          "pass": true,
+          "n_calls": 1,
+          "tokens": 665,
+          "code_len": 348,
+          "structure_score": 1,
+          "msg": "PASS"
+        },
+        "3agent": {
+          "pass": false,
+          "n_calls": 3,
+          "tokens": 3439,
+          "code_len": 2330,
+          "structure_score": 1,
+          "msg": "Traceback (most recent call last):\n  File \"/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_6_fizzbuzz/run_test.py\", line 3"
+        },
+        "3agent+FB": {
+          "pass": true,
+          "n_calls": 3,
+          "tokens": 3450,
+          "code_len": 633,
+          "structure_score": 3,
+          "msg": "PASS"
+        }
+      }
+    }
+  ]
+}

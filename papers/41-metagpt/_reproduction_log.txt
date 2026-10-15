@@ -1,0 +1,42 @@
+=== he_1_inc_dec (arithmetic) ===
+  baseline: pass=True calls=1 tok=398 struct=1
+  1agent: pass=True calls=1 tok=534 struct=1
+  3agent: pass=True calls=3 tok=2623 struct=2
+  3agent+FB: pass=True calls=3 tok=2556 struct=2
+
+=== he_2_count_vowels (string) ===
+  baseline: pass=True calls=1 tok=391 struct=1
+  1agent: pass=True calls=1 tok=486 struct=2
+  3agent: pass=True calls=3 tok=3249 struct=3
+  3agent+FB: pass=True calls=3 tok=2882 struct=2
+
+=== he_3_unique_sorted (list) ===
+  baseline: pass=True calls=1 tok=388 struct=1
+  1agent: pass=True calls=1 tok=465 struct=1
+  3agent: pass=True calls=3 tok=2349 struct=2
+  3agent+FB: pass=True calls=4 tok=4951 struct=2
+
+=== he_4_max_subarray (algorithm) ===
+  baseline: pass=True calls=1 tok=501 struct=2
+  1agent: pass=True calls=1 tok=582 struct=3
+  3agent: pass=True calls=3 tok=2828 struct=3
+  3agent+FB: pass=True calls=3 tok=3491 struct=3
+
+=== he_5_word_freq (dict) ===
+  baseline: pass=True calls=1 tok=657 struct=1
+  1agent: pass=False calls=1 tok=971 struct=1
+    msg: Traceback (most recent call last):
+  File "/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_5_word_freq/run_test.py", line 
+  3agent: pass=False calls=3 tok=3756 struct=3
+    msg: Traceback (most recent call last):
+  File "/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_5_word_freq/run_test.py", line 
+  3agent+FB: pass=True calls=4 tok=5344 struct=2
+
+=== he_6_fizzbuzz (logic) ===
+  baseline: pass=True calls=1 tok=524 struct=1
+  1agent: pass=True calls=1 tok=665 struct=1
+  3agent: pass=False calls=3 tok=3439 struct=1
+    msg: Traceback (most recent call last):
+  File "/Users/aaronzh/Documents/GitHub/deep-research/papers/41-metagpt/_sandbox/he_6_fizzbuzz/run_test.py", line 3
+  3agent+FB: pass=True calls=3 tok=3450 struct=3
+
