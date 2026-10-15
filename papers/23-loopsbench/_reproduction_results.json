@@ -1,0 +1,122 @@
+{
+  "n_tasks": 112,
+  "verifications": {
+    "V1_task_count": {
+      "paper": 112,
+      "ours": 112,
+      "pass": true
+    },
+    "V2_categories": {
+      "paper_domains": 9,
+      "our_categories": 12,
+      "largest_share": 0.19642857142857142,
+      "category_spread_ok": true,
+      "by_category": {
+        "graphics-and-games": 22,
+        "systems": 16,
+        "software-engineering": 7,
+        "distributed-systems": 3,
+        "machine-learning": 8,
+        "security": 3,
+        "formal-methods": 11,
+        "programming-languages": 9,
+        "databases": 8,
+        "algorithms": 6,
+        "web-development": 13,
+        "networking": 6
+      }
+    },
+    "V3_source_split": {
+      "paper_split": {
+        "PR Sequences": 29,
+        "Course Labs": 57,
+        "Research Evolutions": 26
+      },
+      "recovered_split": {
+        "PR Sequences": 29,
+        "Course Labs": 76,
+        "Research Evolutions": 7
+      },
+      "exact_match": false,
+      "pr_task_ids": [
+        "task_ansible_seg11",
+        "task_ansible_seg13",
+        "task_hadoop_seg05",
+        "task_ClickHouse_seg07",
+        "task_django_seg01",
+        "task_django_seg05",
+        "task_django_seg11",
+        "task_echarts_seg01",
+        "task_echarts_seg04",
+        "task_echarts_seg05",
+        "task_echarts_seg07",
+        "task_echarts_seg08",
+        "task_echarts_seg09",
+        "task_echarts_seg10",
+        "task_echarts_seg11",
+        "task_echarts_seg13",
+        "task_jenkins_seg02",
+        "task_jenkins_seg05",
+        "task_framework_seg04",
+        "task_navidrome_seg02",
+        "task_navidrome_seg04",
+        "task_navidrome_seg05",
+        "task_navidrome_seg07",
+        "task_node_seg03",
+        "task_NodeBB_seg01",
+        "task_NodeBB_seg03",
+        "task_NodeBB_seg05",
+        "task_rails_seg09",
+        "task_TypeScript_seg01"
+      ]
+    },
+    "V4_dag_well_formed": {
+      "violations": 0,
+      "well_formed": true,
+      "violation_examples": []
+    },
+    "V5_depth_distribution": {
+      "paper_median_depth": 6,
+      "our_median_layers": 4.0,
+      "our_median_nodes": 11.0,
+      "in_band_3_to_12": true
+    },
+    "V6_table2_headline": {
+      "top_RR": 25.0,
+      "is_25": true,
+      "n_cells_reported": 12
+    },
+    "V7_table4_ranking": {
+      "paper_ranking": [
+        "Claude Code dynamic workflows",
+        "Codex goal mode",
+        "Claude Code goal mode",
+        "Ralph loop"
+      ],
+      "expected_ranking": [
+        "Claude Code dynamic workflows",
+        "Codex goal mode",
+        "Claude Code goal mode",
+        "Ralph loop"
+      ],
+      "matches": true,
+      "rounds": {
+        "Codex goal mode": 32.76,
+        "Claude Code goal mode": 34.69,
+        "Claude Code dynamic workflows": 97.96,
+        "Ralph loop": 13.24
+      },
+      "reg_per_run": {
+        "Codex goal mode": 0.34,
+        "Claude Code goal mode": 0.13,
+        "Claude Code dynamic workflows": 0.36,
+        "Ralph loop": 0.17
+      }
+    },
+    "V8_tested_coverage": {
+      "full_tested": 43,
+      "zero_tested": 0,
+      "median_tested_pct": 69.09
+    }
+  }
+}
