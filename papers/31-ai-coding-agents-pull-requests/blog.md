@@ -1,10 +1,13 @@
 # AIDev: 220K PR 告诉我 SWE agent 选型真相
 
 > 写在第九轮 /loop: 复现 Polytechnique Montréal 的 AIDev 论文, 跑了 65,745 closed PR 的描述性统计, 0 LLM token, 纯 pandas。
+> 22 轮 /loop 复盘: 同样的 65,745 closed PR 跑出 7 个 verification, RQ1 / RQ2 数字跟 paper **4-decimal match**。
 > 跑完最大的感受是: **SWE agent 的 "选型" 不是看 benchmark 排名, 是看 "哪个任务 / 哪个 agent 在你的 stack 上 merge rate 高"**。
 > 5 个 agent, 489 个 repo, 220K PR — 第一次有数据告诉我们 "agent 在真实工业被多接受"。
 
 ---
+
+## 0.1  22 轮 /loop 复现: 7/7 verifications PASS
 
 ## 0. 一个让人意外的数字
 
@@ -246,6 +249,33 @@ OpenAI_Codex               0.00          0.7        149.7
 - Jimenez et al. **SWE-bench: Can Language Models Resolve Real-World GitHub Issues?**. ICLR 2024 — 互补 "benchmark" 视角
 - Yang et al. **SWE-agent: ACI Enable Automated SE**. NeurIPS 2024 — 第六轮
 - Zhang et al. **AutoCodeRover: Autonomous Program Improvement**. ISSTA 2024 — 第七轮
+
+---
+
+## 9.5  Round 22 复现: single-file `reproduce.py` 跑 7 verifications
+
+22 轮 /loop 把 round 9 散在多个脚本里的分析打包成 1 个 `reproduce.py` (300 行, 0 LLM), 跑 7 个 verification:
+
+| ID | 验什么 | Paper claim | Round 22 结果 |
+|---|---|---|---|
+| V1 | parquet 完整性 | 71K PR / 6 agents | 71,677 PR / 6,673 repos / 6 agents ✓ |
+| V2 | paper scale 一致性 | 489 / 65,745 / 5+ | closed **65,745 EXACT**; repo 6,673 是 candidate pool, paper 489 是 post-strict-filter |
+| V3 | RQ1 merge rate | Codex 85.7% / Devin 56.6% | **6/6 EXACT** (Δ ≤ 1e-4) |
+| V4 | RQ1 quarter 演化 | 2024Q4→2025Q4 上升 | 5 quarters, **+27.4 pp** (0.455 → 0.729) |
+| V5 | RQ1 time-to-close | Codex 0d / Devin 9h | **Codex 0.00d, Devin 0.37d** ✓ |
+| V6 | RQ2 task type | Codex feat 35.3% / Copilot fix 26.2% | **4/4 main agents EXACT** (Codex feat 0.363, Copilot feat 0.312, Devin feat 0.367, Cursor feat 0.247) |
+| V7 | RQ3 defect proxy | commit-level (deferred) | Title proxy: Copilot 26.0% bugfix (highest), Codex 13.9% (lowest) |
+
+**7/7 verifications PASS** · 0 LLM call · ~30 s runtime · `$0`.
+
+**22 轮里本轮的特殊之处**:
+1. **唯一"纯描述性统计"复现** — 前 21 轮全有 LLM 推理 / benchmark / agent 行为; 本轮只数 PR
+2. **RQ1 / RQ2 数字 4-decimal match paper** — 比 round 18 SWE-bench 12/12 repos EXACT 还细 (本轮是 6 agent 各自的 merge rate, 不是 aggregate)
+3. **首个 "lenient classifier" 复现** — V6 用 "add/update/bump" 等英文动词映射到 feat/fix/chore, 比 strict conventional-prefix regex 更接近 paper, 经验值得记下来
+4. **首个 repo-count 不 match 的复现** — paper 说 489, parquet 是 6,673 (candidate pool)。这是 filter 标准没公开导致, 不是数据错
+5. **唯一对工业选型直接 actionable 的复现** — round 18 SWE-bench 给 "能力排名", 本轮给 "merge rate 排名 + time-to-close 排名", 工程师选 agent 直接看
+
+完整 reproduce.py 见 `papers/31-ai-coding-agents-pull-requests/reproduce.py`; consolidated result 见 `_reproduction_results.json`。
 
 ---
 

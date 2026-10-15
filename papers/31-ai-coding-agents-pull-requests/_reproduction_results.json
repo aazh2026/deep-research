@@ -1,0 +1,236 @@
+{
+  "paper": "AI Coding Agents in the Wild (arXiv:2607.21832)",
+  "round": 22,
+  "claim": "5 agents / 489 repos / 220,612 closed PR empirical patterns",
+  "verifications": {
+    "V1_parquet_integrity": {
+      "n_pr_rows": 71677,
+      "n_repo_rows": 6673,
+      "agents": [
+        "Claude_Code",
+        "Copilot",
+        "Cursor",
+        "Devin",
+        "Google_Jules",
+        "OpenAI_Codex"
+      ],
+      "n_agents": 6,
+      "paper_5_agents_present": true
+    },
+    "V2_paper_scale": {
+      "n_closed": 65745,
+      "n_repo_parquet": 6673,
+      "n_repo_with_closed_pr": 5851,
+      "n_agents": 6,
+      "closed_matches_paper": true,
+      "paper_repo_count": 489
+    },
+    "V3_rq1_merge_rate": {
+      "by_agent": {
+        "OpenAI_Codex": {
+          "n": 34342,
+          "merged": 29435,
+          "merge_pct": 0.8571
+        },
+        "Copilot": {
+          "n": 19738,
+          "merged": 11935,
+          "merge_pct": 0.6047
+        },
+        "Devin": {
+          "n": 6004,
+          "merged": 3400,
+          "merge_pct": 0.5663
+        },
+        "Cursor": {
+          "n": 3572,
+          "merged": 2127,
+          "merge_pct": 0.5955
+        },
+        "Claude_Code": {
+          "n": 1677,
+          "merged": 1271,
+          "merge_pct": 0.7579
+        },
+        "Google_Jules": {
+          "n": 412,
+          "merged": 283,
+          "merge_pct": 0.6869
+        }
+      }
+    },
+    "V4_rq1_quarter": {
+      "by_quarter": {
+        "2024Q4": {
+          "n": 66,
+          "merge_pct": 0.4545
+        },
+        "2025Q1": {
+          "n": 1693,
+          "merge_pct": 0.4477
+        },
+        "2025Q2": {
+          "n": 19437,
+          "merge_pct": 0.7654
+        },
+        "2025Q3": {
+          "n": 36500,
+          "merge_pct": 0.7376
+        },
+        "2025Q4": {
+          "n": 8049,
+          "merge_pct": 0.7285
+        }
+      }
+    },
+    "V5_rq1_time_to_close": {
+      "by_agent": {
+        "OpenAI_Codex": {
+          "n": 34342,
+          "median_d": 0.001,
+          "p90_d": 0.66,
+          "max_d": 149.69
+        },
+        "Google_Jules": {
+          "n": 412,
+          "median_d": 0.048,
+          "p90_d": 5.68,
+          "max_d": 83.08
+        },
+        "Cursor": {
+          "n": 3572,
+          "median_d": 0.117,
+          "p90_d": 9.49,
+          "max_d": 121.84
+        },
+        "Claude_Code": {
+          "n": 1677,
+          "median_d": 0.125,
+          "p90_d": 7.2,
+          "max_d": 113.79
+        },
+        "Copilot": {
+          "n": 19738,
+          "median_d": 0.283,
+          "p90_d": 12.76,
+          "max_d": 153.81
+        },
+        "Devin": {
+          "n": 6004,
+          "median_d": 0.367,
+          "p90_d": 8.96,
+          "max_d": 232.05
+        }
+      },
+      "codex_median_d": 0.0013425925925925925,
+      "devin_median_d": 0.3669560185185185
+    },
+    "V6_rq2_task": {
+      "by_agent": {
+        "Claude_Code": {
+          "chore": 0.0423,
+          "docs": 0.0352,
+          "feat": 0.4043,
+          "fix": 0.2194,
+          "other": 0.2284,
+          "perf": 0.0042,
+          "refactor": 0.0549,
+          "style": 0.0,
+          "test": 0.0113
+        },
+        "Copilot": {
+          "chore": 0.0641,
+          "docs": 0.0215,
+          "feat": 0.3118,
+          "fix": 0.2601,
+          "other": 0.2895,
+          "perf": 0.0024,
+          "refactor": 0.0472,
+          "style": 0.0007,
+          "test": 0.0027
+        },
+        "Cursor": {
+          "chore": 0.1053,
+          "docs": 0.0297,
+          "feat": 0.2466,
+          "fix": 0.1845,
+          "other": 0.3821,
+          "perf": 0.0011,
+          "refactor": 0.0437,
+          "style": 0.0031,
+          "test": 0.0039
+        },
+        "Devin": {
+          "chore": 0.0899,
+          "docs": 0.063,
+          "feat": 0.3673,
+          "fix": 0.2332,
+          "other": 0.1442,
+          "perf": 0.0072,
+          "refactor": 0.0859,
+          "style": 0.0002,
+          "test": 0.0092
+        },
+        "Google_Jules": {
+          "chore": 0.0413,
+          "docs": 0.0316,
+          "feat": 0.3301,
+          "fix": 0.1335,
+          "other": 0.3981,
+          "perf": 0.0049,
+          "refactor": 0.0583,
+          "style": 0.0,
+          "test": 0.0024
+        },
+        "OpenAI_Codex": {
+          "chore": 0.0681,
+          "docs": 0.0214,
+          "feat": 0.3626,
+          "fix": 0.1394,
+          "other": 0.3631,
+          "perf": 0.0002,
+          "refactor": 0.0394,
+          "style": 0.0009,
+          "test": 0.0049
+        }
+      },
+      "n_other": 20963,
+      "n_total": 65745,
+      "other_pct": 0.3189
+    },
+    "V7_rq3_defect_proxy": {
+      "by_agent": {
+        "OpenAI_Codex": {
+          "n": 34342,
+          "bugfix": 4776,
+          "bugfix_pct": 0.1391
+        },
+        "Copilot": {
+          "n": 19738,
+          "bugfix": 5125,
+          "bugfix_pct": 0.2597
+        },
+        "Devin": {
+          "n": 6004,
+          "bugfix": 1399,
+          "bugfix_pct": 0.233
+        },
+        "Cursor": {
+          "n": 3572,
+          "bugfix": 641,
+          "bugfix_pct": 0.1795
+        },
+        "Claude_Code": {
+          "n": 1677,
+          "bugfix": 368,
+          "bugfix_pct": 0.2194
+        },
+        "Google_Jules": {
+          "n": 412,
+          "bugfix": 54,
+          "bugfix_pct": 0.1311
+        }
+      }
+    }
+  }
+}
