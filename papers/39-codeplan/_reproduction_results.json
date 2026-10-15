@@ -1,0 +1,539 @@
+{
+  "summary": {
+    "n_tasks": 6,
+    "n_files_total": 24,
+    "baseline": {
+      "full_match_tasks": 0,
+      "files_correct": 7,
+      "files_correct_rate": 0.2916666666666667,
+      "test_pass_tasks": 6,
+      "avg_line_f1": 0.82056727994228
+    },
+    "codeplan": {
+      "full_match_tasks": 1,
+      "files_correct": 12,
+      "files_correct_rate": 0.5,
+      "test_pass_tasks": 6,
+      "avg_line_f1": 0.8315281392584025,
+      "avg_llm_calls_per_task": 2.5
+    }
+  },
+  "results": [
+    {
+      "task_id": "edit_1_add_log_param",
+      "category": "add_param",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "math_ops.py": {
+            "p": 0.8,
+            "r": 0.8,
+            "f1": 0.8000000000000002,
+            "exact": false
+          },
+          "calc_app.py": {
+            "p": 0.7142857142857143,
+            "r": 0.7142857142857143,
+            "f1": 0.7142857142857143,
+            "exact": false
+          },
+          "test_app.py": {
+            "p": 0.8571428571428571,
+            "r": 0.8571428571428571,
+            "f1": 0.8571428571428571,
+            "exact": false
+          },
+          "_unused.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 544,
+        "out_tok": 1129
+      },
+      "codeplan": {
+        "files_correct": 2,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "math_ops.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "calc_app.py": {
+            "p": 0.7142857142857143,
+            "r": 0.7142857142857143,
+            "f1": 0.7142857142857143,
+            "exact": false
+          },
+          "test_app.py": {
+            "p": 1.0,
+            "r": 0.14285714285714285,
+            "f1": 0.25,
+            "exact": false
+          },
+          "_unused.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "math_ops.py",
+            "definition"
+          ],
+          [
+            "calc_app.py",
+            "import,call,instantiate,call,instantiate"
+          ],
+          [
+            "test_app.py",
+            "import,call,instantiate"
+          ]
+        ],
+        "n_llm_calls": 3,
+        "in_tok": 1688,
+        "out_tok": 3214
+      }
+    },
+    {
+      "task_id": "edit_2_rename_func",
+      "category": "rename",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "utils.py": {
+            "p": 0.8,
+            "r": 0.8,
+            "f1": 0.8000000000000002,
+            "exact": false
+          },
+          "service.py": {
+            "p": 0.6,
+            "r": 0.6,
+            "f1": 0.6,
+            "exact": false
+          },
+          "main_app.py": {
+            "p": 0.75,
+            "r": 0.75,
+            "f1": 0.75,
+            "exact": false
+          },
+          "_old_api.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 514,
+        "out_tok": 306
+      },
+      "codeplan": {
+        "files_correct": 4,
+        "full_match": true,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "utils.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "service.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "main_app.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "_old_api.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "utils.py",
+            "definition"
+          ],
+          [
+            "service.py",
+            "import,call,instantiate"
+          ],
+          [
+            "main_app.py",
+            "import,call,instantiate"
+          ]
+        ],
+        "n_llm_calls": 3,
+        "in_tok": 1596,
+        "out_tok": 376
+      }
+    },
+    {
+      "task_id": "edit_3_add_field",
+      "category": "add_field",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all files import OK",
+        "file_metrics": {
+          "models.py": {
+            "p": 0.7142857142857143,
+            "r": 0.625,
+            "f1": 0.6666666666666666,
+            "exact": false
+          },
+          "api.py": {
+            "p": 0.8,
+            "r": 0.8,
+            "f1": 0.8000000000000002,
+            "exact": false
+          },
+          "admin.py": {
+            "p": 0.875,
+            "r": 0.875,
+            "f1": 0.875,
+            "exact": false
+          },
+          "_legacy.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 532,
+        "out_tok": 613
+      },
+      "codeplan": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all files import OK",
+        "file_metrics": {
+          "models.py": {
+            "p": 0.5,
+            "r": 0.75,
+            "f1": 0.6,
+            "exact": false
+          },
+          "api.py": {
+            "p": 0.8,
+            "r": 0.8,
+            "f1": 0.8000000000000002,
+            "exact": false
+          },
+          "admin.py": {
+            "p": 0.875,
+            "r": 0.875,
+            "f1": 0.875,
+            "exact": false
+          },
+          "_legacy.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "models.py",
+            "definition"
+          ]
+        ],
+        "n_llm_calls": 1,
+        "in_tok": 551,
+        "out_tok": 400
+      }
+    },
+    {
+      "task_id": "edit_4_change_return_type",
+      "category": "change_return_type",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "stats.py": {
+            "p": 0.8571428571428571,
+            "r": 0.8571428571428571,
+            "f1": 0.8571428571428571,
+            "exact": false
+          },
+          "report.py": {
+            "p": 1.0,
+            "r": 0.7142857142857143,
+            "f1": 0.8333333333333333,
+            "exact": false
+          },
+          "test_stats.py": {
+            "p": 1.0,
+            "r": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "exact": false
+          },
+          "_config.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 546,
+        "out_tok": 738
+      },
+      "codeplan": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "stats.py": {
+            "p": 0.3333333333333333,
+            "r": 0.5714285714285714,
+            "f1": 0.4210526315789474,
+            "exact": false
+          },
+          "report.py": {
+            "p": 0.625,
+            "r": 0.7142857142857143,
+            "f1": 0.6666666666666666,
+            "exact": false
+          },
+          "test_stats.py": {
+            "p": 0.5714285714285714,
+            "r": 0.6666666666666666,
+            "f1": 0.6153846153846153,
+            "exact": false
+          },
+          "_config.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "stats.py",
+            "definition"
+          ],
+          [
+            "report.py",
+            "import,call,instantiate"
+          ],
+          [
+            "test_stats.py",
+            "import,call,instantiate,call,instantiate"
+          ]
+        ],
+        "n_llm_calls": 3,
+        "in_tok": 1692,
+        "out_tok": 1442
+      }
+    },
+    {
+      "task_id": "edit_5_remove_field",
+      "category": "remove_field",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 1,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all files import OK",
+        "file_metrics": {
+          "models.py": {
+            "p": 0.625,
+            "r": 0.7142857142857143,
+            "f1": 0.6666666666666666,
+            "exact": false
+          },
+          "service.py": {
+            "p": 0.5,
+            "r": 0.5,
+            "f1": 0.5,
+            "exact": false
+          },
+          "audit.py": {
+            "p": 0.75,
+            "r": 0.75,
+            "f1": 0.75,
+            "exact": false
+          },
+          "_unused.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 517,
+        "out_tok": 254
+      },
+      "codeplan": {
+        "files_correct": 2,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all files import OK",
+        "file_metrics": {
+          "models.py": {
+            "p": 0.8571428571428571,
+            "r": 0.8571428571428571,
+            "f1": 0.8571428571428571,
+            "exact": false
+          },
+          "service.py": {
+            "p": 0.5,
+            "r": 0.5,
+            "f1": 0.5,
+            "exact": false
+          },
+          "audit.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "_unused.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "models.py",
+            "attribute,attribute"
+          ],
+          [
+            "audit.py",
+            "attribute"
+          ]
+        ],
+        "n_llm_calls": 2,
+        "in_tok": 1068,
+        "out_tok": 240
+      }
+    },
+    {
+      "task_id": "edit_6_change_default",
+      "category": "change_default",
+      "n_files": 4,
+      "baseline": {
+        "files_correct": 2,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "http.py": {
+            "p": 0.6,
+            "r": 0.6,
+            "f1": 0.6,
+            "exact": false
+          },
+          "api.py": {
+            "p": 0.7142857142857143,
+            "r": 0.7142857142857143,
+            "f1": 0.7142857142857143,
+            "exact": false
+          },
+          "main.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "_helpers.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "in_tok": 528,
+        "out_tok": 328
+      },
+      "codeplan": {
+        "files_correct": 2,
+        "full_match": false,
+        "test_pass": true,
+        "test_msg": "all tests pass",
+        "file_metrics": {
+          "http.py": {
+            "p": 0.8,
+            "r": 0.8,
+            "f1": 0.8000000000000002,
+            "exact": false
+          },
+          "api.py": {
+            "p": 0.8571428571428571,
+            "r": 0.8571428571428571,
+            "f1": 0.8571428571428571,
+            "exact": false
+          },
+          "main.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          },
+          "_helpers.py": {
+            "p": 1.0,
+            "r": 1.0,
+            "f1": 1.0,
+            "exact": true
+          }
+        },
+        "plan": [
+          [
+            "http.py",
+            "definition"
+          ],
+          [
+            "api.py",
+            "import,call,instantiate"
+          ],
+          [
+            "main.py",
+            "import,call,instantiate"
+          ]
+        ],
+        "n_llm_calls": 3,
+        "in_tok": 1637,
+        "out_tok": 1661
+      }
+    }
+  ]
+}

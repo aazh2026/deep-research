@@ -1,0 +1,30 @@
+=== edit_1_add_log_param (add_param) ===
+Plan: [('math_ops.py', 'definition'), ('calc_app.py', 'import,call,instantiate,call,instantiate'), ('test_app.py', 'import,call,instantiate')]
+Baseline: 1/4 files correct, full_match=False, test_pass=True
+CodePlan: 2/4 files correct, full_match=False, test_pass=True
+
+=== edit_2_rename_func (rename) ===
+Plan: [('utils.py', 'definition'), ('service.py', 'import,call,instantiate'), ('main_app.py', 'import,call,instantiate')]
+Baseline: 1/4 files correct, full_match=False, test_pass=True
+CodePlan: 4/4 files correct, full_match=True, test_pass=True
+
+=== edit_3_add_field (add_field) ===
+Plan: [('models.py', 'definition')]
+Baseline: 1/4 files correct, full_match=False, test_pass=True
+CodePlan: 1/4 files correct, full_match=False, test_pass=True
+
+=== edit_4_change_return_type (change_return_type) ===
+Plan: [('stats.py', 'definition'), ('report.py', 'import,call,instantiate'), ('test_stats.py', 'import,call,instantiate,call,instantiate')]
+Baseline: 1/4 files correct, full_match=False, test_pass=True
+CodePlan: 1/4 files correct, full_match=False, test_pass=True
+
+=== edit_5_remove_field (remove_field) ===
+Plan: [('models.py', 'attribute,attribute'), ('audit.py', 'attribute')]
+Baseline: 1/4 files correct, full_match=False, test_pass=True
+CodePlan: 2/4 files correct, full_match=False, test_pass=True
+
+=== edit_6_change_default (change_default) ===
+Plan: [('http.py', 'definition'), ('api.py', 'import,call,instantiate'), ('main.py', 'import,call,instantiate')]
+Baseline: 2/4 files correct, full_match=False, test_pass=True
+CodePlan: 2/4 files correct, full_match=False, test_pass=True
+
