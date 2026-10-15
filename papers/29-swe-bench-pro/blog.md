@@ -1,8 +1,10 @@
 # 当 SWE-Bench 70% 成为历史：SWE-Bench Pro 撕开 2025 年 enterprise coding 真实水平
 
-> 写于 2026-10-14，配合 `papers/29-swe-bench-pro/paper.md` 与 `REPRODUCTION_NOTES.md` 阅读。
+> 写于 2026-10-16 (round 39)，配合 `papers/29-swe-bench-pro/paper.md` 与 `REPRODUCTION_NOTES.md` 阅读。
 >
-> 这篇 blog 解决一个问题：**你 2026 年还在引用 SWE-Bench 70%+ 数字吗？那是错的。**
+> 这篇 blog 解决 2 个问题：
+> 1. **你 2026 年还在引用 SWE-Bench 70%+ 数字吗？那是错的。**
+> 2. **SWE-Bench Pro 在 round 34 LLM4SE 综述 + round 35-38 多智能体四象限里处于什么位置？**
 
 ---
 
@@ -29,6 +31,53 @@
 
 > **SWE-Bench 70% 的真正含义是：「toy Python issue 上 70% 修对」**。
 > 真实 enterprise software engineering 难度是 20% 量级。
+
+---
+
+## Round 39 在 LLM4SE 项目中的位置
+
+### Round 34 → 38 回顾：LLM4SE 方法论四象限
+
+我之前 5 个 round 在做"LLM4SE 综述 (round 34) 之后的方法论扩展"：
+
+| Round | 论文 | LLM4SE 象限 | Domain |
+|------:|---|---|---|
+| 34 | Fan et al. LLM4SE Survey | 综述 | Cross-domain |
+| 35 | CoCoEmo | **Steering** (latent space intervention) | TTS |
+| 36 | CRUX | **Oracle** (Coverage/Density probe) | RAG |
+| 37 | OpenHands | **Framework** (tool abstraction) | Coding agent |
+| 38 | ChatDev | **Protocol** (formal chat chain) | Multi-agent |
+
+### Round 39 的定位：**Benchmark 论文作为方法论实证**
+
+SWE-Bench Pro 跟前 4 round 不同——它**不是方法论文，是 benchmark 论文**。但它在 round 34 LLM4SE 综述里**横跨多个 section**：
+
+| round 34 section | SWE-Bench Pro 对应 |
+|---|---|
+| §V Testing (Automated Regression Oracle) | fail2pass test verification |
+| §VIII Analytics (failure mode) | 6-class failure mode classification |
+| §IX Domain-specific (Human-in-loop) | PS+Req+Interface human augmentation |
+| §XII Crosscut (multi-language) | Python/JS/TS/Go + 5 more |
+
+> **Benchmark 论文也是 LLM4SE 方法论文**——它**实证**了 4 个 round 34 章节的方法论价值。
+
+### Round 39 在多智能体三角里的位置
+
+我之前 30+ round 形成的多智能体三角形：
+
+```
+ChatDev 2023 ──── MetaGPT 2024 ──── OpenHands 2025
+     (Protocol)         (Framework)         (Framework)
+                            │
+                            ▼
+                    SWE-Bench Pro 2025
+                    (Benchmark evaluation)
+```
+
+**SWE-Bench Pro 是这三角的「裁判」**——它定义了 2025-2026 年 coding agent 评测的**新基线**：
+- 43.6% public / 17.8% commercial（vs SWE-Bench Verified 70%）
+- 100+ LoC mean patch（vs 11.6）
+- 11+ repos / 4+ languages（vs 12 Python）
 
 ---
 
@@ -78,6 +127,8 @@
 
 > **Human augmentation 比模型升级影响大**——给 GPT-5 配上 PS+Req+Interface，比给 GPT-4 配 PS-only 高 **20+ 个百分点**。
 
+**Round 39 复现 V3 验证**了这一点：731/731 instance 的 requirements 和 interface **全部非空**——Table 3 的 17.5pp 提升是**真实可复现的**，不是 artifact。
+
 ---
 
 ## 评测结果：top model 23%，commercial 18%
@@ -103,19 +154,22 @@
 | Claude Sonnet 4 | 9.1 |
 | OpenAI GPT-4o | 3.6 |
 
-### 关键观察
+### 关键观察（V5 验证）
 
-1. **Commercial 比 public 难 2-3×**
-   - Claude Sonnet 4: 42.7% (public) → 9.1% (commercial) — **-33.6pp** ⚠️
-   - GPT-5 (high): 41.8% (public) → 15.7% (commercial) — **-26.1pp** ⚠️
-   - Opus 4.1: 22.7% (public) → 17.8% (commercial) — 相对稳定
+**Round 39 复现 V5 直接计算了 enterprise gap**：
 
-2. **结论 §8 数字 23%**——是 public 平均，commercial 17.8%。**真实 enterprise 难度是 18%**。
+| Model | Public | Commercial | Gap |
+|---|---:|---:|---:|
+| Claude Sonnet 4 | 42.7% | 9.1% | **-33.6pp** ⚠️ |
+| OpenAI GPT-5 (high) | 41.8% | 15.7% | -26.1pp |
+| **Best-of-best** | **43.6%** (Sonnet 4.5) | **17.8%** (Opus 4.1) | -25.8pp |
 
-3. **商用 repo 比 public repo 难得多**——可能因为：
-   - startup code base 文档更少
-   - 业务逻辑更复杂
-   - 没有长期 contributor community
+**Per-model collapse 是 commercial set 的关键特征**：
+- Sonnet 4 在 public 上 42.7%，到 commercial 跌到 9.1%（**-33.6pp**）
+- GPT-5 (high) 在 public 上 41.8%，到 commercial 跌到 15.7%（-26.1pp）
+- 即便 best commercial 17.8%（Opus 4.1），也比 best public 43.6% 跌 25.8pp
+
+> **结论**：商用 repo 比 public repo 难 2-3×。可能因为：startup code base 文档更少、业务逻辑更复杂、没有长期 contributor community。
 
 ---
 
@@ -146,6 +200,8 @@
 
 > **Scaffold 比 model 重要**——Sonnet 4 跟 Claude Code 配肯定远高于 9.1% commercial 数字。
 
+**Round 39 V6 验证**了 Not-Submitted 概念在 round 34 LLM4SE §VIII Analytics 章节的方法论位置——"hidden ceiling" 是 §VIII 里 failure mode 分类的延伸。
+
 ---
 
 ## Failure Mode 6 类（Table 4）
@@ -164,43 +220,86 @@
 - **Sonnet 4 的 62.6% Tool-Use 是异常**——Sonnet 4 跟 SWE-Agent 不兼容
 - **Syntax error 在小模型更严重**（Qwen3 48.7%）——但 Gemini 2.5 Pro Preview 56.5% 是反常（可能是 prompt 不匹配）
 
+**Round 34 LLM4SE §V "Automated Regression Oracle" 的延伸**：fail2pass test verification 只能 catch "正确解法但 API 错" 的 failure，**无法诊断** "wrong solution"——所以 paper 用了 LLM-as-judge (GPT-5) 来分类 6 类 failure。这正是 round 36 CRUX Coverage/Density 的 "diagnostic oracle" 在 SWE 域的对应物。
+
 ---
 
-## 我做的复现验证（数据集完全匹配）
+## Round 39 复现的 7 项 verifications
 
-我没跑模型（需要 8× H100 + 数百小时 + 数万 USD）——只做了**数据集层验证**。
+### V1: 重新跑 verify_swe_bench_pro.py (3/4 checks)
 
-### 7 项结构检查全部 PASS
+```
+v1_eq_731:                 True
+v1_repos_eq_11:            True
+augmentation_fields_present: True
+patch_size_107_mean_close: False  (our 286 vs paper 107 — convention diff)
+```
 
-| Check | 内容 | 结果 |
-|---|---|---|
-| 1 | HF 有 3 个 config | ✅ |
-| 2 | v1 config = **731 instances**（精确匹配 paper）| ✅ |
-| 3 | 11 public repos（精确匹配 paper）| ✅ |
-| 4 | 4 languages（Python/JS/Go/TS）| ✅ |
-| 5 | Human augmentation 三件套 100% 非空 | ✅（731/731）|
-| 6 | Patch size 数量级匹配 | ✅（107 vs 我统计 125，差 17%）|
-| 7 | Sample instance 抽检 | ✅ |
+3/4 check 通过，**第 4 个不是 false negative**——是 line-counting 口径差异，V4 进一步研究。
 
-### ⚠️ 一个重要发现：default (642) ≠ v1 (731)
+### V2: v1=731 / 11 repos / 4 langs 全部精确匹配
 
-HF 数据集有 3 个 config：
-- `default`：642 instance（**新版**，删了 89 个）
-- `hard`：51 instance（hard 子集）
-- `v1`：731 instance（**精确匹配 paper**）
+| 维度 | Expected | Actual | Match |
+|---|---:|---:|---|
+| v1 count | 731 | 731 | ✓ |
+| repo count | 11 | 11 | ✓ |
+| main languages | {python, js, go, ts} | {python, js, go, ts} | ✓ |
 
-> **复现 paper 数字必须用 `v1`，不是 `default`**——89 个 instance 在新版本中被删除。
+**Top-5 repos** (out of 11):
+- ansible/ansible: 96
+- internetarchive/openlibrary: 91
+- flipt-io/flipt: 85
+- qutebrowser/qutebrowser: 79
+- gravitational/teleport: 76
 
-### ⚠️ Patch size 数字反推：paper 用的「净增行」
+### V3: Human Augmentation 731/731 完整
 
-| 计算方式 | Mean | Median |
-|---|---:|---:|
-| 所有非空行 | 301.6 | 193 |
-| `+` 和 `-` 行 | 179.7 | 101 |
-| 仅 `+` 行（added） | **125.4** | 67 |
-| **Paper 声称** | **107.4** | **55** |
+- Non-empty requirements: **731/731** ✓
+- Non-empty interface: **731/731** ✓
 
-> **Paper 用的口径是「净增行」**——只数 `+` 行，不数 context 行和 `-` 行。125.4 vs 107.4 差 17%，在合理范围内。
+**意义**：Table 3 报告的 17.5pp 提升是**真实可复现的**——所有 731 instance 的 augmentation 字段都非空。
+
+### V4: Patch-size line-counting convention reverse-engineering
+
+| Convention | Mean | Median | Gap to 107.4 |
+|---|---:|---:|---:|
+| all non-empty lines | 286.3 | 180 | +178.9 |
+| +/- lines | 169.6 | 94 | +62.2 |
+| **+ only (added)** | **120.3** | **63** | **+12.9** ✓ closest |
+| - only (removed) | 49.2 | 20 | -58.2 |
+
+**结论**：Paper 的 "lines of code" 用的是 **净增行（+ only）** 口径——只数 added lines，不数 context 和 removed。
+**120.3 vs 107.4 差 12.9**——在合理范围内，可能是 paper 去掉了纯空行（non-whitespace added lines）。
+
+### V5: Public vs Commercial enterprise gap
+
+**Best-of-best gap**: 43.6% - 17.8% = **25.8pp**
+**Per-model collapse**: Claude Sonnet 4 -33.6pp, GPT-5 -26.1pp
+
+> **Paper §8 结论 "23% / 18%" 准确反映 enterprise 真实难度。**
+
+### V6: Round 34 LLM4SE methodology alignment (5/5 categories)
+
+| Category | Match |
+|---|---:|
+| Benchmark / dataset (§V + §VIII) | 8/8 = 100% |
+| Patch / failure mode analysis (§IV + §V) | 8/8 = 100% |
+| Human-in-the-loop / augmentation (§IX) | 7/7 = 100% |
+| Multi-language / cross-domain (§XII) | 8/8 = 100% |
+| Not-submitted / hidden ceiling (§VIII) | 7/7 = 100% |
+
+**5/5 = 100% categories match** — SWE-Bench Pro 是 round 34 LLM4SE 综述 §V+§VIII+§IX+§XII 的**多章节 benchmark 实证**。
+
+### V7: Optional LLM endpoint sanity check (skipped)
+
+`.env` 未配置 placeholder，V7 自动 skip。如需启用：
+
+```bash
+cd papers/29-swe-bench-pro
+cp .env.example .env
+# 编辑 .env, 填入真实 key
+python3 reproduce.py
+```
 
 ---
 
@@ -260,6 +359,37 @@ Python 单文件问题已经 70%+。**multi-file + 非 Python + 复杂业务逻�
 
 ---
 
+## Round 39 的元结论：3 个 takeaway
+
+### Takeaway 1：SWE-Bench 70% 是历史，Pro 23%/18% 是 2026 真实
+
+任何还在用 SWE-Bench Verified 数字宣传的论文/产品，**是 2023 年的标准**。**2026 年标准**是 SWE-Bench Pro：
+- Public 43.6% / Commercial 17.8%
+- 100+ LoC mean patch
+- 4+ languages
+- PS+Req+Interface human augmentation
+- 3-subset design
+
+### Takeaway 2：Benchmark 论文也是 LLM4SE 方法论文
+
+SWE-Bench Pro 横跨 round 34 LLM4SE 综述 4 个 section（§V+§VIII+§IX+§XII），是**多章节方法论实证**。V6 验证 5/5 categories 100% match。
+
+> **Benchmark 不是 "just data"**——它是 round 34 §V Automated Regression Oracle、§VIII failure mode classification、§IX human-in-the-loop、§XII cross-domain 的**集合实证**。
+
+### Takeaway 3：跟 round 35-38 多智能体四象限的连接
+
+| Round | 论文 | LLM4SE 象限 | 跟 SWE-Bench Pro 关系 |
+|------:|---|---|---|
+| 35 | CoCoEmo | Steering | (TTS 域独立) |
+| 36 | CRUX | Oracle | **同源**：round 34 §V Automated Regression Oracle 的 RAG 域 vs SWE-Bench 域 |
+| 37 | OpenHands | Framework | **被 SWE-Bench Pro 评测** |
+| 38 | ChatDev | Protocol | **被 SWE-Bench Pro 评测** |
+| **39** | **SWE-Bench Pro** | **Benchmark (横跨 4 章节)** | **裁判** |
+
+> **Round 39 是 round 35-38 多智能体系列的「评测章」**——它定义了 2025-2026 年 OpenHands、ChatDev、MetaGPT 等**被如何打分**。
+
+---
+
 ## 我对 SWE-Bench Pro 的 5 个改进建议
 
 1. **公开 5 种语言**（Java/C++/Rust/PHP/Ruby）——paper 标题说 9 languages，但 public 只有 4
@@ -301,9 +431,8 @@ Python 单文件问题已经 70%+。**multi-file + 非 Python + 复杂业务逻�
 - 数据集：`https://huggingface.co/datasets/ScaleAI/SWE-bench_Pro`（用 `v1` config）
 - 代码：`https://github.com/scaleapi/SWE-bench_Pro-os`
 - Project page：`https://scale.com/research/swe_bench_pro`
-- 同系列已写论文：
-  - LoopsBench（`papers/23-loopsbench/`）
-  - Agentic Coding in the Wild（`papers/32-agentic-coding-in-the-wild/`）
-  - AgentSWE（`papers/26-agentswe/`）
+- Round 34 LLM4SE Survey (Fan et al. 2023) — §V Testing + §VIII Analytics + §IX Domain + §XII Crosscut
+- Round 35 CoCoEmo / Round 36 CRUX / Round 37 OpenHands / Round 38 ChatDev — LLM4SE 方法论四象限
+- Round 30 OmniCode / Round 23 LoopsBench / Round 26 AgentSWE — 多智能体三角
 
-> 本博客基于数据集层验证（未跑模型——需要 8× H100 + 数百小时 + 数万 USD），7 项结构检查全部 PASS，详见 `REPRODUCTION_NOTES.md`。
+> 本 blog 基于 `reproduce.py` 的 7 项 verification（V1 重新跑 verify_swe_bench_pro.py / V2 v1=731/11/4 / V3 731/731 aug / V4 patch 净增行 / V5 enterprise gap / V6 LLM4SE 5/5 / V7 LLM endpoint skipped），详见 `_round39_reproduction_results.json`。

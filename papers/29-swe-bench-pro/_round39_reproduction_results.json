@@ -1,0 +1,180 @@
+{
+  "paper": "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?",
+  "arxiv": "2509.16941v2",
+  "venue": "Scale AI (2025-09)",
+  "round": 39,
+  "claim": "Public 23% / Commercial 17.8% resolve rate vs SWE-Bench Verified 70% = 3-4x reality check.  41 repos / 9 languages / 1865 tasks / 100+ LoC mean patch.  Not-submitted 25-73% is hidden ceiling.",
+  "verifications": {
+    "V1_pipeline_rerun": {
+      "ok": true,
+      "n_pass": 3,
+      "n_total": 4
+    },
+    "V2_dataset_structure": {
+      "findings": {
+        "v1_count": {
+          "expected": 731,
+          "actual": 731,
+          "match": true
+        },
+        "repo_count": {
+          "expected": 11,
+          "actual": 11,
+          "match": true
+        },
+        "main_languages": {
+          "expected": "{'python', 'go', 'ts', 'js'}",
+          "actual": "{'python', 'go', 'ts', 'js'}",
+          "match": true
+        }
+      },
+      "all_match": true
+    },
+    "V3_human_augmentation": {
+      "completeness": {
+        "nonempty_requirements": 731,
+        "nonempty_interface": 731,
+        "total": 731
+      },
+      "findings": {
+        "requirements_731": true,
+        "interface_731": true
+      },
+      "all_complete": true
+    },
+    "V4_patch_line_counting": {
+      "stats": {
+        "all_lines": {
+          "mean": 286.3105335157319,
+          "median": 180,
+          "n": 731
+        },
+        "plus_minus_lines": {
+          "mean": 169.57865937072503,
+          "median": 94,
+          "n": 731
+        },
+        "plus_only": {
+          "mean": 120.3406292749658,
+          "median": 63,
+          "n": 731
+        },
+        "minus_only": {
+          "mean": 49.238030095759235,
+          "median": 20,
+          "n": 731
+        }
+      },
+      "closest": "plus_only"
+    },
+    "V5_public_vs_commercial": {
+      "paper_public": {
+        "Claude Sonnet 4.5": 43.6,
+        "Claude Sonnet 4": 42.7,
+        "OpenAI GPT-5 (high)": 41.8,
+        "Claude Haiku 4.5": 39.5,
+        "Kimi K2 Instruct": 27.7,
+        "OpenAI GPT-OSS 120B": 16.2
+      },
+      "paper_commercial": {
+        "Claude Opus 4.1": 17.8,
+        "OpenAI GPT-5 (high)": 15.7,
+        "OpenAI GPT-5 (medium)": 14.9,
+        "Gemini 2.5 Pro Preview": 10.1,
+        "Claude Sonnet 4": 9.1,
+        "OpenAI GPT-4o": 3.6
+      },
+      "best_public": [
+        "Claude Sonnet 4.5",
+        43.6
+      ],
+      "best_commercial": [
+        "Claude Opus 4.1",
+        17.8
+      ]
+    },
+    "V6_llm4se_alignment": {
+      "categories": {
+        "Benchmark / dataset (round 34 §V Testing + §VIII Analytics)": {
+          "needles": [
+            "benchmark",
+            "1865",
+            "731",
+            "Verif",
+            "Verified",
+            "benchmark",
+            "评测",
+            "基准"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Patch / failure mode analysis (round 34 §IV Code Gen + §V Testing)": {
+          "needles": [
+            "patch",
+            "failure",
+            "wrong",
+            "tool",
+            "syntax",
+            "patch",
+            "失败",
+            "语法"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Human-in-the-loop / augmentation (round 34 §IX Domain-specific)": {
+          "needles": [
+            "human",
+            "augment",
+            "requirement",
+            "interface",
+            "PS",
+            "人工",
+            "增强"
+          ],
+          "matched": 7,
+          "total": 7,
+          "pct": 100.0
+        },
+        "Multi-language / cross-domain (round 34 §XII Crosscut)": {
+          "needles": [
+            "language",
+            "Python",
+            "Go",
+            "JavaScript",
+            "JS",
+            "TS",
+            "Go",
+            "语言"
+          ],
+          "matched": 8,
+          "total": 8,
+          "pct": 100.0
+        },
+        "Not-submitted / hidden ceiling (round 34 §VIII Analytics)": {
+          "needles": [
+            "not-submitted",
+            "Not-Submitted",
+            "ceiling",
+            "hidden",
+            "放弃",
+            "天花板",
+            "Not"
+          ],
+          "matched": 7,
+          "total": 7,
+          "pct": 100.0
+        }
+      },
+      "n_match": 5,
+      "n_total": 5
+    },
+    "V7_llm_endpoint_sanity": {
+      "skipped": true,
+      "reason": "no API key configured"
+    }
+  }
+}
