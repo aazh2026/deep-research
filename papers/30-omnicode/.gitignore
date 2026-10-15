@@ -1,0 +1,6 @@
+# OmniCode-specific gitignore
+# The repo/ directory is the OmniCode git clone (419MB), too large to track.
+repo/
+outputs/hf_cache/
+*.pyc
+__pycache__/
