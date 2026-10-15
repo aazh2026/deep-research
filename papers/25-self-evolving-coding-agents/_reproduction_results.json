@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "n": 8,
+    "max_attempts": 3,
+    "base_pass@1": 7,
+    "reflexion_pass_within_K": 8,
+    "per_attempt_pass": {
+      "1": 7,
+      "2": 1
+    },
+    "reflexion_improvement": 1
+  },
+  "results": [
+    {
+      "task_id": "humaneval_1_has_close_elements",
+      "category": "list_search",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 322,
+          "code": "def has_close_elements(numbers: list, threshold: float = 1.0) -> bool:\n    if len(numbers) < 2 or threshold <= 0:\n        return False\n\n    sorted_numbers = sorted(numbers)\n    return any(\n        abs(sorted_numbers[i] - sorted_numbers[i - 1]) < threshold\n        for i in range(1, len(sorted_numbers))\n    )",
+          "passed": true,
+          "err": "",
+          "in_tok": 345,
+          "out_tok": 489
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_2_separate_paren_groups",
+      "category": "string_parsing",
+      "base_passed": false,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 2,
+      "base_n_attempts": 1,
+      "base_first_err": "File \"<string>\", line 16\n    Would preserve spaces inside group if any, but likely no. If leading spaces, current empty. At spaces while depth >0, retained; maybe groups can include spaces? Input grou",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 99,
+          "code": "def separate_paren_groups(paren_string: str) -> list:\n    return paren_string.split()",
+          "passed": false,
+          "err": "Traceback (most recent call last):\n  File \"<string>\", line 4, in <module>\n    assert separate_paren_groups('( ) (( )) (( )( ))') == ['()', '(())', '(()())']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError",
+          "in_tok": 318,
+          "out_tok": 154,
+          "reflection": "The implementation used whitespace splitting, which removes separators but also leaves spaces inside each parenthesis group, producing values such as `'( )'`. Parse the string as balanced parenthesis groups and append each completed top-level group without whitespace to the result.",
+          "ref_in_tok": 447,
+          "ref_out_tok": 160
+        },
+        {
+          "n": 2,
+          "raw_len": 500,
+          "code": "def separate_paren_groups(paren_string: str) -> list:\n    groups = []\n    current = []\n    depth = 0\n\n    for char in paren_string:\n        if char.isspace():\n            continue\n\n        current.append(char)\n\n        if char == \"(\":\n            depth += 1\n        elif char == \")\":\n            depth -= 1\n            if depth == 0:\n                groups.append(\"\".join(current))\n                current = []\n\n    if current:\n        groups.append(\"\".join(current))\n\n    return groups",
+          "passed": true,
+          "err": "",
+          "in_tok": 380,
+          "out_tok": 315
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_3_truncate_number",
+      "category": "arithmetic",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 82,
+          "code": "def truncate_number(number: float) -> float:\n    return number % 1.0",
+          "passed": true,
+          "err": "",
+          "in_tok": 301,
+          "out_tok": 352
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_4_below_zero",
+      "category": "list_scan",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 198,
+          "code": "def below_zero(operations: list) -> bool:\n    balance = 0\n    for operation in operations:\n        balance += operation\n        if balance < 0:\n            return True\n    return False",
+          "passed": true,
+          "err": "",
+          "in_tok": 317,
+          "out_tok": 209
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_5_mean_absolute_deviation",
+      "category": "statistics",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 252,
+          "code": "def mean_absolute_deviation(numbers: list) -> float:\n    if not numbers:\n        raise ValueError(\"numbers must not be empty\")\n\n    mean = sum(numbers) / len(numbers)\n    return sum(abs(number - mean) for number in numbers) / len(numbers)",
+          "passed": true,
+          "err": "",
+          "in_tok": 299,
+          "out_tok": 193
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_6_intersperse",
+      "category": "list_build",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 229,
+          "code": "def intersperse(numbers: list, delimiter: int) -> list:\n    result = []\n    for i, number in enumerate(numbers):\n        if i > 0:\n            result.append(delimiter)\n        result.append(number)\n    return result",
+          "passed": true,
+          "err": "",
+          "in_tok": 305,
+          "out_tok": 58
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_7_parse_nested_parens",
+      "category": "string_parsing",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 428,
+          "code": "def parse_nested_parens(paren_string: str) -> list:\n    nesting_levels = []\n\n    for group in paren_string.split():\n        depth = 0\n        max_depth = 0\n\n        for char in group:\n            if char == \"(\":\n                depth += 1\n                max_depth = max(max_depth, depth)\n            elif char == \")\":\n                depth -= 1\n\n        nesting_levels.append(max_depth)\n\n    return nesting_levels",
+          "passed": true,
+          "err": "",
+          "in_tok": 312,
+          "out_tok": 254
+        }
+      ]
+    },
+    {
+      "task_id": "humaneval_8_filter_by_substring",
+      "category": "string_filter",
+      "base_passed": true,
+      "reflexion_passed": true,
+      "reflexion_n_attempts": 1,
+      "base_n_attempts": 1,
+      "base_first_err": "",
+      "reflexion_attempts": [
+        {
+          "n": 1,
+          "raw_len": 142,
+          "code": "def filter_by_substring(strings: list, substring: str) -> list:\n    return [string for string in strings if substring in string]",
+          "passed": true,
+          "err": "",
+          "in_tok": 304,
+          "out_tok": 105
+        }
+      ]
+    }
+  ]
+}

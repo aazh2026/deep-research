@@ -1,0 +1,37 @@
+=== humaneval_1_has_close_elements ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_2_separate_paren_groups ===
+Base pass=False, err=File "<string>", line 16
+    Would preserve spaces inside group if any, but likely no. If leading spaces, current empty. At spaces while depth >0, retained; maybe groups can include spaces? Input grou
+  Reflexion attempt 1: pass=False, err=Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    assert separate_paren_groups('( ) (( )) (( )( ))') == ['()', '(())', '((
+    reflection: The implementation used whitespace splitting, which removes separators but also leaves spaces inside each parenthesis group, producing values such as `'( )'`. Parse the string as balanced parenthesis groups and append each completed top-level group without whitespace to the result.
+  Reflexion attempt 2: pass=True, err=
+
+=== humaneval_3_truncate_number ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_4_below_zero ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_5_mean_absolute_deviation ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_6_intersperse ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_7_parse_nested_parens ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+
+=== humaneval_8_filter_by_substring ===
+Base pass=True, err=
+  Reflexion attempt 1: pass=True, err=
+

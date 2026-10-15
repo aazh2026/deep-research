@@ -1,0 +1,98 @@
+[
+  {
+    "task_id": "humaneval_1_has_close_elements",
+    "category": "list_search",
+    "prompt": "Given a list of numbers, return True if any two numbers are closer than a given threshold (i.e., abs(a-b) < threshold). With default threshold 1.0, return True if any two numbers are within 1.0 (exclusive).",
+    "signature": "def has_close_elements(numbers: list, threshold: float = 1.0) -> bool:",
+    "tests": [
+      "assert has_close_elements([1.0, 2.0, 3.0]) == False",
+      "assert has_close_elements([1.0, 1.5, 4.0]) == True",
+      "assert has_close_elements([1.0, 1.2, 5.0, 9.0]) == True"
+    ],
+    "reference_solution": "def has_close_elements(numbers, threshold=1.0):\n    for i in range(len(numbers)):\n        for j in range(i+1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False"
+  },
+  {
+    "task_id": "humaneval_2_separate_paren_groups",
+    "category": "string_parsing",
+    "prompt": "Input is a string of multiple groups of nested parentheses separated by spaces. Return the groups of nested parentheses as a list of strings, with the spaces between groups removed.",
+    "signature": "def separate_paren_groups(paren_string: str) -> list:",
+    "tests": [
+      "assert separate_paren_groups('( ) (( )) (( )( ))') == ['()', '(())', '(()())']",
+      "assert separate_paren_groups('() ()') == ['()', '()']",
+      "assert separate_paren_groups('(()) ((()))') == ['(())', '((()))']"
+    ],
+    "reference_solution": "def separate_paren_groups(paren_string):\n    result = []\n    current = []\n    depth = 0\n    for ch in paren_string:\n        if ch == '(':\n            depth += 1\n            current.append(ch)\n        elif ch == ')':\n            depth -= 1\n            current.append(ch)\n            if depth == 0:\n                result.append(''.join(current))\n                current = []\n    return result"
+  },
+  {
+    "task_id": "humaneval_3_truncate_number",
+    "category": "arithmetic",
+    "prompt": "Given a positive floating point number, return its decimal part (the part after the decimal point).",
+    "signature": "def truncate_number(number: float) -> float:",
+    "tests": [
+      "assert abs(truncate_number(3.5) - 0.5) < 1e-6",
+      "assert abs(truncate_number(1.25) - 0.25) < 1e-6",
+      "assert abs(truncate_number(123.456) - 0.456) < 1e-6"
+    ],
+    "reference_solution": "def truncate_number(number):\n    return number - int(number)"
+  },
+  {
+    "task_id": "humaneval_4_below_zero",
+    "category": "list_scan",
+    "prompt": "You're given a list of deposit and withdrawal operations on a bank account that starts with zero balance. Return True if at any point the balance drops below zero, else False.",
+    "signature": "def below_zero(operations: list) -> bool:",
+    "tests": [
+      "assert below_zero([1, 2, 3]) == False",
+      "assert below_zero([1, 2, -4, 5]) == True",
+      "assert below_zero([]) == False"
+    ],
+    "reference_solution": "def below_zero(operations):\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False"
+  },
+  {
+    "task_id": "humaneval_5_mean_absolute_deviation",
+    "category": "statistics",
+    "prompt": "Compute the mean absolute deviation from the mean of a list of numbers.",
+    "signature": "def mean_absolute_deviation(numbers: list) -> float:",
+    "tests": [
+      "assert abs(mean_absolute_deviation([1.0, 2.0]) - 0.5) < 1e-6",
+      "assert abs(mean_absolute_deviation([1.0, 2.0, 3.0, 4.0]) - 1.0) < 1e-6",
+      "assert abs(mean_absolute_deviation([5.0]) - 0.0) < 1e-6"
+    ],
+    "reference_solution": "def mean_absolute_deviation(numbers):\n    if not numbers: return 0.0\n    mean = sum(numbers) / len(numbers)\n    return sum(abs(x - mean) for x in numbers) / len(numbers)"
+  },
+  {
+    "task_id": "humaneval_6_intersperse",
+    "category": "list_build",
+    "prompt": "Insert a number 'delimiter' between every two consecutive elements of list 'numbers'.",
+    "signature": "def intersperse(numbers: list, delimiter: int) -> list:",
+    "tests": [
+      "assert intersperse([], 4) == []",
+      "assert intersperse([1, 2, 3], 4) == [1, 4, 2, 4, 3]",
+      "assert intersperse([1], 4) == [1]"
+    ],
+    "reference_solution": "def intersperse(numbers, delimiter):\n    if not numbers: return []\n    result = [numbers[0]]\n    for n in numbers[1:]:\n        result.append(delimiter)\n        result.append(n)\n    return result"
+  },
+  {
+    "task_id": "humaneval_7_parse_nested_parens",
+    "category": "string_parsing",
+    "prompt": "Input is a string of multiple groups of nested parentheses separated by spaces. Return the deepest nesting level of each group as a list.",
+    "signature": "def parse_nested_parens(paren_string: str) -> list:",
+    "tests": [
+      "assert parse_nested_parens('(()()) ((())) ()') == [2, 3, 1]",
+      "assert parse_nested_parens('()') == [1]",
+      "assert parse_nested_parens('((())) (()) ()') == [3, 2, 1]"
+    ],
+    "reference_solution": "def parse_nested_parens(paren_string):\n    result = []\n    depth = 0\n    max_depth = 0\n    for ch in paren_string:\n        if ch == '(':\n            depth += 1\n            if depth > max_depth: max_depth = depth\n        elif ch == ')':\n            depth -= 1\n        elif ch == ' ':\n            if max_depth > 0:\n                result.append(max_depth)\n                max_depth = 0\n    if max_depth > 0: result.append(max_depth)\n    return result"
+  },
+  {
+    "task_id": "humaneval_8_filter_by_substring",
+    "category": "string_filter",
+    "prompt": "Filter an input list of strings to only those containing the substring 'substring'.",
+    "signature": "def filter_by_substring(strings: list, substring: str) -> list:",
+    "tests": [
+      "assert filter_by_substring([], 'a') == []",
+      "assert filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a') == ['abc', 'bacd', 'array']",
+      "assert filter_by_substring(['xxx', 'yyy', 'zzz'], 'a') == []"
+    ],
+    "reference_solution": "def filter_by_substring(strings, substring):\n    return [s for s in strings if substring in s]"
+  }
+]
