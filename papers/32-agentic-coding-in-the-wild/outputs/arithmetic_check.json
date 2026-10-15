@@ -1,0 +1,26 @@
+{
+  "table_1": {
+    "users": 3200000,
+    "sessions": 13500000,
+    "user_turns": 95100000,
+    "llm_calls": 760500000,
+    "tool_calls": 774700000,
+    "prompt_tokens": 44900000000000,
+    "completion_tokens": 39300000000,
+    "models": 27,
+    "tools": 45
+  },
+  "checks": {
+    "mean_turns_per_session": 7.044444444444444,
+    "mean_llm_per_turn": 7.996845425867508,
+    "tool_llm_ratio": 1.018671926364234,
+    "mean_llm_per_session": 56.333333333333336,
+    "agent_initiated_calls_B": 0.661635,
+    "user_initiated_calls_B": 0.098865,
+    "mean_tool_per_turn": 8.146161934805468,
+    "mean_sessions_per_user": 4.21875,
+    "tokens_per_llm": 59040.10519395135,
+    "compaction_concentration_ratio": 5.666666666666667
+  },
+  "verdict": "All major aggregates internally consistent. Paper passes arithmetic cross-check."
+}
