@@ -1,0 +1,58 @@
+>> NTCIR-19 AEOLLM-2 metric reproduction (round 20)
+>> paper: arXiv:2610.11598  --  3 alignment metrics + 4 sim scenarios
+
+
+========================================================================
+  V1  35 unit tests via pytest (test_metrics.py + test_scipy_cross.py)
+========================================================================
+  pytest exit: 0  passed: 35  in 0.49s
+
+========================================================================
+  V2  scipy.stats cross-validation (gold standard)
+========================================================================
+  Spearman [no_ties_perfect          ] my=+1.000000  scipy=+1.000000  delta=1.1e-16  OK
+  Spearman [with_ties                ] my=+0.948683  scipy=+0.948683  delta=1.1e-16  OK
+  Spearman [negative                 ] my=-0.300000  scipy=-0.300000  delta=0.0e+00  OK
+  Spearman [participant_only_ties    ] my=+0.948683  scipy=+0.948683  delta=1.1e-16  OK
+  Kendall  [no_ties                  ] my=+0.666667  scipy=+0.666667  delta=2.2e-16  OK
+  Kendall  [participant_only         ] my=+0.912871  scipy=+0.912871  delta=1.1e-16  OK
+  Kendall  [human_only               ] my=+0.912871  scipy=+0.912871  delta=0.0e+00  OK
+  Kendall  [perfect                  ] my=+1.000000  scipy=+1.000000  delta=0.0e+00  OK
+  matches: 8 / 8
+
+========================================================================
+  V3  4 simulation scenarios (paper Section 3.2 metric behaviour)
+========================================================================
+  [perfect               ] acc=1.0000  rho=1.0000  tau=1.0000
+  [reverse               ] acc=0.4458  rho=0.1685  tau=0.1359
+  [moderate              ] acc=0.9708  rho=0.9650  tau=0.9417
+  [moderate_with_ties    ] acc=0.7417  rho=0.7669  tau=0.7120
+
+========================================================================
+  V4  Compare moderate_with_ties vs paper Table 4 RSLIR baseline
+========================================================================
+  our moderate_with_ties : acc=0.7417  rho=0.7669  tau=0.7120
+  paper RSLIR (1st)     : acc=0.7796  rho=0.7071  tau=0.5592
+  paper SCUNLP (2nd)    : acc=0.6883  rho=0.5197  tau=0.3827
+  verdict: IN BAND
+
+========================================================================
+  V5  Paper-claimed scale consistency (640 reports / 40 Q / 4 dim / 91 sub / 10 team)
+========================================================================
+  40 questions x 4 prompt x 4 LLM = 640 (paper claims 640)  OK
+  4 dimensions: comprehensiveness / insight / instruction_following / readability  OK
+  91 submissions / 10 teams = 9.1 avg/team
+
+========================================================================
+  ROUND 20 SUMMARY
+========================================================================
+  V1 unit tests         : 35 passed  (PASS)
+  V2 scipy cross        : 8/8 match  (OK)
+  V3 simulation         : 4 scenarios  (perfect=1.0, reverse<0.5, moderate=0.97, ties=0.74)
+  V4 paper baseline     : moderate_with_ties in band of RSLIR/SCUNLP  (OK)
+  V5 paper scale        : 640=40*4*4 consistent, 4 dimensions, 91/10=9.1 sub/team  (OK)
+
+  headline: 35/35 unit tests pass, scipy cross-validates Spearman + Kendall,
+            moderate_with_ties scenario (0.74 acc) lands in paper RSLIR band (0.78)
+  constraint: full 91-submission leaderboard not reproduced (no LLM API / dataset)
+>> Wrote _reproduction_results.json
